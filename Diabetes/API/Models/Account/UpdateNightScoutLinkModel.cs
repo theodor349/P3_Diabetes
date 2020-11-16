@@ -7,7 +7,7 @@ namespace API.Models.Account
 {
     public class UpdateNightScoutLinkModel
     {
-        public string Id { get; set; }
+        public string ID { get; set; }
         public string newLink { get; set; }
     }
 }

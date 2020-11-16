@@ -7,7 +7,7 @@ namespace API.Models.Account
 {
     public class UpdateUnitOfMesureModel
     {
-        public string Id { get; set; }
+        public string ID { get; set; }
         public bool NewMeasure { get; set; }
     }
 }
