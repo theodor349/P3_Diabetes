@@ -32,13 +32,6 @@ namespace API.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpDelete]
-        [Route("DeleteByUderId")]
-        public ActionResult DeleteByUderId(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpPost]
         [Route("RequestPermission")]
         public ActionResult RequestPermission(RequestPermissionModel request)
@@ -62,7 +55,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetPendingPermissions")]
-        public List<PermissionModel> GetPendingPermissions(string userId)
+        public List<PermissionModel> GetPendingPermissions()
         {
             throw new NotImplementedException();
         }
