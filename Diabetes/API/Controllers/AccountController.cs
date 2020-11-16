@@ -15,7 +15,7 @@ namespace API.Controllers
     public class AccountController : ControllerBase
     {
         [HttpGet]
-        public string Get(string id)
+        public AccountModel Get(string id)
         {
             throw new NotImplementedException();
         }
@@ -27,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Update(AccountModel updatedUser)
+        public ActionResult Update(UpdateAccountModel updatedUser)
         {
             throw new NotImplementedException();
         }
