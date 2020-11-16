@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,6 +15,15 @@ namespace API.Controllers
     [Authorize]
     public class AccountController : ControllerBase
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
         [HttpGet]
         public CreateAccountModel Get(string id)
         {
@@ -21,9 +31,30 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registre(CreateAccountModel user)
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(CreateAccountModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser
+                {
+                    PhoneNumber = model.PhoneNumber,
+                    UserName = model.Email,
+                    Email = model.Email,
+                };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return Ok();
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            return BadRequest();
         }
 
         [HttpPut]
