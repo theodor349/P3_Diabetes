@@ -69,4 +69,7 @@
   <ItemGroup>
     <RefactorLog Include="DiabetesDB.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="PublishLocations\DiabetesDB.publish.xml" />
+  </ItemGroup>
 </Project>

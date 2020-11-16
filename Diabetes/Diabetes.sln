@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIDataAccess", "APIDataAcc
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DiabetesDB", "DiabetesDB\DiabetesDB.sqlproj", "{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{909278EE-CDC7-4F24-B5DE-394A6E9119FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{6E62EF29-6A41-400D-BCA6-CB5E87A04DC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F28C054D-6382-4905-A9EF-F65B7DC11197} = {909278EE-CDC7-4F24-B5DE-394A6E9119FF}
+		{0612D28D-E88C-4959-896E-CF72919AFF70} = {909278EE-CDC7-4F24-B5DE-394A6E9119FF}
+		{2F1AE501-1C5C-4528-A456-2D603511C208} = {909278EE-CDC7-4F24-B5DE-394A6E9119FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0289E710-21D9-4E9A-9593-CAED65C47F49}
