@@ -15,13 +15,13 @@ namespace API.Controllers
     public class AccountController : ControllerBase
     {
         [HttpGet]
-        public AccountModel Get(string id)
+        public CreateAccountModel Get(string id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
-        public ActionResult Registre(AccountModel user)
+        public ActionResult Registre(CreateAccountModel user)
         {
             throw new NotImplementedException();
         }

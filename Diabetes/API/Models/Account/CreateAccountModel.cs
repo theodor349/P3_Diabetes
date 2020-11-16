@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace API.Models.Account
 {
-    public class AccountModel
+    public class CreateAccountModel
     {
-        public string ID { get; set; }
         public string Firstname { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
