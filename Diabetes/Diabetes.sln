@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIHandler", "APIHandler\AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIDataAccess", "APIDataAccess\APIDataAccess.csproj", "{2F1AE501-1C5C-4528-A456-2D603511C208}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DiabetesDB", "DiabetesDB\DiabetesDB.sqlproj", "{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{2F1AE501-1C5C-4528-A456-2D603511C208}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F1AE501-1C5C-4528-A456-2D603511C208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F1AE501-1C5C-4528-A456-2D603511C208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC9F9CA-45D7-426D-BD81-DAFB65596F08}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
