@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Models.Permission
+namespace APIDataAccess.Models.Permission
 {
-    public class UpdatePermissionModel
+    public class RequestPermissionModel
     {
-        public int ID { get; set; }
+        public string WatcherID { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public int Days { get; set; }

@@ -1,4 +1,5 @@
 ﻿using APIDataAccess.Models.Account;
+using System.Threading.Tasks;
 
 namespace APIDataAccess.DataAccess
 {
@@ -7,7 +8,7 @@ namespace APIDataAccess.DataAccess
         void CreateAccount(AccountModel model);
         void DeleteAccount(string id);
         bool EmailExists(string email);
-        AccountModel Get(string id);
+        Task<AccountModel> Get(string id);
         AccountModel GetByPhoneNumber(string phoneNumber);
         bool GetUnitOfMeasure(string id);
         bool PhoneNumberExists(string phoneNumber);

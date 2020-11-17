@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Models.Permission;
+using APIDataAccess.Models.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,14 @@ namespace API.Controllers
     public class PermissionController : ControllerBase
     {
         [HttpGet]
-        public PermissionModel Get(string id)
+        public PermissionModel Get(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("User")]
+        public List<PermissionModel> GetByUserId(string userId)
         {
             throw new NotImplementedException();
         }

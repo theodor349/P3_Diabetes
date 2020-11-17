@@ -28,4 +28,8 @@
     <ProjectReference Include="..\APIHandler\APIHandler.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Permission\" />
+  </ItemGroup>
+
 </Project>

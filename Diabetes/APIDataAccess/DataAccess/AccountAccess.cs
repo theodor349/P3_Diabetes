@@ -1,11 +1,12 @@
 ﻿using APIDataAccess.Internal.DataAccess;
 using APIDataAccess.Models.Account;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace APIDataAccess.DataAccess
 {
@@ -20,22 +21,24 @@ namespace APIDataAccess.DataAccess
             _userManager = userManager;
         }
 
-        public AccountModel Get(string id)
+        public async Task<AccountModel> Get(string id)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", new { id }, "DDB").FirstOrDefault();
-            var email = _userManager.GetEmail(id);
-            var phone = _userManager.GetPhoneNumber(id);
+            var user = await _userManager.FindByIdAsync(id);
 
-            return new AccountModel()
-            {
-                ID = model.ID,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = email,
-                PhoneNumber = phone,
-                NSLink = model.NSLink,
-                IsEUMeasure = model.IsEUMeasure
-            };
+            if (user == null)
+                return null;
+            else
+                return new AccountModel()
+                {
+                    ID = model.ID,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    NSLink = model.NSLink,
+                    IsEUMeasure = model.IsEUMeasure
+                };
         }
 
         public AccountModel GetByPhoneNumber(string phoneNumber)

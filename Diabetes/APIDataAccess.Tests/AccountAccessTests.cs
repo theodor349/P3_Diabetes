@@ -5,39 +5,74 @@ using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
 using APIDataAccess.Models.Account;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using Moq;
+using System.Threading;
 
 namespace APIDataAccess.Tests
 {
     [TestClass]
     public class AccountAccessTests
     {
+        private UserManager<IdentityUser> GetUserManager(string input, string expected)
+        {
+            var store = new Mock<IUserStore<IdentityUser>>();
+            store.Setup(x => x.FindByIdAsync(input, CancellationToken.None))
+            .ReturnsAsync(new IdentityUser()
+            {
+                UserName = expected,
+                Id = expected,
+                Email = expected,
+                PhoneNumber = expected
+            });
+            var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
+            return userManager;
+        }
+        private UserManager<IdentityUser> GetEmptyUserManager()
+        {
+            var store = new Mock<IUserStore<IdentityUser>>();
+            var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
+            return userManager;
+        }
+
         #region Get
         // Exists
         [DataRow("name")]
         [DataRow("name2")]
         [TestMethod]
-        public void Get_Exists(string expected)
+        public async Task Get_Exists(string expected)
         {
-            var userStore = Substitute.For<IUserStore<IdentityUser>>();
-            var userManager = Substitute.For<UserManager<IdentityUser>>(userStore);
-            var sql = Substitute.For<ISqlDataAccess>();
             var input = "exists";
-            // Imposible (Cannot overwrite methods if they are not Abstract or Virtual)
-            //userManager.GetEmail<IdentityUser, string>(input).Returns(expected);
-            //userManager.GetPhoneNumber(input).Returns(expected);
+            var userManager = GetUserManager(input, expected);
+            var sql = Substitute.For<ISqlDataAccess>();
             sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", Arg.Any<object>(), "DDB").
                 Returns(new List<AccountDBModel>() { new AccountDBModel(){ FirstName = expected } });
-            
+
             var data = new AccountAccess(sql, userManager);
-            var res = data.Get(input);
+            var res = await data.Get(input);
 
             Assert.AreEqual(expected, res.FirstName);
+            Assert.AreEqual(expected, res.Email);
+            Assert.AreEqual(expected, res.PhoneNumber);
         }
 
         // Does not exist 
+        [TestMethod]
+        public async Task Get_NotExisting()
+        {
+            var input = "doesnotexist";
+            var userManager = GetEmptyUserManager();
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", Arg.Any<object>(), "DDB").
+                Returns(new List<AccountDBModel>());
+
+            var data = new AccountAccess(sql, userManager);
+            var res = await data.Get(input);
+
+            Assert.AreEqual(null, res);
+        }
         #endregion
     }
 }
