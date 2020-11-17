@@ -15,6 +15,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using APIDataAccess.DataAccess;
+using APIDataAccess.Internal.DataAccess;
+using APIHandler.Handlers;
 
 namespace API
 {
@@ -37,6 +40,14 @@ namespace API
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // Access
+            services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+            services.AddTransient<IAccountAccess, AccountAccess>();
+            services.AddTransient<INotificationSettingAccess, NotificationSettingAccess>();
+            // Handlers
+            services.AddTransient<IAccountHandler, AccountHandler>();
+            services.AddTransient<INotificationSettingHandler, NotificationSettingHandler>();
 
             services.AddAuthentication(options =>
             {

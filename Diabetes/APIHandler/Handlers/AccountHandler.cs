@@ -1,4 +1,5 @@
-﻿using APIDataAccess.Models.Account;
+﻿using APIDataAccess.DataAccess;
+using APIDataAccess.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,15 @@ namespace APIHandler.Handlers
 {
     public class AccountHandler : IAccountHandler
     {
+        private readonly IAccountAccess _aa;
+        private readonly INotificationSettingHandler _nh;
+
+        public AccountHandler(IAccountAccess aa, INotificationSettingHandler nh)
+        {
+            _aa = aa;
+            _nh = nh;
+        }
+
         public AccountModel Get(string id)
         {
             throw new NotImplementedException();

@@ -3,16 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace APIHandler.Handlers
+namespace APIDataAccess.DataAccess
 {
-    public class NotificationSettingHandler : INotificationSettingHandler
+    public class NotificationSettingAccess : INotificationSettingAccess
     {
-        public void CreateStandartSettings(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Create(CreateNotificationSettingModel model)
+        public void Create(CreateNotificationSettingModel model)
         {
             throw new NotImplementedException();
         }

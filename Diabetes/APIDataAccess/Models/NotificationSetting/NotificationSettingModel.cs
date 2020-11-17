@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace API.Models.NotificationSetting
+namespace APIDataAccess.Models.NotificationSetting
 {
     public enum ThresholdType { High, Low }
     public enum NotificationType { Message, Warning }

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace APIDataAccess.DataAccess
 {
-    public class AccountAccess
+    public class AccountAccess : IAccountAccess
     {
         private readonly ISqlDataAccess _sql;
         private readonly UserManager<IdentityUser> _userManager;
