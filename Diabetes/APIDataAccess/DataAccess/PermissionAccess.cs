@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace APIHandler.Handlers
+namespace APIDataAccess.DataAccess
 {
-    public class PermissionHandler : IPermissionHandler
+    public class PermissionAccess : IPermissionAccess
     {
         public PermissionModel Get(int id)
         {
@@ -32,12 +32,12 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public List<PermissionModel> GetPendingPermissions()
+        public void DeleteByUserId(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteByUserId(string userId)
+        public List<PermissionModel> GetPendingPermissions()
         {
             throw new NotImplementedException();
         }

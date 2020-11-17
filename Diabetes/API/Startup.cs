@@ -45,9 +45,13 @@ namespace API
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddTransient<IAccountAccess, AccountAccess>();
             services.AddTransient<INotificationSettingAccess, NotificationSettingAccess>();
+            services.AddTransient<IPermissionAccess, PermissionAccess>();
+            services.AddTransient<IRelayAccess, RelayAccess>();
             // Handlers
             services.AddTransient<IAccountHandler, AccountHandler>();
             services.AddTransient<INotificationSettingHandler, NotificationSettingHandler>();
+            services.AddTransient<IPermissionHandler, PermissionHandler>();
+            services.AddTransient<IRelayHandler, RelayHandler>();
 
             services.AddAuthentication(options =>
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Models.Relay;
+using APIDataAccess.Models.Relay;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ namespace API.Controllers
     public class RelayController : ControllerBase
     {
         [HttpGet]
-        public PumpData Get()
+        public List<PumpDataPairModel> Get()
         {
             throw new NotImplementedException();
         }
