@@ -46,7 +46,7 @@ namespace APIDataAccess.DataAccess
             throw new NotImplementedException();
         }
 
-        public void CreateAccount(AccountModel model)
+        public void CreateAccount(AccountDBModel model)
         {
             throw new NotImplementedException();
         }

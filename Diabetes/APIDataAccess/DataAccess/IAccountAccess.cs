@@ -5,7 +5,7 @@ namespace APIDataAccess.DataAccess
 {
     public interface IAccountAccess
     {
-        void CreateAccount(AccountModel model);
+        void CreateAccount(AccountDBModel model);
         void DeleteAccount(string id);
         bool EmailExists(string email);
         Task<AccountModel> Get(string id);

@@ -14,11 +14,13 @@ namespace APIHandler.Handlers
     {
         private readonly IAccountAccess _aa;
         private readonly INotificationSettingHandler _nh;
+        private readonly IPermissionHandler _ph;
 
-        public AccountHandler(IAccountAccess aa, INotificationSettingHandler nh)
+        public AccountHandler(IAccountAccess aa, INotificationSettingHandler nh, IPermissionHandler ph)
         {
             _aa = aa;
             _nh = nh;
+            _ph = ph;
         }
 
         public AccountModel Get(string id)
