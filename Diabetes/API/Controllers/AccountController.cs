@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models.Account;
+using APIDataAccess.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+/// <summary>
+/// The API is in charge of validating input and passing it down to the handler if input is valid
+/// </summary>
 namespace API.Controllers
 {
     [Route("api/[controller]")]
@@ -25,7 +29,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public CreateAccountModel Get(string id)
+        public AccountModel Get(string id)
         {
             throw new NotImplementedException();
         }
@@ -34,6 +38,7 @@ namespace API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(CreateAccountModel model)
         {
+            // TODO: Should be moved to DataAccess
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
@@ -71,7 +76,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("ByPhoneNumber")]
-        public bool GetByPhoneNumber(string phoneNumber)
+        public AccountModel GetByPhoneNumber(string phoneNumber)
         {
             throw new NotImplementedException();
         }
@@ -86,13 +91,6 @@ namespace API.Controllers
         [HttpGet]
         [Route("PhoneNumberExists")]
         public bool PhoneNumberExists(string phoneNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        [Route("Name")]
-        public string GetName(string id)
         {
             throw new NotImplementedException();
         }
