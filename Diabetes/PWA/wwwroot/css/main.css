@@ -325,6 +325,10 @@ header h1 {
     color: #ddd;
 }
 
+    .notes div div {
+        padding: 0;
+    }
+
     .notes div {
         padding: 5px 20px;
         border-bottom: 2px dotted #888;

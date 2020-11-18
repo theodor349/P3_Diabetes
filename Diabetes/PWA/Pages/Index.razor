@@ -5,32 +5,8 @@
     <header class="profileName">
         <h1>Thomas Bowman</h1>
     </header>
-
-    <div class="detailedSecondaryView">
-        <div>
-            <div> <i class="fa fa-battery-2"></i> </div>
-            <p>55%</p>
-        </div>
-        <div>
-            <div> <i class="fa fa-thermometer-half"></i> </div>
-            <p>15%</p>
-        </div>
-    </div>
-
-    <div class="detailedMainView">
-        <div>
-            <p>7.7</p>
-        </div>
-        <div>
-            <div>
-                <p>2m</p>
-            </div>
-            <div>
-                <i class="fa fa-long-arrow-right"></i>
-            </div>
-        </div>
-    </div>
-    <p class="bloodGlucoseStatus">Blood sugar stable</p>
+    <StatsContainer></StatsContainer>
+    
 
     <div class="detailSettings">
         <a href="details.html"><div class="active"><i class="fa fa-pencil-square-o"></i></div></a>
@@ -38,26 +14,8 @@
     </div>
 
     <section class="notes">
-        <div>
-            <h4>
-                High blood sugar low:
-            </h4>
-            <p>
-                Ask Thomas if he has eaten or drinken something with fast carbohydrates.
-                <br><br>If blood sugar has been low for a longer period his parents should also be called.
-                <br><br>If blood sugar gets (Around 2.2 or lower) keep a good eye on Thomas.
-            </p>
-        </div>
-
-        <div>
-            <h4>
-                High blood sugar high:
-            </h4>
-            <p>
-                If bloods sugar is high, ask Thomas whether he has taken some insulin.
-                <br><br>If blood sugar continues to be high, then help Thomas measure ketones.
-            </p>
-        </div>
+        <DetailNote Id="1"></DetailNote>
+        <DetailNote Id="0"></DetailNote>
     </section>
 
     <section class="navMenu">

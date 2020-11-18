@@ -1,0 +1,61 @@
+﻿@inject HttpClient Http
+
+@if (data != null)
+{
+    <div class="detailedSecondaryView">
+        <div>
+            <div> <i class="fa fa-battery-2"></i> </div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100f)%</p>
+        </div>
+        <div>
+            <div> <i class="fa fa-thermometer-half"></i> </div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus * 100f)%</p>
+        </div>
+    </div>
+
+    <div class="detailedMainView">
+        <div>
+            <p>@String.Format(CultureInfo.InvariantCulture,"{0:0.0}", data.BloodGlucose)</p>
+        </div>
+        <div>
+            <div>
+                <p>@(data.Minutes)m</p>
+            </div>
+            <div>
+                @if (data.Delta > 0.5)
+                {
+                    <i>U</i>
+                }
+                else if (data.Delta < -0.5)
+                {
+                    <i>D</i>
+                }
+                else
+                {
+                    <i class="fa fa-long-arrow-right"></i>
+                }
+            </div>
+        </div>
+    </div>
+    <p class="bloodGlucoseStatus">Blood sugar stable</p>
+}
+
+@code {
+
+    PumpData data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<PumpData>("api/relay/get.json");
+    }
+
+    class PumpData
+    {
+        public float BloodGlucose { get; set; }
+        public float BatteryStatus { get; set; }
+        public float Delta { get; set; }
+        public float InsulinStatus { get; set; }
+        public int Minutes { get; set; }
+    }
+
+}
