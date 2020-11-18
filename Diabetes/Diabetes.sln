@@ -23,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIHandler.Tests", "APIHand
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API.Tests", "API.Tests\API.Tests.csproj", "{1928E9AA-5072-4702-8CEA-1C1AA9AAB8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWA", "PWA\PWA.csproj", "{7793E7E6-C702-4C0F-BA6D-4105FA669866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWA", "PWA\PWA.csproj", "{7793E7E6-C702-4C0F-BA6D-4105FA669866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWA.Library", "PWA.Library\PWA.Library.csproj", "{FB9D6F1E-2705-4697-99D1-1B2B25A97E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWA.Library", "PWA.Library\PWA.Library.csproj", "{FB9D6F1E-2705-4697-99D1-1B2B25A97E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PWA.Library.Tests", "PWA.Library.Tests\PWA.Library.Tests.csproj", "{7B0E2248-447F-4EE8-8D05-2E66011820C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PWA.Library.Tests", "PWA.Library.Tests\PWA.Library.Tests.csproj", "{7B0E2248-447F-4EE8-8D05-2E66011820C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
