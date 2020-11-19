@@ -13,7 +13,7 @@
     }
     else
     {
-        <Details userID="theo123"></Details>
+        <Details userID="theo123" account="focusAccount"></Details>
     }
 }
 else
@@ -36,6 +36,12 @@ else
 @code {
     private bool isLoggedIn = true;
     private int page = 0;
+    private Account focusAccount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        focusAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
+    }
 
     void SetPage(int p)
     {
