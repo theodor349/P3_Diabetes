@@ -1,7 +1,6 @@
 ﻿@page "/"
 @inject HttpClient Http
 
-<div class="bodyContainer">
     @if (account != null)
     {
         <header class="profileName">
@@ -16,7 +15,7 @@
 
         <section class="notes">
             <DetailNote Id="1"></DetailNote>
-            <DetailNote Id="0"></DetailNote>
+            <DetailNote Id="0"></DetailNote>    
         </section>
 
         <section class="navMenu">
@@ -29,7 +28,6 @@
     {
         <p>Loading...</p>
     }
-</div>
 
 @code {
     private Account account;
