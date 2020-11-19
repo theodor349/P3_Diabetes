@@ -1,50 +1,44 @@
 ﻿@page "/"
 @inject HttpClient Http
 
-    @if (account != null)
+@if (isLoggedIn)
+{
+    @if (page == 1)
     {
-        <header class="profileName">
-            <h1>@account.FirstName @account.LastName</h1>
-        </header>
-        <StatsContainer></StatsContainer>
-
-        <div class="detailSettings">
-            <a href="details.html"><div class="active"><i class="fa fa-pencil-square-o"></i></div></a>
-            <a href="detailsNotification.html"><div><i class="fa fa-bell"></i></div></a>
-        </div>
-
-        <section class="notes">
-            <DetailNote Id="1"></DetailNote>
-            <DetailNote Id="0"></DetailNote>    
-        </section>
-
-        <section class="navMenu">
-            <a class="focus" href="details.html"> <div><i class="fa fa-user-circle-o"></i></div> </a>
-            <a href="overview.html"> <div><i class="fa fa-users"></i></div> </a>
-            <a href="profile.html"> <div><i class="fa fa-gear"></i></div> </a>
-        </section>
+        <OverView></OverView>
+    }
+    else if (page == 2)
+    {
+        <Profile></Profile>
     }
     else
     {
-        <p>Loading...</p>
+        <Details userID="theo123"></Details>
     }
+}
+else
+{
+    <p>You are not logged in yet.</p>
+}
+
+<section class="navMenu">
+    <div @onclick="() => SetPage(0)">
+        <i class="fa fa-user-circle-o"></i>
+    </div>
+    <div @onclick="() => SetPage(1)">
+        <i class="fa fa-users"></i>
+    </div>
+    <div @onclick="() => SetPage(2)">
+        <i class="fa fa-gear"></i>
+    </div>
+</section>
 
 @code {
-    private Account account;
+    private bool isLoggedIn = true;
+    private int page = 0;
 
-    protected override async Task OnInitializedAsync()
+    void SetPage(int p)
     {
-        account = await Http.GetFromJsonAsync<Account>("api/account/get.json");
-    }
-
-    class Account
-    {
-        public string ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string PhoneNumber { get; set; }
-        public string NSLink { get; set; }
-        public bool IsEUMeasure { get; set; }
+        page = p;
     }
 }

@@ -1,0 +1,24 @@
+﻿@inject HttpClient Http
+
+<section class="currentNotificationsDetails">
+    <div class="scrollbar">
+        <a href="insulinLow.html">
+            <div class="message">
+                <p>Insulin low</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public string UserID { get; set; }
+    private Notification[] notifications;
+
+    enum NotificationType { Message, Warning }
+    class Notification
+    {
+        public NotificationType Type { get; set; }
+        public string Mesage { get; set; }
+    }
+}

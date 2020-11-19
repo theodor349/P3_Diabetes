@@ -163,7 +163,7 @@ header h1 {
     }
 
 .overviewContainer .scrollbar {
-    height: 436px;
+    height: 441px;
     color: #eee;
 }
 
@@ -502,28 +502,24 @@ header h1 {
     background-color: #333;
 }
 
-    .navMenu a {
+    .navMenu div {
         display: block;
         width: 33.3%;
-        padding-top: 10px;
+        padding-top: 7px;
     }
 
-        .navMenu a:visited {
-            color: inherit;
-        }
-
-        .navMenu a.focus {
+        .navMenu div.focus {
             background: #333;
             box-shadow: 0px 0px 15px #151515 inset;
             color: #D85948;
         }
 
-        .navMenu a:first-child {
+        .navMenu div:first-child {
             border-right: 1px solid #222;
             border-bottom-left-radius: 5px;
         }
 
-        .navMenu a:last-child {
+        .navMenu div:last-child {
             border-left: 1px solid #222;
             border-bottom-right-radius: 5px;
         }
