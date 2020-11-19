@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
+// Frederik wrote this
 namespace APIDataAccess.DataAccess
 {
     public class AccountAccess : IAccountAccess
