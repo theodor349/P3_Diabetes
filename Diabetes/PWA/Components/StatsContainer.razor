@@ -1,0 +1,105 @@
+﻿@inject HttpClient Http
+
+@if (data != null)
+{
+    <div class="detailedSecondaryView">
+        <div>
+            <div>
+                @if (high != null || low != null)
+                {
+                    @if (data.BatteryStatus > 0.80f)
+                    {
+                        <i class="fa fa-battery-4"></i>
+                    }
+                    else if (data.BatteryStatus > 0.60f)
+                    {
+                        <i class="fa fa-battery-3"></i>
+                    }
+                    else if (data.BatteryStatus > 0.35f)
+                    {
+                        <i class="fa fa-battery-2"></i>
+                    }
+                    else if (data.BatteryStatus > 0.10f)
+                    {
+                        <i class="fa fa-battery-1"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-battery-0"></i>
+                    }
+                }
+            </div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100f)%</p>
+        </div>
+        <div>
+            <div> <i class="fa fa-thermometer-half"></i> </div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus * 100f)%</p>
+        </div>
+    </div>
+
+    <div class="detailedMainView">
+        <div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", data.BloodGlucose)</p>
+        </div>
+        <div>
+            <div>
+                <p>@(data.Minutes)m</p>
+            </div>
+            <div>
+                @if (data.Delta > 0.5)
+                {
+                    <i>U</i>
+                }
+                else if (data.Delta < -0.5)
+                {
+                    <i>D</i>
+                }
+                else
+                {
+                    <i class="fa fa-long-arrow-right"></i>
+                }
+            </div>
+        </div>
+    </div>
+    @if (data.BloodGlucose > high.Threshold)
+    {
+        <p class="bloodGlucoseStatus">Blood sugar high</p>
+    }
+    else if (data.Delta < low.Threshold)
+    {
+        <p class="bloodGlucoseStatus">Blood sugar low</p>
+    }
+    else
+    {
+        <p class="bloodGlucoseStatus">Blood sugar stable</p>
+    }
+}
+
+@code {
+
+    PumpData data;
+    NotificationSetting high = new NotificationSetting();
+    NotificationSetting low = new NotificationSetting();
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await Http.GetFromJsonAsync<PumpData>("api/relay/get.json");
+        high = await Http.GetFromJsonAsync<NotificationSetting>("api/notificationsetting/getHigh.json");
+        low = await Http.GetFromJsonAsync<NotificationSetting>("api/notificationsetting/getLow.json");
+    }
+
+    class PumpData
+    {
+        public float BloodGlucose { get; set; }
+        public float BatteryStatus { get; set; }
+        public float Delta { get; set; }
+        public float InsulinStatus { get; set; }
+        public int Minutes { get; set; }
+    }
+
+    class NotificationSetting
+    {
+        public float Threshold { get; set; }
+    }
+
+}

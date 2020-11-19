@@ -2,29 +2,33 @@
 @inject HttpClient Http
 
 <div class="bodyContainer">
-    <header class="profileName">
-        <h1>Thomas Bowman</h1>
-    </header>
-    <StatsContainer></StatsContainer>
-    
+    @if (account != null)
+    {
+        <header class="profileName">
+            <h1>@account.FirstName @account.LastName</h1>
+        </header>
+        <StatsContainer></StatsContainer>
 
-    <div class="detailSettings">
-        <a href="details.html"><div class="active"><i class="fa fa-pencil-square-o"></i></div></a>
-        <a href="detailsNotification.html"><div><i class="fa fa-bell"></i></div></a>
-    </div>
+        <div class="detailSettings">
+            <a href="details.html"><div class="active"><i class="fa fa-pencil-square-o"></i></div></a>
+            <a href="detailsNotification.html"><div><i class="fa fa-bell"></i></div></a>
+        </div>
 
-    <section class="notes">
-        <DetailNote Id="1"></DetailNote>
-        <DetailNote Id="0"></DetailNote>
-    </section>
+        <section class="notes">
+            <DetailNote Id="1"></DetailNote>
+            <DetailNote Id="0"></DetailNote>
+        </section>
 
-    <section class="navMenu">
-        <a class="focus" href="details.html"> <div><i class="fa fa-user-circle-o"></i></div> </a>
-        <a href="overview.html"> <div><i class="fa fa-users"></i></div> </a>
-        <a href="profile.html"> <div><i class="fa fa-gear"></i></div> </a>
-    </section>
-
-
+        <section class="navMenu">
+            <a class="focus" href="details.html"> <div><i class="fa fa-user-circle-o"></i></div> </a>
+            <a href="overview.html"> <div><i class="fa fa-users"></i></div> </a>
+            <a href="profile.html"> <div><i class="fa fa-gear"></i></div> </a>
+        </section>
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
 </div>
 
 @code {
