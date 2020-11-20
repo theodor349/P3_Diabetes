@@ -1,0 +1,34 @@
+﻿@inject HttpClient Http
+<br>
+<br>
+<div class="loginBox">
+    <img class="logoImg" src="/img/appLogo.svg" alt="">
+    <br><br>
+    <form class="" action="index.html" method="post">
+        <input autocomplete="off" type="text" placeholder="E-mail or phone number" id="username" name="fname" value=""><br><br>
+
+        <input type="password" placeholder="Password" id="password" name="lname" value=""><br><br>
+        <div class="notificationBtn" type="submit" value="Log in" @onclick="() => LoginButton()">Log in - @name</div>
+    </form>
+    <div class="notificationBtn forgotPasswordBtn">Forgot password</div>
+    <br><hr>
+    <a href="signUp.html"><div class="notificationBtn registerBtn">Sign up</div></a>
+</div>
+
+@code {
+    [Parameter]
+    public EventCallback<LoginUser> loggedIn { get; set; }
+
+    private string name = "hi";
+
+    private async Task LoginButton()
+    {
+        var user = await GetLoginChredentials();
+        await loggedIn.InvokeAsync(user);
+    }
+
+    private async Task<LoginUser> GetLoginChredentials()
+    {
+        return await Http.GetFromJsonAsync<LoginUser>("api/Token/get.json");
+    }
+}

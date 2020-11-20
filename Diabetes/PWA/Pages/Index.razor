@@ -1,7 +1,7 @@
 ﻿@page "/"
 @inject HttpClient Http
 
-@if (isLoggedIn)
+@if (loggedInUser != null)
 {
     @if (page == 1)
     {
@@ -13,34 +13,36 @@
     }
     else
     {
-        <Details userID="theo123" account="focusAccount"></Details>
+        <Details userID="theo123" account="targetAccount"></Details>
     }
+
+    <section class="navMenu">
+        <div @onclick="() => SetPage(0)">
+            <i class="fa fa-user-circle-o"></i>
+        </div>
+        <div @onclick="() => SetPage(1)">
+            <i class="fa fa-users"></i>
+        </div>
+        <div @onclick="() => SetPage(2)">
+            <i class="fa fa-gear"></i>
+        </div>
+    </section>
 }
 else
 {
-    <p>You are not logged in yet.</p>
+    <Login loggedIn="(user) => loggedInUser = user"></Login>
 }
 
-<section class="navMenu">
-    <div @onclick="() => SetPage(0)">
-        <i class="fa fa-user-circle-o"></i>
-    </div>
-    <div @onclick="() => SetPage(1)">
-        <i class="fa fa-users"></i>
-    </div>
-    <div @onclick="() => SetPage(2)">
-        <i class="fa fa-gear"></i>
-    </div>
-</section>
+
 
 @code {
-    private bool isLoggedIn = true;
     private int page = 0;
-    private Account focusAccount;
+    private Account targetAccount;
+    private LoginUser loggedInUser;
 
     protected override async Task OnInitializedAsync()
     {
-        focusAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
+        targetAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
     }
 
     void SetPage(int p)
