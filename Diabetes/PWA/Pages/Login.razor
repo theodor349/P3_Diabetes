@@ -4,11 +4,20 @@
 <div class="loginBox">
     <img class="logoImg" src="/img/appLogo.svg" alt="">
     <br><br>
+    <EditForm Model="@credentials" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <InputText id="email" @bind-Value="credentials.Email" />
+        <InputText type="password" placeholder="Password" @bind-Value="@credentials.Password" />
+
+        <button type="submit">Log In</button>
+    </EditForm>
     <form class="" action="index.html" method="post">
         <input autocomplete="off" type="text" placeholder="E-mail or phone number" id="username" name="fname" value=""><br><br>
 
         <input type="password" placeholder="Password" id="password" name="lname" value=""><br><br>
-        <div class="notificationBtn" type="submit" value="Log in" @onclick="() => LoginButton()">Log in - @name</div>
+        <div class="notificationBtn" type="submit" value="Log in">Log in - @name</div>
     </form>
     <div class="notificationBtn forgotPasswordBtn">Forgot password</div>
     <br><hr>
@@ -19,9 +28,10 @@
     [Parameter]
     public EventCallback<LoginUser> loggedIn { get; set; }
 
-    private string name = "hi";
+    private LoginCredential credentials = new LoginCredential();
+    private string name = "test";
 
-    private async Task LoginButton()
+    private async Task HandleValidSubmit()
     {
         var user = await GetLoginChredentials();
         await loggedIn.InvokeAsync(user);
@@ -30,5 +40,15 @@
     private async Task<LoginUser> GetLoginChredentials()
     {
         return await Http.GetFromJsonAsync<LoginUser>("api/Token/get.json");
+    }
+
+    class LoginCredential
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        [MinLength(6)]
+        public string Password { get; set; }
     }
 }
