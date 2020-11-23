@@ -299,8 +299,11 @@ header h1 {
 }
 
     .detailSettings div {
-        height: 35px;
         padding: 10px;
+        background: #454545;
+        height: 50px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
     }
 
     .detailSettings a:visited {
@@ -309,9 +312,6 @@ header h1 {
 
     .detailSettings .active {
         background: #555;
-        height: 50px;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
     }
 
 .notes {

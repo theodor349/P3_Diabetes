@@ -3,30 +3,37 @@
 
 @if (loggedInUser != null)
 {
-    @if (page == 1)
+    @if (focusedNotification.Count > 0)
     {
-        <OverView></OverView>
+        <FullscreenNotification notificationData="focusedNotification.First()" notificationButtonClicked="NotificationButtonClicked"></FullscreenNotification>
     }
-    else if (page == 2)
+    else 
     {
-        <Profile></Profile>
-    }
-    else
-    {
-        <Details account="targetAccount" notifications="notifications"></Details>
-    }
+        @if (page == 1)
+        {
+            <OverView></OverView>
+        }
+        else if (page == 2)
+        {
+            <Profile></Profile>
+        }
+        else
+        {
+            <Details account="targetAccount" notifications="notifications" notificationClicked="NotificationClicked"></Details>
+        }
 
-    <section class="navMenu">
-        <div @onclick="() => SetPage(0)">
-            <i class="fa fa-user-circle-o"></i>
-        </div>
-        <div @onclick="() => SetPage(1)">
-            <i class="fa fa-users"></i>
-        </div>
-        <div @onclick="() => SetPage(2)">
-            <i class="fa fa-gear"></i>
-        </div>
-    </section>
+        <section class="navMenu">
+            <div @onclick="() => SetPage(0)">
+                <i class="fa fa-user-circle-o"></i>
+            </div>
+            <div @onclick="() => SetPage(1)">
+                <i class="fa fa-users"></i>
+            </div>
+            <div @onclick="() => SetPage(2)">
+                <i class="fa fa-gear"></i>
+            </div>
+        </section>
+    }
 }
 else
 {
@@ -40,20 +47,33 @@ else
     private Account targetAccount;
     private LoginUser loggedInUser;
     private List<NotificationData> notifications = new List<NotificationData>();
+    private Stack<NotificationData> focusedNotification = new Stack<NotificationData>();
 
     protected override async Task OnInitializedAsync()
     {
         targetAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
         notifications = new List<NotificationData>()
-        {
-            new NotificationData(){Mesage = "Message 1", Type = NotificationType.Message},
-            new NotificationData(){Mesage = "Warning 1", Type = NotificationType.Warning},
-            new NotificationData(){Mesage = "Message 2", Type = NotificationType.Message},
+    {
+            new NotificationData(){Mesage = "Message 1", Type = NotificationType.Message, Name = "Theodor Risager"},
+            new NotificationData(){Mesage = "Warning 1", Type = NotificationType.Warning, Name = "Thomas Bowman"},
+            new NotificationData(){Mesage = "Message 2", Type = NotificationType.Message, Name = "This is a long name"},
         };
     }
 
-    void SetPage(int p)
+    private void NotificationClicked(NotificationData data)
+    {
+        focusedNotification.Push(data);
+    }
+
+    private void SetPage(int p)
     {
         page = p;
+    }
+
+    private void NotificationButtonClicked(NotificationButtonType type)
+    {
+        var n = focusedNotification.Pop();
+        if (type == NotificationButtonType.Dismiss)
+            notifications.Remove(n);
     }
 }

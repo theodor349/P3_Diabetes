@@ -37,7 +37,7 @@
     }
     else
     {
-        <CurrentNotificationsDetails notifications="notifications"></CurrentNotificationsDetails>
+        <CurrentNotificationsDetails notifications="notifications" notificationClicked="notificationClicked"></CurrentNotificationsDetails>
     }
 }
 else
@@ -46,10 +46,9 @@ else
 }
 
 @code {
-    [Parameter]
-    public Account account { get; set; }
-    [Parameter]
-    public List<NotificationData> notifications { get; set; }
+    [Parameter] public Account account { get; set; }
+    [Parameter] public List<NotificationData> notifications { get; set; }
+    [Parameter] public EventCallback<NotificationData> notificationClicked { get; set; }
     private bool isNote = true;
 
     public void SetViewToNotes()

@@ -19,8 +19,7 @@
 </div>
 
 @code {
-    [Parameter]
-    public EventCallback<LoginUser> loggedIn { get; set; }
+    [Parameter] public EventCallback<LoginUser> loggedIn { get; set; }
 
     private LoginCredential credentials = new LoginCredential();
     private string name = "test";

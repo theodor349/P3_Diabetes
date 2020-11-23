@@ -4,17 +4,18 @@
     <div class="scrollbar">
         @if (notifications != null)
         {
+
             @foreach (var notification in notifications)
             {
                 if (notification.Type == NotificationType.Message)
                 {
-                    <div class="message">
+                    <div class="message" @onclick="() => NotificationClicked(notification)">
                         <p>@notification.Mesage</p>
                     </div>
                 }
                 else
                 {
-                    <div class="warning">
+                    <div class="warning" @onclick="() => NotificationClicked(notification)">
                         <p>@notification.Mesage</p>
                     </div>
                 }
@@ -24,6 +25,11 @@
 </section>
 
 @code {
-    [Parameter]
-    public List<NotificationData> notifications { get; set; }
+    [Parameter] public List<NotificationData> notifications { get; set; }
+    [Parameter] public EventCallback<NotificationData> notificationClicked { get; set; }
+
+    private async Task NotificationClicked(NotificationData data)
+    {
+        await notificationClicked.InvokeAsync(data);
+    }
 }
