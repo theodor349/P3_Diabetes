@@ -13,6 +13,26 @@ namespace APIDataAccess.Tests
     {
 
         #region create
+        [TestMethod]
+        public void Create_Call()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var input = new CreateNotificationSettingModel()
+            {
+                OwnerID = "user",
+                ThresHold = 32
+            };
+
+            var notificationSettingAccess = new NotificationSettingAccess(sql);
+            notificationSettingAccess.Create(input);
+
+            sql.Received(1).SaveData(SpCommands.spNotificationSetting_Create.ToString(), Arg.Is<CreateNotificationSettingModel>((x)=>
+                x.ThresHold == 32 &&
+                x.OwnerID.Equals("user")
+            ), "DDB");
+        }
+
+
 
         #endregion
 

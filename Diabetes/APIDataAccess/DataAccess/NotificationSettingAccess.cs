@@ -18,12 +18,12 @@ namespace APIDataAccess.DataAccess
 
         public void Create(CreateNotificationSettingModel model)
         {
-            throw new NotImplementedException();
+            _sqlDataAccess.SaveData(SpCommands.spNotificationSetting_Create.ToString(), model, "DDB");
         }
 
         public List<NotificationSettingModel> Get(string userId)
         {
-            var data = _sqlDataAccess.LoadData<NotificationSettingModel, dynamic>("spNotificationSetting_GetByUser", new { UserId = userId }, "DDB");
+            var data = _sqlDataAccess.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetByUser.ToString(), new { UserId = userId }, "DDB");
             return data;
         }
 
