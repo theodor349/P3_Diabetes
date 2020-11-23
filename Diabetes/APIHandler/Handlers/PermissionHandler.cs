@@ -12,7 +12,11 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public List<PermissionDBModel> GetByUserId(string userId)
+        public List<PermissionDBModel> GetByTargetId(string targetId)
+        {
+            throw new NotImplementedException();
+        }
+        public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
             throw new NotImplementedException();
         }

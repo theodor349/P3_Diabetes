@@ -22,7 +22,14 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("User")]
-        public List<PermissionDBModel> GetByUserId(string userId)
+        public List<PermissionDBModel> GetByTargetId(string targetId)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        [Route("User")]
+        public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
             throw new NotImplementedException();
         }
