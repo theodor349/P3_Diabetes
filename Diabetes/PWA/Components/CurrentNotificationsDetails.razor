@@ -2,22 +2,28 @@
 
 <section class="currentNotificationsDetails">
     <div class="scrollbar">
-        <a href="insulinLow.html">
-            <div class="message">
-                <p>Insulin low</p>
-            </div>
-        </a>
+        @if (notifications != null)
+        {
+            @foreach (var notification in notifications)
+            {
+                if (notification.Type == NotificationType.Message)
+                {
+                    <div class="message">
+                        <p>@notification.Mesage</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="warning">
+                        <p>@notification.Mesage</p>
+                    </div>
+                }
+            }
+        }
     </div>
 </section>
 
 @code {
-
-    private Notification[] notifications;
-
-    enum NotificationType { Message, Warning }
-    class Notification
-    {
-        public NotificationType Type { get; set; }
-        public string Mesage { get; set; }
-    }
+    [Parameter]
+    public List<NotificationData> notifications { get; set; }
 }

@@ -13,7 +13,7 @@
     }
     else
     {
-        <Details account="targetAccount"></Details>
+        <Details account="targetAccount" notifications="notifications"></Details>
     }
 
     <section class="navMenu">
@@ -39,10 +39,17 @@ else
     private int page = 0;
     private Account targetAccount;
     private LoginUser loggedInUser;
+    private List<NotificationData> notifications = new List<NotificationData>();
 
     protected override async Task OnInitializedAsync()
     {
         targetAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
+        notifications = new List<NotificationData>()
+        {
+            new NotificationData(){Mesage = "Message 1", Type = NotificationType.Message},
+            new NotificationData(){Mesage = "Warning 1", Type = NotificationType.Warning},
+            new NotificationData(){Mesage = "Message 2", Type = NotificationType.Message},
+        };
     }
 
     void SetPage(int p)

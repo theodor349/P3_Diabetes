@@ -37,7 +37,7 @@
     }
     else
     {
-        <CurrentNotificationsDetails UserID="@account.ID"></CurrentNotificationsDetails>
+        <CurrentNotificationsDetails notifications="notifications"></CurrentNotificationsDetails>
     }
 }
 else
@@ -48,6 +48,8 @@ else
 @code {
     [Parameter]
     public Account account { get; set; }
+    [Parameter]
+    public List<NotificationData> notifications { get; set; }
     private bool isNote = true;
 
     public void SetViewToNotes()

@@ -45,4 +45,10 @@
         [MinLength(6)]
         public string Password { get; set; }
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(true)
+            await HandleValidSubmit();
+    }
 }
