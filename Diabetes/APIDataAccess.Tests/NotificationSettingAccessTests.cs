@@ -32,8 +32,6 @@ namespace APIDataAccess.Tests
             ), "DDB");
         }
 
-
-
         #endregion
 
         #region get
@@ -89,9 +87,39 @@ namespace APIDataAccess.Tests
 
         #region update
 
+        [TestMethod]
+        public void Update_Calls()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var updateNotificationSettingModel = new UpdateNotificationSettingModel(){
+                ID = 42,
+                Note = "test"
+            };
+
+            var notificationSettingAccess = new NotificationSettingAccess(sql);
+            notificationSettingAccess.Update(updateNotificationSettingModel);
+
+
+            sql.Received(1).SaveData(SpCommands.spNotificationSetting_Update.ToString(), Arg.Is<UpdateNotificationSettingModel>((x) =>
+            x.ID == 42 && x.Note.Equals("test")
+            ), "DDB");
+        }
+
         #endregion
 
         #region deleteByUserId
+
+        [TestMethod]
+        public void DeleteByUserId_Calls()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+
+            var notificationSettingAccess = new NotificationSettingAccess(sql);
+            notificationSettingAccess.DeleteByUserId("user");
+
+            sql.Received(1).DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), Arg.Any<string>(), "DDB");
+            
+        }
 
         #endregion
 
