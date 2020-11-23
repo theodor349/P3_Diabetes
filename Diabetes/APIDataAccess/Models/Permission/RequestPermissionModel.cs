@@ -8,6 +8,7 @@ namespace APIDataAccess.Models.Permission
     public class RequestPermissionDBModel
     {
         public string WatcherID { get; set; }
+        public string TargetID { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime ExpireDate { get; set; }
         public int Days { get; set; }

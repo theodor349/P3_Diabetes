@@ -27,7 +27,7 @@ namespace APIDataAccess.DataAccess
 
         public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
         {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", new { targetId }, "DDB");
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", new { Id = targetId }, "DDB");
         }
 
         public void Update(UpdatePermissionDBModel updatedPermission)
@@ -37,17 +37,17 @@ namespace APIDataAccess.DataAccess
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _sqlDataAccess.DeleteData(SpCommands.spPermission_Delete.ToString(), new {Id = id }, "DDB");
         }
 
         public void Create(RequestPermissionDBModel request)
         {
-            throw new NotImplementedException();
+            _sqlDataAccess.SaveData(SpCommands.spPermission_Create.ToString(), request, "DDB");
         }
 
         public void DeleteByUserId(string userId)
         {
-            throw new NotImplementedException();
+            _sqlDataAccess.DeleteData(SpCommands.spPermission_DeleteByUserId.ToString(), new { Id= userId }, "DDB");
         }
 
         public List<UpdatePermissionDBModel> GetPendingPermissions()

@@ -145,5 +145,68 @@ namespace APIDataAccess.Tests
 
         #endregion
 
+        #region DeletePermission
+
+        [TestMethod]
+        public void Delete_CorrectCall()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+
+            var data = new PermissionAccess(sql);
+            data.Delete(1);
+            
+            sql.Received(1).DeleteData(SpCommands.spPermission_Delete.ToString(), Arg.Any<object>(), "DDB");
+        }
+
+        #endregion
+
+        #region CreatePermission
+
+        [TestMethod]
+        public void Create_CorrectCall()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+
+            DateTime testTime = DateTime.Now;
+
+            var data = new PermissionAccess(sql);
+            RequestPermissionDBModel newPermission = new RequestPermissionDBModel()
+            {
+                WatcherID = "1",
+                TargetID = "2",
+                StartDate = testTime,
+                ExpireDate = testTime,
+                Days = 5,
+                WeeksActive = 2,
+                WeeksDeactive = 1,
+                Attributes = 4,
+                
+            };
+
+            data.Create(newPermission);
+
+            sql.Received(1).SaveData(SpCommands.spPermission_Create.ToString(), Arg.Any<object>(), "DDB");
+        }
+
+        #endregion
+
+        #region DeleteByUserId
+
+        [TestMethod]
+        public void DeleteByUserId_CorrectCall()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var data = new PermissionAccess(sql);
+
+            data.DeleteByUserId("23");
+
+            sql.Received(1).DeleteData(SpCommands.spPermission_DeleteByUserId.ToString(), Arg.Any<object>(), "DDB");
+        }
+
+        #endregion
+
+        #region 
+
+
     }
 }
