@@ -7,9 +7,11 @@ namespace APIDataAccess.DataAccess
     public enum SpCommands
     {
         spNotificationSetting_GetByUser,
-        spPermission_GetByUserId,
         spPermission_Get,
-        spAccount_Get
+        spAccount_Get,
+        spPermission_GetByTargetId,
+        spPermission_GetByWatcherId,
+        spPermission_UpdatePermissionModel
 
 
     }
