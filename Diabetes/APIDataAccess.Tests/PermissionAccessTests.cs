@@ -16,8 +16,8 @@ namespace APIDataAccess.Tests
         public void Get_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionModel>() { new PermissionModel() });
+            sql.LoadData<PermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
+                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
             var data = new PermissionAccess(sql);
 
             var res = data.Get(2);
@@ -29,8 +29,8 @@ namespace APIDataAccess.Tests
         public void Get_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionModel>());
+            sql.LoadData<PermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
+                Returns(new List<PermissionDBModel>());
 
             var data = new PermissionAccess(sql);
 

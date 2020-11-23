@@ -2,6 +2,7 @@
 using APIDataAccess.Models.Permission;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace APIDataAccess.DataAccess
@@ -14,20 +15,59 @@ namespace APIDataAccess.DataAccess
         {
             this._sqlDataAccess = sqlDataAccess;
         }
-        public PermissionModel Get(int id)
+        public PermissionDBModel Get(int id)
         {
+            var model = _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
+            
+
+            if (model == null)
+                return null;
+            else
+                return new PermissionDBModel()
+                {
+                    Id = model.Id,
+                    WatcherID = model.WatcherID,
+                    TargetID = model.TargetID,
+                    StartDate = model.StartDate,
+                    ExpireDate = model.ExpireDate,
+                    Days = model.Days,
+                    WeeksActive = model.WeeksActive,
+                    WeeksDeactive = model.WeeksDeactive,
+                    Attributes = model.Attributes,
+                    Accepted = model.Accepted
+                };
+        }
+
+        public List<PermissionDBModel> GetByUserId(string userId)
+        {
+
+            var model = _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
+
+            spPermission.
+
+            if (model == null)
+                return null;
+            else
+                return new PermissionDBModel()
+                {
+                    Id = model.Id,
+                    WatcherID = model.WatcherID,
+                    TargetID = model.TargetID,
+                    StartDate = model.StartDate,
+                    ExpireDate = model.ExpireDate,
+                    Days = model.Days,
+                    WeeksActive = model.WeeksActive,
+                    WeeksDeactive = model.WeeksDeactive,
+                    Attributes = model.Attributes,
+                    Accepted = model.Accepted
+                };
 
 
 
             throw new NotImplementedException();
         }
 
-        public List<PermissionModel> GetByUserId(string userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(UpdatePermissionModel updatedPermission)
+        public void Update(UpdatePermissionDBModel updatedPermission)
         {
             throw new NotImplementedException();
         }
@@ -37,7 +77,7 @@ namespace APIDataAccess.DataAccess
             throw new NotImplementedException();
         }
 
-        public void Create(RequestPermissionModel request)
+        public void Create(RequestPermissionDBModel request)
         {
             throw new NotImplementedException();
         }
@@ -47,12 +87,12 @@ namespace APIDataAccess.DataAccess
             throw new NotImplementedException();
         }
 
-        public List<PermissionModel> GetPendingPermissions()
+        public List<PermissionDBModel> GetPendingPermissions()
         {
             throw new NotImplementedException();
         }
 
-        public int GetPermissionActtributes(List<PermissionModel> permissions)
+        public int GetPermissionActtributes(List<PermissionDBModel> permissions)
         {
             throw new NotImplementedException();
         }

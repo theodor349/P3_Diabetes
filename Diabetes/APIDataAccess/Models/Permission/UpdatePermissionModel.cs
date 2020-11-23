@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace APIDataAccess.Models.Permission
 {
-    public class UpdatePermissionModel
+    public class UpdatePermissionDBModel
     {
         public int ID { get; set; }
         public DateTime StartDate { get; set; }

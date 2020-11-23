@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace APIDataAccess.Models.Permission
 {
-    public class PermissionModel
+    public class PermissionDBModel
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string WatcherID { get; set; }
         public string TargetID { get; set; }
         public DateTime StartDate { get; set; }
@@ -16,6 +15,6 @@ namespace APIDataAccess.Models.Permission
         public int WeeksActive { get; set; }
         public int WeeksDeactive { get; set; }
         public int Attributes { get; set; }
-        public int Accepted { get; set; }
+        public bool Accepted { get; set; }
     }
 }
