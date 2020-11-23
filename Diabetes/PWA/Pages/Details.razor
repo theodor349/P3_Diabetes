@@ -37,7 +37,7 @@
     }
     else
     {
-        <CurrentNotificationsDetails UserID="@userID"></CurrentNotificationsDetails>
+        <CurrentNotificationsDetails UserID="@account.ID"></CurrentNotificationsDetails>
     }
 }
 else
@@ -46,9 +46,6 @@ else
 }
 
 @code {
-    [Parameter]
-    public string userID { get; set; }
-
     [Parameter]
     public Account account { get; set; }
     private bool isNote = true;

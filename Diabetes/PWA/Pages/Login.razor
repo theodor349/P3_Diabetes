@@ -6,22 +6,16 @@
     <br><br>
     <EditForm Model="@credentials" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
-        <ValidationSummary />
+        @*<ValidationSummary />*@
 
-        <InputText id="email" @bind-Value="credentials.Email" />
+        <InputText id="email" placeholder="Email" @bind-Value="credentials.Email" />
         <InputText type="password" placeholder="Password" @bind-Value="@credentials.Password" />
-
-        <button type="submit">Log In</button>
+        <br />
+        <button class="notificationBtn" type="submit" value="Log in">Log In</button>
     </EditForm>
-    <form class="" action="index.html" method="post">
-        <input autocomplete="off" type="text" placeholder="E-mail or phone number" id="username" name="fname" value=""><br><br>
-
-        <input type="password" placeholder="Password" id="password" name="lname" value=""><br><br>
-        <div class="notificationBtn" type="submit" value="Log in">Log in - @name</div>
-    </form>
     <div class="notificationBtn forgotPasswordBtn">Forgot password</div>
     <br><hr>
-    <a href="signUp.html"><div class="notificationBtn registerBtn">Sign up</div></a>
+    <div class="notificationBtn registerBtn">Sign up</div>
 </div>
 
 @code {
