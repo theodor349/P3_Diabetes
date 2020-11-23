@@ -12,5 +12,7 @@ namespace PWA.Models
         public string Name { get; set; }
         public NotificationType Type { get; set; }
         public string Mesage { get; set; }
+        public string LongMessage { get; set; }
+        public string IconClassName { get; set; }
     }
 }
