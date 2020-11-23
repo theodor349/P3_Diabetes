@@ -106,5 +106,25 @@ namespace APIDataAccess.Tests
 
         #endregion
 
+        #region UpdatePermissionModel
+
+        [TestMethod]
+        public void Update_CorrectCall()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            
+
+
+
+            var data = new PermissionAccess(sql);
+
+            //data.Update("2");
+
+            sql.LoadData<PermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
+                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
+        }
+
+        #endregion
+
     }
 }

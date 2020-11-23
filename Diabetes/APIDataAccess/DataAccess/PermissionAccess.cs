@@ -32,7 +32,7 @@ namespace APIDataAccess.DataAccess
 
         public void Update(UpdatePermissionDBModel updatedPermission)
         {
-            throw new NotImplementedException();
+            //_sqlDataAccess.SaveData("spPermission_UpdatePermissionModel", updatedPermission, "DDB"); 
         }
 
         public void Delete(int id)
