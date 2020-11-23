@@ -17,54 +17,17 @@ namespace APIDataAccess.DataAccess
         }
         public PermissionDBModel Get(int id)
         {
-            var model = _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
-            
-
-            if (model == null)
-                return null;
-            else
-                return new PermissionDBModel()
-                {
-                    Id = model.Id,
-                    WatcherID = model.WatcherID,
-                    TargetID = model.TargetID,
-                    StartDate = model.StartDate,
-                    ExpireDate = model.ExpireDate,
-                    Days = model.Days,
-                    WeeksActive = model.WeeksActive,
-                    WeeksDeactive = model.WeeksDeactive,
-                    Attributes = model.Attributes,
-                    Accepted = model.Accepted
-                };
+            return _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
         }
 
-        public List<PermissionDBModel> GetByUserId(string userId)
+        public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
+            return _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_GetByWatcherId", new { watcherId }, "DDB");
+        }
 
-            var model = _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
-
-            spPermission.
-
-            if (model == null)
-                return null;
-            else
-                return new PermissionDBModel()
-                {
-                    Id = model.Id,
-                    WatcherID = model.WatcherID,
-                    TargetID = model.TargetID,
-                    StartDate = model.StartDate,
-                    ExpireDate = model.ExpireDate,
-                    Days = model.Days,
-                    WeeksActive = model.WeeksActive,
-                    WeeksDeactive = model.WeeksDeactive,
-                    Attributes = model.Attributes,
-                    Accepted = model.Accepted
-                };
-
-
-
-            throw new NotImplementedException();
+        public List<PermissionDBModel> GetByTargetId(string targetId)
+        {
+            return _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_GetByTargetId", new { targetId }, "DDB");
         }
 
         public void Update(UpdatePermissionDBModel updatedPermission)
