@@ -1,14 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[spPermission_UpdatePermissionModel]
 	@Id int,
-	@WatcherId nvarchar(450),
-	@TargetId nvarchar(450),
 	@StartDate datetime2(7), 
 	@ExpireDate datetime2(7),
 	@Days int,
 	@WeeksActive int,
 	@WeeksDeactive int,
-	@Attributes int,
-	@Accepted bit
+	@Attributes int
 AS
 BEGIN
 	UPDATE Permission
