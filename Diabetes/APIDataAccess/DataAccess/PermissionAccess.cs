@@ -50,9 +50,9 @@ namespace APIDataAccess.DataAccess
             _sqlDataAccess.DeleteData(SpCommands.spPermission_DeleteByUserId.ToString(), new { Id= userId }, "DDB");
         }
 
-        public List<UpdatePermissionDBModel> GetPendingPermissions()
+        public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
         {
-            throw new NotImplementedException();
+            return _sqlDataAccess.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
         }
 
         public int GetPermissionActtributes(List<UpdatePermissionDBModel> permissions)
