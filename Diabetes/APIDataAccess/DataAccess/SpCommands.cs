@@ -12,11 +12,7 @@ namespace APIDataAccess.DataAccess
         spPermission_GetByTargetId,
         spPermission_GetByWatcherId,
         spPermission_UpdatePermissionModel,
-        spNotificationSetting_Create
-
-
+        spNotificationSetting_Create,
+        spPermission_Delete,
     }
-
-
-
 }

@@ -18,8 +18,8 @@ namespace APIDataAccess.Tests
         public void Get_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
+            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
             var data = new PermissionAccess(sql);
 
             var res = data.Get(2);
@@ -31,8 +31,8 @@ namespace APIDataAccess.Tests
         public void Get_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>());
+            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>());
 
             var data = new PermissionAccess(sql);
 
@@ -49,8 +49,8 @@ namespace APIDataAccess.Tests
         public void GetByWatcherId_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_GetByWatcherId", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>());
+            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByWatcherId", Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>());
 
             var data = new PermissionAccess(sql);
 
@@ -63,8 +63,8 @@ namespace APIDataAccess.Tests
         public void GetByWatcherId_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_GetByWatcherId", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>() {new PermissionDBModel()});
+            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByWatcherId", Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>() {new UpdatePermissionDBModel()});
 
             var data = new PermissionAccess(sql);
 
@@ -80,8 +80,8 @@ namespace APIDataAccess.Tests
         public void GetByTargetId_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>());
+            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>());
 
             var data = new PermissionAccess(sql);
 
@@ -94,8 +94,8 @@ namespace APIDataAccess.Tests
         public void GetByTargetId_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
+            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
 
             var data = new PermissionAccess(sql);
 
@@ -112,16 +112,35 @@ namespace APIDataAccess.Tests
         public void Update_CorrectCall()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            
 
+            DateTime testTime = DateTime.Now;
 
+            UpdatePermissionDBModel updatedPermission = new UpdatePermissionDBModel()
+            {
+                Id = 3,
+                StartDate = testTime,
+                ExpireDate = testTime,
+                WeeksActive = 2,
+                WeeksDeactive = 1,
+                Attributes = 4,
+                Accepted = true
+            };
 
             var data = new PermissionAccess(sql);
 
-            //data.Update("2");
+            data.Update(updatedPermission);
 
-            sql.LoadData<PermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
+            sql.Received(1).SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), Arg.Is<UpdatePermissionDBModel>((x) =>
+
+                x.Id == 3 &&
+                x.StartDate == testTime &&
+                x.ExpireDate == testTime &&
+                x.WeeksActive == 2 &&
+                x.WeeksDeactive == 1 &&
+                x.Attributes == 4 &&
+                x.Accepted == true
+
+            ), "DDB");
         }
 
         #endregion

@@ -7,16 +7,16 @@ namespace APIHandler.Handlers
 {
     public class PermissionHandler : IPermissionHandler
     {
-        public PermissionDBModel Get(int id)
+        public UpdatePermissionDBModel Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<PermissionDBModel> GetByTargetId(string targetId)
+        public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
         {
             throw new NotImplementedException();
         }
-        public List<PermissionDBModel> GetByWatcherId(string watcherId)
+        public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +36,7 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public List<PermissionDBModel> GetPendingPermissions()
+        public List<UpdatePermissionDBModel> GetPendingPermissions()
         {
             throw new NotImplementedException();
         }
@@ -46,7 +46,7 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public int GetPermissionActtributes(List<PermissionDBModel> permissions)
+        public int GetPermissionActtributes(List<UpdatePermissionDBModel> permissions)
         {
             throw new NotImplementedException();
         }

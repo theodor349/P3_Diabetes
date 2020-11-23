@@ -15,24 +15,24 @@ namespace APIDataAccess.DataAccess
         {
             this._sqlDataAccess = sqlDataAccess;
         }
-        public PermissionDBModel Get(int id)
+        public UpdatePermissionDBModel Get(int id)
         {
-            return _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
         }
 
-        public List<PermissionDBModel> GetByWatcherId(string watcherId)
+        public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
         {
-            return _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_GetByWatcherId", new { watcherId }, "DDB");
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByWatcherId", new { watcherId }, "DDB");
         }
 
-        public List<PermissionDBModel> GetByTargetId(string targetId)
+        public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
         {
-            return _sqlDataAccess.LoadData<PermissionDBModel, dynamic>("spPermission_GetByTargetId", new { targetId }, "DDB");
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", new { targetId }, "DDB");
         }
 
         public void Update(UpdatePermissionDBModel updatedPermission)
         {
-            //_sqlDataAccess.SaveData("spPermission_UpdatePermissionModel", updatedPermission, "DDB"); 
+            _sqlDataAccess.SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), updatedPermission, "DDB");
         }
 
         public void Delete(int id)
@@ -50,12 +50,12 @@ namespace APIDataAccess.DataAccess
             throw new NotImplementedException();
         }
 
-        public List<PermissionDBModel> GetPendingPermissions()
+        public List<UpdatePermissionDBModel> GetPendingPermissions()
         {
             throw new NotImplementedException();
         }
 
-        public int GetPermissionActtributes(List<PermissionDBModel> permissions)
+        public int GetPermissionActtributes(List<UpdatePermissionDBModel> permissions)
         {
             throw new NotImplementedException();
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace APIDataAccess.Models.Permission
 {
-    public class PermissionDBModel
+    public class UpdatePermissionDBModel
     {
         public int Id { get; set; }
         public string WatcherID { get; set; }
