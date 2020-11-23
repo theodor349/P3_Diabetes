@@ -67,7 +67,10 @@
     <Build Include="dbo\Tables\NotificationSetting.sql" />
     <Build Include="dbo\Store Procedures\spAccount_Get.sql" />
     <Build Include="dbo\Store Procedures\spPermission_Get.sql" />
-    <Build Include="dbo\Store Procedures\spPermission_GetByUserId.sql" />
+    <Build Include="dbo\Store Procedures\spNotificationSetting_GetByUser.sql" />
+    <Build Include="dbo\Store Procedures\spPermission_GetByTargetId.sql" />
+    <Build Include="dbo\Store Procedures\spPermission_GetByWatcherId.sql" />
+    <Build Include="dbo\Store Procedures\spPermission_UpdatePermissionModel.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DiabetesDB.refactorlog" />
