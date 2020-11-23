@@ -15,21 +15,21 @@ namespace API.Controllers
     public class PermissionController : ControllerBase
     {
         [HttpGet]
-        public PermissionDBModel Get(int id)
+        public UpdatePermissionDBModel Get(int id)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("User")]
-        public List<PermissionDBModel> GetByTargetId(string targetId)
+        public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("User")]
-        public List<PermissionDBModel> GetByWatcherId(string watcherId)
+        public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
         {
             throw new NotImplementedException();
         }
@@ -69,7 +69,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetPendingPermissions")]
-        public List<PermissionDBModel> GetPendingPermissions()
+        public List<UpdatePermissionDBModel> GetPendingPermissions()
         {
             throw new NotImplementedException();
         }

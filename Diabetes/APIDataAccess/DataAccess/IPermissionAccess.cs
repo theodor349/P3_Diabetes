@@ -8,11 +8,11 @@ namespace APIDataAccess.DataAccess
         void Create(RequestPermissionDBModel request);
         void Delete(int id);
         void DeleteByUserId(string userId);
-        PermissionDBModel Get(int id);
-        List<PermissionDBModel> GetByTargetId(string targetId);
-        List<PermissionDBModel> GetByWatcherId(string watcherId);
-        List<PermissionDBModel> GetPendingPermissions();
-        int GetPermissionActtributes(List<PermissionDBModel> permissions);
+        UpdatePermissionDBModel Get(int id);
+        List<UpdatePermissionDBModel> GetByTargetId(string targetId);
+        List<UpdatePermissionDBModel> GetByWatcherId(string watcherId);
+        List<UpdatePermissionDBModel> GetPendingPermissions();
+        int GetPermissionActtributes(List<UpdatePermissionDBModel> permissions);
         void Update(UpdatePermissionDBModel updatedPermission);
     }
 }
