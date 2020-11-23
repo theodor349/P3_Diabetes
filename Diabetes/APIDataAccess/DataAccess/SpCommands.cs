@@ -14,5 +14,7 @@ namespace APIDataAccess.DataAccess
         spPermission_UpdatePermissionModel,
         spNotificationSetting_Create,
         spPermission_Delete,
+        spPermission_Create,
+        spPermission_DeleteByUserId,
     }
 }
