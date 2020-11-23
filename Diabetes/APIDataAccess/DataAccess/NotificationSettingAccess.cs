@@ -29,12 +29,12 @@ namespace APIDataAccess.DataAccess
 
         public void Update(UpdateNotificationSettingModel model)
         {
-            throw new NotImplementedException();
+            _sqlDataAccess.SaveData(SpCommands.spNotificationSetting_Update.ToString(), model, "DDB");
         }
 
         public void DeleteByUserId(string userId)
         {
-            throw new NotImplementedException();
+            _sqlDataAccess.DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), userId, "DDB");
         }
     }
 }
