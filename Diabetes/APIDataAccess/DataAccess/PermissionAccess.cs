@@ -1,4 +1,5 @@
-﻿using APIDataAccess.Models.Permission;
+﻿using APIDataAccess.Internal.DataAccess;
+using APIDataAccess.Models.Permission;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +8,17 @@ namespace APIDataAccess.DataAccess
 {
     public class PermissionAccess : IPermissionAccess
     {
+        private readonly ISqlDataAccess _sqlDataAccess;
+
+        public PermissionAccess(ISqlDataAccess sqlDataAccess)
+        {
+            this._sqlDataAccess = sqlDataAccess;
+        }
         public PermissionModel Get(int id)
         {
+
+
+
             throw new NotImplementedException();
         }
 
