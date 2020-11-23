@@ -16,5 +16,6 @@ namespace APIDataAccess.DataAccess
         spPermission_Delete,
         spPermission_Create,
         spPermission_DeleteByUserId,
+        spPermission_GetPendingPermissions,
     }
 }
