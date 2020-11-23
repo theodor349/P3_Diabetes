@@ -25,7 +25,7 @@ namespace APIDataAccess.Tests
 
             var sql = Substitute.For<ISqlDataAccess>();
 
-            sql.LoadData<NotificationSettingModel, dynamic>("spNotificationSetting_GetByUser", Arg.Any<object>(), "DDB").
+            sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetByUser.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<NotificationSettingModel>() { new NotificationSettingModel()});
 
             var data = new NotificationSettingAccess(sql);
@@ -41,7 +41,7 @@ namespace APIDataAccess.Tests
 
             var sql = Substitute.For<ISqlDataAccess>();
 
-            sql.LoadData<NotificationSettingModel, dynamic>("spNotificationSetting_GetByUser", Arg.Any<object>(), "DDB").
+            sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetByUser.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<NotificationSettingModel>() { new NotificationSettingModel() , new NotificationSettingModel() });
 
             var data = new NotificationSettingAccess(sql);
