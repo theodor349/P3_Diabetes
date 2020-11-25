@@ -17,17 +17,17 @@ namespace APIDataAccess.DataAccess
         }
         public UpdatePermissionDBModel Get(int id)
         {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_Get", new { id }, "DDB").FirstOrDefault();
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), new { id }, "DDB").FirstOrDefault();
         }
 
         public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
         {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByWatcherId", new { watcherId }, "DDB");
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), new { watcherId }, "DDB");
         }
 
         public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
         {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", new { Id = targetId }, "DDB");
+            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByTargetId.ToString(), new { Id = targetId }, "DDB");
         }
 
         public void Update(UpdatePermissionDBModel updatedPermission)
