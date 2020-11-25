@@ -74,7 +74,7 @@
     <Build Include="dbo\Store Procedures\spPermission_Delete.sql" />
     <Build Include="dbo\Store Procedures\spPermission_Create.sql" />
     <Build Include="dbo\Store Procedures\spPermission_DeleteByUserId.sql" />
-    <Build Include="dbo\Store Procedures\Copy of spAccount_GetPendingPermissions.sql" />
+    <Build Include="dbo\Store Procedures\spPermission_GetPendingPermissions.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DiabetesDB.refactorlog" />
