@@ -3,7 +3,6 @@ using APIDataAccess.Models.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace APIDataAccess.DataAccess
 {
@@ -53,36 +52,6 @@ namespace APIDataAccess.DataAccess
         public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
         {
             return _sqlDataAccess.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
-        }
-
-        public Dictionary<string, int> GetPermissionAttributes(UpdatePermissionDBModel[] permissions)
-        {
-            Dictionary<string, int> flagDictionary = new Dictionary<string, int>();
-
-            foreach(UpdatePermissionDBModel permission in permissions) {
-                // check which attributes there is access to right now
-                if (IsPermissionActive(permission))
-                {
-                    //check if key already exists
-                    if (flagDictionary.ContainsKey(permission.TargetID)) {
-                        flagDictionary[permission.TargetID] = flagDictionary[permission.TargetID] | permission.Attributes;
-                    } else {
-                        // add flag of attributes to dictionary with permission targetID as key
-                        flagDictionary.Add(permission.TargetID, permission.Attributes);
-                    }
-                }
-            }
-
-            return flagDictionary;
-        }
-
-        public bool IsPermissionActive(UpdatePermissionDBModel permission)
-        {
-            TimeSpan startTime = new TimeSpan(permission.startTime);
-            TimeSpan endTime = new TimeSpan(permission.endTime);
-            TimeSpan now = DateTime.Now.TimeOfDay;
-
-            return (now >= startTime) && (now < endTime);
         }
     }
 }
