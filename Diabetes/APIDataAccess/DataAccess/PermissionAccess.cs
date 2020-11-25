@@ -65,10 +65,13 @@ namespace APIDataAccess.DataAccess
                 // check which attributes there is access to right now
                 if (IsPermissionActive(permission))
                 {
-                    flag = permission.Attributes;
-
-                    // add flag of attributes to dictionary with permission targetID as key
-                    flagDictionary.Add(permission.TargetID, flag);
+                    //check if key already exists
+                    if (flagDictionary.ContainsKey(permission.TargetID)) {
+                        flagDictionary[permission.TargetID] = flagDictionary[permission.TargetID] | permission.Attributes;
+                    } else {
+                        // add flag of attributes to dictionary with permission targetID as key
+                        flagDictionary.Add(permission.TargetID, permission.Attributes);
+                    }
                 }
             }
 

@@ -239,22 +239,51 @@ namespace APIDataAccess.Tests
         #region GetPermissionAttributes
 
         [TestMethod]
-        public void GetPermissionAttributes_Exists()
+        public void GetPermissionAttributes_SinglePermission() {
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetPermissionAttributes.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
+            var data = new PermissionAccess(sql);
+
+            UpdatePermissionDBModel perm1 = new UpdatePermissionDBModel {
+                TargetID = "2",
+                startTime = DateTime.Now.TimeOfDay.Ticks,
+                endTime = DateTime.Now.AddMinutes(1).TimeOfDay.Ticks,
+                Attributes = 1
+            };
+
+            UpdatePermissionDBModel[] perms = { perm1 };
+            var res = data.GetPermissionAttributes(perms);
+
+            Assert.IsTrue(res.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetPermissionAttributes_MultiplePermissions()
         {
             var sql = Substitute.For<ISqlDataAccess>();
             sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetPermissionAttributes.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
             var data = new PermissionAccess(sql);
 
-            UpdatePermissionDBModel perm = new UpdatePermissionDBModel();
-            perm.TargetID = "2";
-            perm.startTime = DateTime.Now.TimeOfDay.Ticks;
-            perm.endTime = DateTime.Now.AddMinutes(1).TimeOfDay.Ticks;
+            UpdatePermissionDBModel perm1 = new UpdatePermissionDBModel {
+                TargetID = "2",
+                startTime = DateTime.Now.TimeOfDay.Ticks,
+                endTime = DateTime.Now.AddMinutes(1).TimeOfDay.Ticks,
+                Attributes = 1
+            };
 
-            UpdatePermissionDBModel[] perms = { perm };
+            UpdatePermissionDBModel perm2 = new UpdatePermissionDBModel {
+                TargetID = "2",
+                startTime = DateTime.Now.TimeOfDay.Ticks,
+                endTime = DateTime.Now.AddMinutes(1).TimeOfDay.Ticks,
+                Attributes = 12
+            };
+
+            UpdatePermissionDBModel[] perms = { perm1, perm2 };
             var res = data.GetPermissionAttributes(perms);
 
-            Assert.IsTrue(res.Count > 0);
+            Assert.AreEqual(13, res["2"]);
         }
 
         [TestMethod]
