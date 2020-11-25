@@ -52,6 +52,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         targetAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
+        targetAccount.PumpData = await Http.GetFromJsonAsync<PumpData>("api/relay/get.json");
         notifications = new List<NotificationData>()
     {
             new NotificationData(){Mesage = "Message 1", Type = NotificationType.Message, Name = "Theodor Risager", LongMessage = "Theodor Risager's pump is low on Insulin", IconClassName = "fa fa-thermometer-quarter"},

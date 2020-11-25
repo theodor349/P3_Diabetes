@@ -14,5 +14,6 @@ namespace PWA.Models
         public string PhoneNumber { get; set; }
         public string NSLink { get; set; }
         public bool IsEUMeasure { get; set; }
+        public PumpData PumpData { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace PWA.Models
         public string Mesage { get; set; }
         public string LongMessage { get; set; }
         public string IconClassName { get; set; }
+        public float Threshold { get; set; }
     }
 }

@@ -88,15 +88,6 @@
         low = await Http.GetFromJsonAsync<NotificationSetting>("api/notificationsetting/getLow.json");
     }
 
-    class PumpData
-    {
-        public float BloodGlucose { get; set; }
-        public float BatteryStatus { get; set; }
-        public float Delta { get; set; }
-        public float InsulinStatus { get; set; }
-        public int Minutes { get; set; }
-    }
-
     class NotificationSetting
     {
         public float Threshold { get; set; }
