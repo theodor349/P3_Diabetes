@@ -1,9 +1,20 @@
 {
-  "ID":  "abc1234",
-  "FirstName":  "Theodor",
-  "LastName":  "Risager",
-  "Email": "theodor349@gmail.com",
-  "PhoneNumber":  "12345678",
-  "NSLink": "",
-  "IsEUMeasure":  true
+  "Subjects": [
+    {
+      "ID": "abc1234",
+      "FirstName": "Fornavn",
+      "LastName": "Risager",
+      "Email": "theodor349@gmail.com",
+      "PhoneNumber": "12345678",
+      "NSLink": "",
+      "IsEUMeasure": true,
+      "PumpData": {
+        "BloodGlucose": 7.7,
+        "BatteryStatus": 0.3,
+        "Delta": 0.6,
+        "InsulinStatus": 0.1,
+        "Minutes": 6
+      }
+    }
+  ]
 }

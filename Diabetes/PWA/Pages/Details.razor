@@ -1,9 +1,9 @@
 ﻿@inject HttpClient Http
 
-@if (account != null)
+@if (subject != null)
 {
     <header class="profileName">
-        <h1>@account.FirstName @account.LastName</h1>
+        <h1>@subject.FirstName @subject.LastName</h1>
     </header>
     <StatsContainer></StatsContainer>
 
@@ -42,11 +42,11 @@
 }
 else
 {
-    <p>Loading...</p>
+    <p>Loading... Target Subject</p>
 }
 
 @code {
-    [Parameter] public Account account { get; set; }
+    [Parameter] public Subject subject { get; set; }
     [Parameter] public List<NotificationData> notifications { get; set; }
     [Parameter] public EventCallback<NotificationData> notificationClicked { get; set; }
     private bool isNote = true;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PWA.Models
 {
-    public class Account
+    public class Subject
     {
         public string ID { get; set; }
         public string FirstName { get; set; }

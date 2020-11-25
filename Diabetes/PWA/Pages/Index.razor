@@ -3,11 +3,13 @@
 
 @if (loggedInUser != null)
 {
+    <SubjectsUpdater subjectsUpdated="SubjectsUpdated" user="loggedInUser"></SubjectsUpdater>
+
     @if (focusedNotification.Count > 0)
     {
         <FullscreenNotification notificationData="focusedNotification.First()" notificationButtonClicked="NotificationButtonClicked"></FullscreenNotification>
     }
-    else 
+    else
     {
         @if (page == 1)
         {
@@ -19,7 +21,7 @@
         }
         else
         {
-            <Details account="targetAccount" notifications="notifications" notificationClicked="NotificationClicked"></Details>
+            <Details subject="targetSubject" notifications="notifications" notificationClicked="NotificationClicked"></Details>
         }
 
         <section class="navMenu">
@@ -40,30 +42,22 @@ else
     <Login loggedIn="(user) => loggedInUser = user"></Login>
 }
 
-
-
 @code {
     private int page = 0;
-    private Account targetAccount;
+    private Subject targetSubject;
+    private Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
     private LoginUser loggedInUser;
     private List<NotificationData> notifications = new List<NotificationData>();
     private Stack<NotificationData> focusedNotification = new Stack<NotificationData>();
 
     protected override async Task OnInitializedAsync()
     {
-        targetAccount = await Http.GetFromJsonAsync<Account>("api/account/get.json");
-        targetAccount.PumpData = await Http.GetFromJsonAsync<PumpData>("api/relay/get.json");
         notifications = new List<NotificationData>()
-    {
+        {
             new NotificationData(){Mesage = "Message 1", Type = NotificationType.Message, Name = "Theodor Risager", LongMessage = "Theodor Risager's pump is low on Insulin", IconClassName = "fa fa-thermometer-quarter"},
             new NotificationData(){Mesage = "Warning 1", Type = NotificationType.Warning, Name = "Thomas Bowman", LongMessage = "Thomas Bowman's pump is low on Insulin", IconClassName = "fa fa-thermometer-quarter"},
             new NotificationData(){Mesage = "Message 2", Type = NotificationType.Message, Name = "Tais Hors" , LongMessage = "Tais Hors is a little tired", IconClassName = "fa fa-thermometer-quarter"},
         };
-    }
-
-    private void NotificationClicked(NotificationData data)
-    {
-        focusedNotification.Push(data);
     }
 
     private void SetPage(int p)
@@ -71,10 +65,46 @@ else
         page = p;
     }
 
+    private void SubjectsUpdated(SubjectList subjectList)
+    {
+        foreach (var subject in subjectList.Subjects)
+        {
+            Console.WriteLine(subject);
+            UpdateSubject(subject);
+        }
+    }
+
+    private void UpdateSubject(Subject s)
+    {
+        if (targetSubject == null)
+            targetSubject = s;
+        else if(s.ID.Equals(targetSubject.ID))
+            targetSubject = s;
+
+        if (subjects.ContainsKey(s.ID))
+            subjects[s.ID] = s;
+        else
+            subjects.Add(s.ID, s);
+    }
+
+    private void NewTargetSubject(string id)
+    {
+        targetSubject = subjects[id];
+    }
+
+    /// <summary>
+    /// TEMP
+    /// </summary>
+
     private void NotificationButtonClicked(NotificationButtonType type)
     {
         var n = focusedNotification.Pop();
         if (type == NotificationButtonType.Dismiss)
             notifications.Remove(n);
+    }
+
+    private void NotificationClicked(NotificationData data)
+    {
+        focusedNotification.Push(data);
     }
 }

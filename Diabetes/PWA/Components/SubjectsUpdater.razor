@@ -1,0 +1,27 @@
+﻿@inject HttpClient Http
+
+@code {
+    [Parameter] public LoginUser user { get; set; }
+    [Parameter] public EventCallback<SubjectList> subjectsUpdated { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("Update Started");
+        await Update();
+    }
+
+    private async Task Update()
+    {
+        Console.WriteLine("Update");
+        var subjects = await GetData(user.UserID);
+        await subjectsUpdated.InvokeAsync(subjects);
+
+        await Task.Delay(1000);
+        Update();
+    }
+
+    private async Task<SubjectList> GetData(string id)
+    {
+        return await Http.GetFromJsonAsync<SubjectList>("api/account/get.json");
+    }
+}
