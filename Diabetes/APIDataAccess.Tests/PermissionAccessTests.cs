@@ -5,20 +5,18 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace APIDataAccess.Tests
 {
     [TestClass]
-    public class PermissionAccessTests
+    public class PermissionAccessTests {
+        #region Get
 
-    #region Get
-    {
         [TestMethod]
         public void Get_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
             var data = new PermissionAccess(sql);
 
@@ -31,7 +29,7 @@ namespace APIDataAccess.Tests
         public void Get_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_Get", Arg.Any<object>(), "DDB").
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>());
 
             var data = new PermissionAccess(sql);
@@ -49,7 +47,7 @@ namespace APIDataAccess.Tests
         public void GetByWatcherId_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByWatcherId", Arg.Any<object>(), "DDB").
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>());
 
             var data = new PermissionAccess(sql);
@@ -63,7 +61,7 @@ namespace APIDataAccess.Tests
         public void GetByWatcherId_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByWatcherId", Arg.Any<object>(), "DDB").
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>() {new UpdatePermissionDBModel()});
 
             var data = new PermissionAccess(sql);
@@ -80,7 +78,7 @@ namespace APIDataAccess.Tests
         public void GetByTargetId_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByTargetId.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>());
 
             var data = new PermissionAccess(sql);
@@ -94,7 +92,7 @@ namespace APIDataAccess.Tests
         public void GetByTargetId_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<UpdatePermissionDBModel, dynamic>("spPermission_GetByTargetId", Arg.Any<object>(), "DDB").
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByTargetId.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
 
             var data = new PermissionAccess(sql);
@@ -305,6 +303,5 @@ namespace APIDataAccess.Tests
         }
 
         #endregion
-
     }
 }

@@ -60,8 +60,6 @@ namespace APIDataAccess.DataAccess
             Dictionary<string, int> flagDictionary = new Dictionary<string, int>();
 
             foreach(UpdatePermissionDBModel permission in permissions) {
-                int flag = 0;
-
                 // check which attributes there is access to right now
                 if (IsPermissionActive(permission))
                 {
