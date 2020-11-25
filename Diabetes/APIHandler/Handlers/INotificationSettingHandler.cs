@@ -5,7 +5,7 @@ namespace APIHandler.Handlers
 {
     public interface INotificationSettingHandler
     {
-        void CreateStandartSettings(string userId);
+        void CreateStandardSettings(string userId);
         void DeleteByUserId(string userId);
         List<NotificationSettingModel> Get(string userId);
         void Update(UpdateNotificationSettingModel model);

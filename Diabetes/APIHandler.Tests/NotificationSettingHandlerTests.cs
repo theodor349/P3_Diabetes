@@ -1,0 +1,55 @@
+﻿using APIDataAccess.DataAccess;
+using APIHandler.Handlers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using APIHandler.Utils; 
+
+
+namespace APIHandler.Tests
+{
+    [TestClass]
+    public class NotificationSettingHandlerTests
+    {
+        #region CreateStandardSettings
+
+        [TestMethod]
+        public void getvalue()
+        {
+            var config = Substitute.For<IConfiguration>();
+            var  notificationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
+            var util = Substitute.For<NotificationsSettingsUtils>(config);
+            util.GetDefaultValue("High", "Threshold").Returns("8");
+            util.GetDefaultValue("High", "ThresholdType").Returns("High");
+            util.GetDefaultValue("High", "NotificationType").Returns("Warning");
+            util.GetDefaultValue("High", "Note").Returns("If blood sugar is high, ask patient wether he has taken some insulin. If blood sugar continues to be high, then help patient measure ketones.");
+            util.GetDefaultValue("Low", "Threshold").Returns("4");
+            util.GetDefaultValue("Low", "ThresholdType").Returns("Low");
+            util.GetDefaultValue("Low", "NotificationType").Returns("Warning");
+            util.GetDefaultValue("Low", "Note").Returns("If blood sugar is low, ask patient if they has eaten or drinken something with fast carbohydrates. If blood sugar gets(Around 2.2 or lower) keep a good eye on patient.");
+
+            NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
+
+            notificationSettingHandler.CreateStandardSettings("");
+
+            notificationSettingDataAccesser.Received(2);
+        }
+        #endregion
+
+        #region DeleteByUserId
+
+        #endregion
+
+        #region Get
+
+        #endregion
+
+        #region Update
+
+        #endregion
+
+    }
+}

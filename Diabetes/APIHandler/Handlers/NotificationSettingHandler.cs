@@ -1,4 +1,7 @@
-﻿using APIDataAccess.Models.NotificationSetting;
+﻿using APIDataAccess.DataAccess;
+using APIDataAccess.Models.NotificationSetting;
+using APIHandler.Utils;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,14 +10,44 @@ namespace APIHandler.Handlers
 {
     public class NotificationSettingHandler : INotificationSettingHandler
     {
-        public void CreateStandartSettings(string userId)
+        private readonly INotificationSettingAccess notificationSettingAccess;
+        private readonly INotificationsSettingsUtils notificationsSettingsUtils;
+
+        public NotificationSettingHandler(INotificationSettingAccess notificationSettingAccess, INotificationsSettingsUtils notificationsSettingsUtils)
         {
-            throw new NotImplementedException();
+            this.notificationSettingAccess = notificationSettingAccess;
+            this.notificationsSettingsUtils = notificationsSettingsUtils;
         }
 
-        private void Create(CreateNotificationSettingModel model)
+        private float ConvertThresholdValue(string threshold)
         {
-            throw new NotImplementedException();
+            return float.Parse(threshold);
+        }
+
+        private ThresholdType ConvertThresholdType(string thresholdType)
+        {
+            if (thresholdType == "High")
+                return ThresholdType.High;
+            else
+                return ThresholdType.Low; 
+        }
+
+        private NotificationType ConvertNotificationType(string notificationType)
+        {
+            if (notificationType == "Warning")
+                return NotificationType.Warning;
+            else
+                return NotificationType.Message;
+        }
+
+        private CreateNotificationSettingModel CreateDefault(string ownerID, string type)
+        {
+            float threshold = ConvertThresholdValue(notificationsSettingsUtils.GetDefaultValue(type, "Threshold"));
+            ThresholdType thresholdType = ConvertThresholdType(notificationsSettingsUtils.GetDefaultValue(type, "Thresholdtype"));
+            NotificationType notificationType = ConvertNotificationType(notificationsSettingsUtils.GetDefaultValue(type, "NotificationType"));
+            string note = notificationsSettingsUtils.GetDefaultValue(type, "Note");
+
+            return new CreateNotificationSettingModel(ownerID, threshold, thresholdType, notificationType, note);
         }
 
         public List<NotificationSettingModel> Get(string userId)
@@ -30,6 +63,16 @@ namespace APIHandler.Handlers
         public void DeleteByUserId(string userId)
         {
             throw new NotImplementedException();
+        }
+
+        public void CreateStandardSettings(string userId)
+        {
+            CreateNotificationSettingModel model1 = CreateDefault(userId, "High");
+
+            CreateNotificationSettingModel model2 = CreateDefault(userId, "Low");
+
+            notificationSettingAccess.Create(model1);
+            notificationSettingAccess.Create(model2);
         }
     }
 }
