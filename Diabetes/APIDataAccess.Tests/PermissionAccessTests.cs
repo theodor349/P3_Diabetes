@@ -205,7 +205,75 @@ namespace APIDataAccess.Tests
 
         #endregion
 
-        #region 
+        #region GetPendingPermissions
+
+        [TestMethod]
+        public void GetPendingPermissions_Exists()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<RequestPermissionDBModel>() { new RequestPermissionDBModel() });
+            var data = new PermissionAccess(sql);
+
+            var res = data.GetPendingPermissions("2");
+
+            Assert.IsTrue(res != null);
+        }
+
+        [TestMethod]
+        public void GetPendingPermissions_NotExists()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPermissionAttributes.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<RequestPermissionDBModel>());
+
+            var data = new PermissionAccess(sql);
+
+            var res = data.GetPendingPermissions("2");
+
+            Assert.AreEqual(null, res);
+        }
+
+        #endregion
+
+        #region GetPermissionAttributes
+
+        [TestMethod]
+        public void GetPermissionAttributes_Exists()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetPermissionAttributes.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>() { new UpdatePermissionDBModel() });
+            var data = new PermissionAccess(sql);
+
+            UpdatePermissionDBModel perm = new UpdatePermissionDBModel();
+            perm.TargetID = "2";
+            perm.startTime = DateTime.Now.TimeOfDay.Ticks;
+            perm.endTime = DateTime.Now.AddMinutes(1).TimeOfDay.Ticks;
+
+            UpdatePermissionDBModel[] perms = { perm };
+            var res = data.GetPermissionAttributes(perms);
+
+            Assert.IsTrue(res.Count > 0);
+        }
+
+        [TestMethod]
+        public void GetPermissionAttributes_NotExists()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<UpdatePermissionDBModel>());
+
+            var data = new PermissionAccess(sql);
+
+            UpdatePermissionDBModel perm = new UpdatePermissionDBModel();
+            perm.TargetID = "2";
+
+            UpdatePermissionDBModel[] perms = { perm };
+            Dictionary<string, int> res = data.GetPermissionAttributes(perms);
+
+            Assert.AreEqual(res.Count, 0);
+        }
 
         #endregion
 

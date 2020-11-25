@@ -12,7 +12,7 @@ namespace APIDataAccess.DataAccess
         List<UpdatePermissionDBModel> GetByTargetId(string targetId);
         List<UpdatePermissionDBModel> GetByWatcherId(string watcherId);
         List<RequestPermissionDBModel> GetPendingPermissions(string userId);
-        int GetPermissionActtributes(List<UpdatePermissionDBModel> permissions);
+        Dictionary<string, int> GetPermissionAttributes(UpdatePermissionDBModel[] permissions);
         void Update(UpdatePermissionDBModel updatedPermission);
     }
 }

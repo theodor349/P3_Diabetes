@@ -55,9 +55,33 @@ namespace APIDataAccess.DataAccess
             return _sqlDataAccess.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
         }
 
-        public int GetPermissionActtributes(List<UpdatePermissionDBModel> permissions)
+        public Dictionary<string, int> GetPermissionAttributes(UpdatePermissionDBModel[] permissions)
         {
-            throw new NotImplementedException();
+            Dictionary<string, int> flagDictionary = new Dictionary<string, int>();
+
+            foreach(UpdatePermissionDBModel permission in permissions) {
+                int flag = 0;
+
+                // check which attributes there is access to right now
+                if (IsPermissionActive(permission))
+                {
+                    flag = permission.Attributes;
+
+                    // add flag of attributes to dictionary with permission targetID as key
+                    flagDictionary.Add(permission.TargetID, flag);
+                }
+            }
+
+            return flagDictionary;
+        }
+
+        public bool IsPermissionActive(UpdatePermissionDBModel permission)
+        {
+            TimeSpan startTime = new TimeSpan(permission.startTime);
+            TimeSpan endTime = new TimeSpan(permission.endTime);
+            TimeSpan now = DateTime.Now.TimeOfDay;
+
+            return (now >= startTime) && (now < endTime);
         }
     }
 }
