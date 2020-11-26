@@ -39,25 +39,25 @@ namespace APIDataAccess.Internal.DataAccess
             }
         }
 
-        public void SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
+        public int SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 
             using (IDbConnection cnn = new SqlConnection(connectionString))
             {
-                cnn.Execute(
+                return cnn.Execute(
                     storedProcedure, parameters,
                     commandType: CommandType.StoredProcedure);
             }
         }
 
-        public void DeleteData<T>(string storedProcedure, T parameters, string connectionStringName)
+        public int DeleteData<T>(string storedProcedure, T parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
 
             using (IDbConnection cnn = new SqlConnection(connectionString))
             {
-                cnn.Execute(
+                return cnn.Execute(
                     storedProcedure, parameters,
                     commandType: CommandType.StoredProcedure);
             }

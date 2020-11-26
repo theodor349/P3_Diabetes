@@ -61,22 +61,30 @@ namespace APIHandler.Handlers
             return (now >= startTime) && (now < endTime);
         }
 
-        public void Create(RequestPermissionDBModel request) {
+        public int Create(RequestPermissionDBModel request) {
             permissionAccess.Create(request);
         }
 
-        public void Update(UpdatePermissionDBModel updatedPermission)
+        public int Update(UpdatePermissionDBModel updatedPermission)
         {
             permissionAccess.Update(updatedPermission);
         }
 
-        public void Delete(int id)
+        public int Delete(int id)
         {
-            permissionAccess.Delete(id);
+            return permissionAccess.Delete(id);
         }
 
-        public void DeleteByUserId(string userId) {
+        public int DeleteByUserId(string userId) {
             permissionAccess.DeleteByUserId(userId);
+        }
+
+        public int AcceptPermissionRequest(int id) {
+            return permissionAccess.AcceptPermissionRequest(id);
+        }
+
+        public int DenyPermissionRequest(int id) {
+            return permissionAccess.DenyPermissionRequest(id);
         }
     }
 }

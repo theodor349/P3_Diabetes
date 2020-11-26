@@ -34,9 +34,9 @@ namespace APIDataAccess.DataAccess
             _sqlDataAccess.SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), updatedPermission, "DDB");
         }
 
-        public void Delete(int id)
+        public int Delete(int id)
         {
-            _sqlDataAccess.DeleteData(SpCommands.spPermission_Delete.ToString(), new {Id = id }, "DDB");
+            return _sqlDataAccess.DeleteData(SpCommands.spPermission_Delete.ToString(), new {Id = id }, "DDB");
         }
 
         public void Create(RequestPermissionDBModel request)
@@ -52,6 +52,14 @@ namespace APIDataAccess.DataAccess
         public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
         {
             return _sqlDataAccess.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
+        }
+
+        public int AcceptPermissionRequest(int id) {
+            return _sqlDataAccess.SaveData(SpCommands.spPermission_AcceptPermissionRequest.ToString(), new { Id = id, Accepted = true }, "DDB");
+        }
+
+        public int DenyPermissionRequest(int id) {
+            return Delete(id);
         }
     }
 }
