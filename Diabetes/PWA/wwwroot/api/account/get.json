@@ -2,19 +2,30 @@
   "Subjects": [
     {
       "ID": "abc1234",
-      "FirstName": "Fornavn",
-      "LastName": "Risager",
+      "FirstName": "Tais",
+      "LastName": "Hors",
       "Email": "theodor349@gmail.com",
       "PhoneNumber": "12345678",
       "NSLink": "",
       "IsEUMeasure": true,
       "PumpData": {
-        "BloodGlucose": 7.7,
+        "BloodGlucose": 7.6,
         "BatteryStatus": 0.3,
         "Delta": 0.6,
         "InsulinStatus": 0.1,
         "Minutes": 6
-      }
+      },
+      "NotificationDatas": [
+        {
+          "Name": "Tais Hors",
+          "Type": 0,
+          "Title": "High Blood Sugar",
+          "Note": "You need to make sure Tais Hors consumes some insulin",
+          "IconClassName": "fa fa-thermometer-quarter",
+          "Threshold": 10.0,
+          "ThresholdType":  1
+        }
+      ]
     }
   ]
 }

@@ -10,13 +10,13 @@
                 if (notification.Type == NotificationType.Message)
                 {
                     <div class="message" @onclick="() => NotificationClicked(notification)">
-                        <p>@notification.Mesage</p>
+                        <p>@notification.Title</p>
                     </div>
                 }
                 else
                 {
                     <div class="warning" @onclick="() => NotificationClicked(notification)">
-                        <p>@notification.Mesage</p>
+                        <p>@notification.Title</p>
                     </div>
                 }
             }
