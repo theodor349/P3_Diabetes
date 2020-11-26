@@ -62,12 +62,12 @@ namespace APIHandler.Handlers
         }
 
         public int Create(RequestPermissionDBModel request) {
-            permissionAccess.Create(request);
+            return permissionAccess.Create(request);
         }
 
         public int Update(UpdatePermissionDBModel updatedPermission)
         {
-            permissionAccess.Update(updatedPermission);
+            return permissionAccess.Update(updatedPermission);
         }
 
         public int Delete(int id)
@@ -76,7 +76,7 @@ namespace APIHandler.Handlers
         }
 
         public int DeleteByUserId(string userId) {
-            permissionAccess.DeleteByUserId(userId);
+            return permissionAccess.DeleteByUserId(userId);
         }
 
         public int AcceptPermissionRequest(int id) {

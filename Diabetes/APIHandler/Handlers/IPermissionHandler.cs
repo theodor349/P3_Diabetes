@@ -6,9 +6,9 @@ namespace APIHandler.Handlers
     public interface IPermissionHandler
     {
         int AcceptPermissionRequest(int id);
-        void Create(RequestPermissionDBModel request);
+        int Create(RequestPermissionDBModel request);
         int Delete(int id);
-        void DeleteByUserId(string userId);
+        int DeleteByUserId(string userId);
         int DenyPermissionRequest(int id);
         UpdatePermissionDBModel Get(int id);
         List<UpdatePermissionDBModel> GetByTargetId(string targetId);
