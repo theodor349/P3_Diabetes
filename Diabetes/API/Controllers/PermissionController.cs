@@ -84,6 +84,8 @@ namespace API.Controllers
         [Route("AcceptPermissionRequest")]
         public ActionResult AcceptPermissionRequest(int id)
         {
+            //check for valid id
+
             if (permissionHandler.AcceptPermissionRequest(id) == 1)
                 return Ok();
             else

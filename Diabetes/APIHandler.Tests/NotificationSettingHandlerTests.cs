@@ -66,8 +66,7 @@ namespace APIHandler.Tests
             var notificationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
             NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
 
-            noti            breakingshit();
-ficationSettingHandler.Get("userId");
+            notificationSettingHandler.Get("userId");
 
             notificationSettingDataAccesser.Received(1).Get(Arg.Any<string>());
         }
