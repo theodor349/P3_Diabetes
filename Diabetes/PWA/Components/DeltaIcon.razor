@@ -1,0 +1,16 @@
+﻿@if (Delta > 0.5)
+{
+    <p>&#9757;</p>
+}
+else if (Delta < -0.5)
+{
+    <p>&#9759;</p>
+}
+else
+{
+    <p class="fa fa-long-arrow-right"></p>
+}
+
+@code {
+    [Parameter] public float Delta { get; set; }
+}

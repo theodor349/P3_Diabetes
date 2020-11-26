@@ -7,17 +7,20 @@
 
             @foreach (var notification in notifications.Values)
             {
-                if (notification.Data.Type == NotificationType.Message)
+                if (notification.Subject.ID.Equals(SubjectID))
                 {
-                    <div class="message" @onclick="() => NotificationClicked(notification)">
-                        <p>@notification.Data.Title</p>
-                    </div>
-                }
-                else
-                {
-                    <div class="warning" @onclick="() => NotificationClicked(notification)">
-                        <p>@notification.Data.Title</p>
-                    </div>
+                    if (notification.Data.Type == NotificationType.Message)
+                    {
+                        <div class="message" @onclick="() => NotificationClicked(notification)">
+                            <p>@notification.Data.Title</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="warning" @onclick="() => NotificationClicked(notification)">
+                            <p>@notification.Data.Title</p>
+                        </div>
+                    }
                 }
             }
         }
@@ -27,6 +30,7 @@
 @code {
     [Parameter] public Dictionary<string, ActiveNotification> notifications { get; set; }
     [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
+    [Parameter] public string SubjectID { get; set; }
 
     private async Task NotificationClicked(ActiveNotification data)
     {

@@ -16,5 +16,10 @@ namespace PWA.Models
         public bool IsEUMeasure { get; set; }
         public PumpData PumpData { get; set; }
         public List<NotificationData> NotificationDatas { get; set; }
+
+        public string GetName()
+        {
+            return FirstName + " " + LastName;
+        }
     }
 }

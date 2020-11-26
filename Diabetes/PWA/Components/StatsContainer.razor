@@ -3,26 +3,7 @@
     <div class="detailedSecondaryView">
         <div>
             <div>
-                @if (data.BatteryStatus > 0.80f)
-                {
-                    <i class="fa fa-battery-4"></i>
-                }
-                else if (data.BatteryStatus > 0.60f)
-                {
-                    <i class="fa fa-battery-3"></i>
-                }
-                else if (data.BatteryStatus > 0.35f)
-                {
-                    <i class="fa fa-battery-2"></i>
-                }
-                else if (data.BatteryStatus > 0.10f)
-                {
-                    <i class="fa fa-battery-1"></i>
-                }
-                else
-                {
-                    <i class="fa fa-battery-0"></i>
-                }
+                <BatteryIcon BatteryStatus="data.BatteryStatus"></BatteryIcon>
             </div>
             <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100f)%</p>
         </div>
@@ -41,18 +22,7 @@
                 <p>@(data.Minutes)m</p>
             </div>
             <div>
-                @if (data.Delta > 0.5)
-                {
-                    <p>&#9757;</p>
-                }
-                else if (data.Delta < -0.5)
-                {
-                    <p>&#9759;</p>
-                }
-                else
-                {
-                    <p class="fa fa-long-arrow-right"></p>
-                }
+                <DeltaIcon Delta="data.Delta"></DeltaIcon>
             </div>
         </div>
     </div>

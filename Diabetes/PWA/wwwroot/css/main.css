@@ -54,7 +54,6 @@ header h1 {
 
 
 .scrollbar {
-    overflow-y: scroll;
     background: #555;
 }
 
@@ -129,17 +128,13 @@ header h1 {
     border-top-right-radius: 5px;
 }
 
-    .overviewHeader > a {
+    .overviewHeader > div {
         width: 50%;
     }
 
-    .overviewHeader > a {
+    .overviewHeader > div {
         color: inherit;
     }
-
-        .overviewHeader > a:visited {
-            color: inherit;
-        }
 
     .overviewHeader div {
         padding: 5px;

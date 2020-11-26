@@ -13,7 +13,7 @@
     {
         @if (page == 1)
         {
-            <OverView></OverView>
+            <OverView Subjects="subjects" TargetSubjectChanged="NewTargetSubject"></OverView>
         }
         else if (page == 2)
         {
@@ -25,15 +25,42 @@
         }
 
         <section class="navMenu">
-            <div @onclick="() => SetPage(0)">
-                <i class="fa fa-user-circle-o"></i>
-            </div>
-            <div @onclick="() => SetPage(1)">
-                <i class="fa fa-users"></i>
-            </div>
-            <div @onclick="() => SetPage(2)">
-                <i class="fa fa-gear"></i>
-            </div>
+            @if (page == 0)
+            {
+                <div class="focus" @onclick="() => SetPage(0)">
+                    <i class="fa fa-user-circle-o"></i>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => SetPage(0)">
+                    <i class="fa fa-user-circle-o"></i>
+                </div>
+            }
+            @if (page == 1)
+            {
+                <div class="focus" @onclick="() => SetPage(1)">
+                    <i class="fa fa-users"></i>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => SetPage(1)">
+                    <i class="fa fa-users"></i>
+                </div>
+            }
+            @if (page == 2)
+            {
+                <div class="focus" @onclick="() => SetPage(2)">
+                    <i class="fa fa-gear"></i>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => SetPage(2)">
+                    <i class="fa fa-gear"></i>
+                </div>
+            }
         </section>
     }
 }
@@ -81,6 +108,7 @@ else
     private void NewTargetSubject(string id)
     {
         targetSubject = subjects[id];
+        SetPage(0);
     }
 
 

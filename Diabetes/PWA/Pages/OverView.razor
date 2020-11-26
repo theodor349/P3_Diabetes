@@ -1,26 +1,51 @@
 ﻿<header class="overviewHeader">
-    <a href="overview.html"> <div class="focus"><i class="fa fa-users"></i></div> </a>
-    <a href="overviewNotifications.html"> <div><i class="fa fa-bell"></i></div> </a>
+    @if (page == 0)
+    {
+        <div class="focus" @onclick="() => SetPage(0)">
+            <i class="fa fa-users"></i>
+        </div>
+    }
+    else
+    {
+        <div @onclick="() => SetPage(0)">
+            <i class="fa fa-users"></i>
+        </div>
+    }
+    @if (page == 1)
+    {
+        <div class="focus" @onclick="() => SetPage(1)">
+            <i class="fa fa-bell"></i>
+        </div>
+    }
+    else
+    {
+        <div @onclick="() => SetPage(1)">
+            <i class="fa fa-bell"></i>
+        </div>
+    }
+    
 </header>
 
 <section class="overviewContainer">
-
     <div class="scrollbar">
-        <a href="details.html">
-            <div class="stabile">
-                <h3>Thomas Bowman</h3>
-                <div>
-                    <div class="bloodGlucose"> <p>7.7</p> <i class="fa fa-long-arrow-right"></i></div>
-                    <div> <i class="fa fa-battery-2"></i> </div>
-                    <div> <i class="fa fa-thermometer-half"></i> </div>
-                </div>
-            </div>
-        </a>
-
+        @if (Subjects != null)
+        {
+            @foreach (var subject in Subjects.Values)
+	        {
+		        <SmallDetailComponent Subject="subject" TargetSubjectChanged="TargetSubjectChanged"></SmallDetailComponent>
+	        }
+        }
     </div>
-
 </section>
 
 @code {
+    [Parameter] public Dictionary<string, Subject> Subjects { get; set; }
+    [Parameter] public EventCallback<string> TargetSubjectChanged { get; set; }
 
+    private int page = 0;
+
+    private void SetPage(int p)
+    {
+        page = p;
+    }
 }
