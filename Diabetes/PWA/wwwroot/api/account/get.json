@@ -9,7 +9,7 @@
       "NSLink": "",
       "IsEUMeasure": true,
       "PumpData": {
-        "BloodGlucose": 7.6,
+        "BloodGlucose": 1.0,
         "BatteryStatus": 0.3,
         "Delta": 0.6,
         "InsulinStatus": 0.1,
@@ -23,7 +23,16 @@
           "Note": "You need to make sure Tais Hors consumes some insulin",
           "IconClassName": "fa fa-thermometer-quarter",
           "Threshold": 10.0,
-          "ThresholdType":  1
+          "ThresholdType": 1
+        },
+        {
+          "Name": "Tais Hors",
+          "Type": 1,
+          "Title": "Low Blood Sugar",
+          "Note": "You need to make sure Tais Hors consumes a juice",
+          "IconClassName": "fa fa-thermometer-quarter",
+          "Threshold": 4.0,
+          "ThresholdType": 0
         }
       ]
     }

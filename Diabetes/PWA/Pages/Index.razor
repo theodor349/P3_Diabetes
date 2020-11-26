@@ -5,9 +5,9 @@
 {
     <SubjectsUpdater subjectsUpdated="SubjectsUpdated" user="loggedInUser"></SubjectsUpdater>
 
-    @if (focusedNotification.Count > 0)
+    @if (focusedNotifications.Count > 0)
     {
-        <FullscreenNotification notificationData="focusedNotification.First()" notificationButtonClicked="NotificationButtonClicked"></FullscreenNotification>
+        <FullscreenNotification notificationData="focusedNotifications.First()" notificationButtonClicked="NotificationButtonClicked"></FullscreenNotification>
     }
     else
     {
@@ -21,7 +21,7 @@
         }
         else
         {
-            <Details subject="targetSubject" notifications="notifications" notificationClicked="NotificationClicked"></Details>
+            <Details subject="targetSubject" activeNotifications="activeNotifications" notificationClicked="NotificationClicked"></Details>
         }
 
         <section class="navMenu">
@@ -44,21 +44,11 @@ else
 
 @code {
     private int page = 0;
+    private LoginUser loggedInUser;
     private Subject targetSubject;
     private Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
-    private LoginUser loggedInUser;
-    private List<NotificationData> notifications = new List<NotificationData>();
-    private Stack<NotificationData> focusedNotification = new Stack<NotificationData>();
-
-    protected override async Task OnInitializedAsync()
-    {
-        notifications = new List<NotificationData>()
-        {
-            new NotificationData(){Title = "Message 1", Type = NotificationType.Message, Name = "Theodor Risager", Note = "Theodor Risager's pump is low on Insulin", IconClassName = "fa fa-thermometer-quarter"},
-            new NotificationData(){Title = "Warning 1", Type = NotificationType.Warning, Name = "Thomas Bowman", Note = "Thomas Bowman's pump is low on Insulin", IconClassName = "fa fa-thermometer-quarter"},
-            new NotificationData(){Title = "Message 2", Type = NotificationType.Message, Name = "Tais Hors" , Note = "Tais Hors is a little tired", IconClassName = "fa fa-thermometer-quarter"},
-        };
-    }
+    private Dictionary<string, ActiveNotification> activeNotifications = new Dictionary<string, ActiveNotification>();
+    private Stack<ActiveNotification> focusedNotifications = new Stack<ActiveNotification>();
 
     private void SetPage(int p)
     {
@@ -71,6 +61,7 @@ else
         {
             Console.WriteLine(subject);
             UpdateSubject(subject);
+            UpdateNotifications(subject);
         }
     }
 
@@ -78,7 +69,7 @@ else
     {
         if (targetSubject == null)
             targetSubject = s;
-        else if(s.ID.Equals(targetSubject.ID))
+        else if (s.ID.Equals(targetSubject.ID))
             targetSubject = s;
 
         if (subjects.ContainsKey(s.ID))
@@ -92,19 +83,60 @@ else
         targetSubject = subjects[id];
     }
 
-    /// <summary>
-    /// TEMP
-    /// </summary>
+
+    // Notification
+    private void UpdateNotifications(Subject s)
+    {
+        foreach (var n in s.NotificationDatas)
+        {
+            var notification = new ActiveNotification() { Subject = s, Data = n };
+            var id = notification.ToString();
+            if(n.ThresholdType == ThresholdType.High)
+            {
+                if(n.Threshold <= s.PumpData.BloodGlucose)
+                {
+                    if (!activeNotifications.ContainsKey(id))
+                        activeNotifications.Add(id, notification);
+                }
+                else
+                {
+                    if (activeNotifications.ContainsKey(id))
+                        RemoveActiveNotification(notification);
+                }
+            }
+            else
+            {
+                if (n.Threshold >= s.PumpData.BloodGlucose)
+                {
+                    if (!activeNotifications.ContainsKey(id))
+                        activeNotifications.Add(id, notification);
+                }
+                else
+                {
+                    if (activeNotifications.ContainsKey(id))
+                        RemoveActiveNotification(notification);
+                }
+            }
+        }
+    }
+
+    private void RemoveActiveNotification(ActiveNotification notification)
+    {
+        activeNotifications.Remove(notification.ToString());
+    }
 
     private void NotificationButtonClicked(NotificationButtonType type)
     {
-        var n = focusedNotification.Pop();
+        var n = focusedNotifications.Pop();
         if (type == NotificationButtonType.Dismiss)
-            notifications.Remove(n);
+            activeNotifications.Remove(n.ToString());
+
+        if (focusedNotifications.Count != 0 && focusedNotifications.Peek()?.Active == false)
+            focusedNotifications.Pop();
     }
 
-    private void NotificationClicked(NotificationData data)
+    private void NotificationClicked(ActiveNotification data)
     {
-        focusedNotification.Push(data);
+        focusedNotifications.Push(data);
     }
 }
