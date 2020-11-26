@@ -52,17 +52,17 @@ namespace APIHandler.Handlers
 
         public List<NotificationSettingModel> Get(string userId)
         {
-            throw new NotImplementedException();
+            return notificationSettingAccess.Get(userId);
         }
 
         public void Update(UpdateNotificationSettingModel model)
         {
-            throw new NotImplementedException();
+            notificationSettingAccess.Update(model);
         }
 
         public void DeleteByUserId(string userId)
         {
-            throw new NotImplementedException();
+            notificationSettingAccess.DeleteByUserId(userId);
         }
 
         public void CreateStandardSettings(string userId)
