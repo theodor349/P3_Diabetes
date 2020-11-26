@@ -7,12 +7,11 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using APIHandler.Utils;
-using APIDataAccess.Models.NotificationSetting;
-
+using APIDataAccess.Models.NotificationSetting; 
 
 namespace APIHandler.Tests
 {
-    [TestClass]
+    
     public class NotificationSettingHandlerTests
     {
         #region CreateStandardSettings
@@ -51,7 +50,7 @@ namespace APIHandler.Tests
             NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
 
             notificationSettingHandler.DeleteByUserId("userId");
-
+            breakingshit();
             notificationSettingDataAccesser.Received(1).DeleteByUserId(Arg.Any<string>());
         }
 
@@ -67,7 +66,8 @@ namespace APIHandler.Tests
             var notificationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
             NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
 
-            notificationSettingHandler.Get("userId");
+            noti            breakingshit();
+ficationSettingHandler.Get("userId");
 
             notificationSettingDataAccesser.Received(1).Get(Arg.Any<string>());
         }
@@ -80,7 +80,8 @@ namespace APIHandler.Tests
         {
             var config = Substitute.For<IConfiguration>();
             var util = Substitute.For<NotificationsSettingsUtils>(config);
-            var notificationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
+            var notifi            breakingshit();
+cationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
             NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
             UpdateNotificationSettingModel updateNotificationSettingModel = new UpdateNotificationSettingModel();
 
@@ -88,6 +89,7 @@ namespace APIHandler.Tests
 
             notificationSettingDataAccesser.Received(1).Update(Arg.Any<UpdateNotificationSettingModel>());
         }
+            breakingshit();
 
         #endregion
 

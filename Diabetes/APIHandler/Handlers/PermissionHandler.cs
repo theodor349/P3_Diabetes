@@ -11,7 +11,8 @@ namespace APIHandler.Handlers
         private readonly ISqlDataAccess sqlDataAccess;
         private readonly IPermissionAccess permissionAccess;
 
-        public PermissionHandler(ISqlDataAccess sqlDataAccess, IPermissionAccess permissionAccess) {
+        public PermissionHandler(ISqlDataAccess sqlDataAccess, IPermissionAccess permissionAccess)
+        {
             this.sqlDataAccess = sqlDataAccess;
             this.permissionAccess = permissionAccess;
         }
@@ -25,25 +26,33 @@ namespace APIHandler.Handlers
         {
             return permissionAccess.GetByTargetId(targetId);
         }
+
         public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
         {
             return permissionAccess.GetByWatcherId(watcherId);
         }
 
-        public List<RequestPermissionDBModel> GetPendingPermissions(string userId) {
+        public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
+        {
             return permissionAccess.GetPendingPermissions(userId);
         }
 
-        public Dictionary<string, int> GetPermissionAttributes(UpdatePermissionDBModel[] permissions) {
+        public Dictionary<string, int> GetPermissionAttributes(UpdatePermissionDBModel[] permissions)
+        {
             Dictionary<string, int> flagDictionary = new Dictionary<string, int>();
 
-            foreach (UpdatePermissionDBModel permission in permissions) {
+            foreach (UpdatePermissionDBModel permission in permissions)
+            {
                 // check which attributes there is access to right now
-                if (IsPermissionActive(permission)) {
+                if (IsPermissionActive(permission))
+                {
                     //check if key already exists
-                    if (flagDictionary.ContainsKey(permission.TargetID)) {
+                    if (flagDictionary.ContainsKey(permission.TargetID))
+                    {
                         flagDictionary[permission.TargetID] = flagDictionary[permission.TargetID] | permission.Attributes;
-                    } else {
+                    }
+                    else
+                    {
                         // add flag of attributes to dictionary with permission targetID as key
                         flagDictionary.Add(permission.TargetID, permission.Attributes);
                     }
@@ -53,7 +62,8 @@ namespace APIHandler.Handlers
             return flagDictionary;
         }
 
-        public bool IsPermissionActive(UpdatePermissionDBModel permission) {
+        public bool IsPermissionActive(UpdatePermissionDBModel permission)
+        {
             TimeSpan startTime = new TimeSpan(permission.startTime);
             TimeSpan endTime = new TimeSpan(permission.endTime);
             TimeSpan now = DateTime.Now.TimeOfDay;
@@ -61,7 +71,8 @@ namespace APIHandler.Handlers
             return (now >= startTime) && (now < endTime);
         }
 
-        public int Create(RequestPermissionDBModel request) {
+        public int RequestPermission(RequestPermissionDBModel request)
+        {
             return permissionAccess.Create(request);
         }
 
@@ -75,16 +86,14 @@ namespace APIHandler.Handlers
             return permissionAccess.Delete(id);
         }
 
-        public int DeleteByUserId(string userId) {
+        public int DeleteByUserId(string userId)
+        {
             return permissionAccess.DeleteByUserId(userId);
         }
 
-        public int AcceptPermissionRequest(int id) {
+        public int AcceptPermissionRequest(int id)
+        {
             return permissionAccess.AcceptPermissionRequest(id);
-        }
-
-        public int DenyPermissionRequest(int id) {
-            return permissionAccess.DenyPermissionRequest(id);
         }
     }
 }

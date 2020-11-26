@@ -9,8 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
-{
-    [Route("api/[controller]")]
+{[Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class PermissionController : ControllerBase
@@ -24,21 +23,32 @@ namespace API.Controllers
         [HttpGet]
         public UpdatePermissionDBModel Get(int id)
         {
-            throw new NotImplementedException();
+            // check for valid id
+            return permissionHandler.Get(id);
         }
 
         [HttpGet]
         [Route("User")]
         public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
         {
-            throw new NotImplementedException();
+            // check for valid id
+            return permissionHandler.GetByTargetId(targetId);
         }
 
         [HttpGet]
         [Route("User")]
         public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
         {
-            throw new NotImplementedException();
+            // check for valid id
+            return permissionHandler.GetByWatcherId(watcherId);
+        }
+
+        [HttpGet]
+        [Route("GetPendingPermissions")]
+        public List<RequestPermissionDBModel> GetPendingPermissions(string userId) {
+            //check for valid id
+
+            return permissionHandler.GetPendingPermissions(userId);
         }
 
         [HttpPut]
@@ -53,6 +63,7 @@ namespace API.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
+            //check for valid id
             if (permissionHandler.Delete(id) == 1)
                 return Ok();
             else
@@ -63,9 +74,10 @@ namespace API.Controllers
         [Route("RequestPermission")]
         public ActionResult RequestPermission(RequestPermissionDBModel request)
         {
-            //todo: verify request
-
-            throw new NotImplementedException();
+            if (permissionHandler.RequestPermission(request) == 1)
+                return Ok();
+            else
+                return NotFound();
         }
 
         [HttpPost]
@@ -82,33 +94,7 @@ namespace API.Controllers
         [Route("DenyPermissionReqeust")]
         public ActionResult DenyPermissionRequest(int id)
         {
-            if (permissionHandler.DenyPermissionRequest(id) == 1)
-                return Ok();
-            else
-                return NotFound();
-
-        }
-
-        [HttpGet]
-        [Route("GetPendingPermissions")]
-        public List<UpdatePermissionDBModel> GetPendingPermissions()
-        {
-            throw new NotImplementedException();
-        }
-
-        bool IsValidUser(string id) {
-            //valid user id: "2"
-            //invalid user id: "sdf"
-
-            throw new NotImplementedException();
-        }
-
-        bool IsValidPermissionUpdate(UpdatePermissionDBModel update) {
-            throw new NotImplementedException();
-        }
-
-        bool IsValidPermissionRequest(RequestPermissionDBModel request) {
-            throw new NotImplementedException();
+            return Delete(id);
         }
     }
 }

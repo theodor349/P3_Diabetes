@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Net;
 
 namespace APIDataAccess.DataAccess
 {
@@ -8,7 +10,7 @@ namespace APIDataAccess.DataAccess
     {
         public float GetBloodGlucose(string link)
         {
-            throw new NotImplementedException();
+            WebRequest request = WebRequest.Create("https://thomascgm.herokuapp.com/");
         }
 
         public float GetBatteryStatus(string link)
