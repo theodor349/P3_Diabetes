@@ -10,7 +10,7 @@ namespace APIDataAccess.DataAccess
     {
         public float GetBloodGlucose(string link)
         {
-            WebRequest request = WebRequest.Create("https://thomascgm.herokuapp.com/");
+            throw new NotImplementedException();
         }
 
         public float GetBatteryStatus(string link)

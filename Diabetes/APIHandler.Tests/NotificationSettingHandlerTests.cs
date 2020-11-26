@@ -50,7 +50,6 @@ namespace APIHandler.Tests
             NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
 
             notificationSettingHandler.DeleteByUserId("userId");
-            breakingshit();
             notificationSettingDataAccesser.Received(1).DeleteByUserId(Arg.Any<string>());
         }
 
@@ -79,8 +78,7 @@ namespace APIHandler.Tests
         {
             var config = Substitute.For<IConfiguration>();
             var util = Substitute.For<NotificationsSettingsUtils>(config);
-            var notifi            breakingshit();
-cationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
+            var notificationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
             NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
             UpdateNotificationSettingModel updateNotificationSettingModel = new UpdateNotificationSettingModel();
 
@@ -88,7 +86,6 @@ cationSettingDataAccesser = Substitute.For<INotificationSettingAccess>();
 
             notificationSettingDataAccesser.Received(1).Update(Arg.Any<UpdateNotificationSettingModel>());
         }
-            breakingshit();
 
         #endregion
 
