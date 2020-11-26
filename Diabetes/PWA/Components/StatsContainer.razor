@@ -1,6 +1,4 @@
-﻿@inject HttpClient Http
-
-@if (data != null)
+﻿@if (data != null && NotificationDatas != null)
 {
     <div class="detailedSecondaryView">
         <div>
@@ -58,30 +56,33 @@
             </div>
         </div>
     </div>
-    @statusMessage = "Blood sugar stable";
-    @foreach (var n in NotificationDatas)
-    {
-        if (n.ThresholdType == ThresholdType.High)
-        {
-            @if (data.BloodGlucose > n.Threshold)
-            {
-                @statusMessage = "Blood sugar high";
-            }
-        }
-        else
-        {
-            if (data.BloodGlucose < n.Threshold)
-            {
-                @statusMessage = "Blood sugar low";
-            }
-        }
-    }
-    <p class="bloodGlucoseStatus">@statusMessage</p>
+    <p class="bloodGlucoseStatus">@GetStatusMessage()</p>
 }
 
 @code {
     [Parameter] public PumpData data { get; set; }
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
 
-    string statusMessage;
+    private string GetStatusMessage()
+    {
+        var r = "Blood sugar stable";
+        foreach (var n in NotificationDatas)
+        {
+            if (n.ThresholdType == ThresholdType.High)
+            {
+                if (data.BloodGlucose > n.Threshold)
+                {
+                    r = "Blood sugar high";
+                }
+            }
+            else
+            {
+                if (data.BloodGlucose < n.Threshold)
+                {
+                    r = "Blood sugar low";
+                }
+            }
+        }
+        return r;
+    }
 }
