@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using APIDataAccess.DataAccess;
 
 namespace APIDataAccess.DataAccess
 {
@@ -23,7 +24,7 @@ namespace APIDataAccess.DataAccess
 
         public async Task<AccountModel> Get(string id)
         {
-            var model = _sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", new { id }, "DDB").FirstOrDefault();
+            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), new { id }, "DDB").FirstOrDefault();
             var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
@@ -41,7 +42,7 @@ namespace APIDataAccess.DataAccess
                 };
         }
 
-        public AccountModel GetByPhoneNumber(string phoneNumber)
+        public async Task<AccountModel> GetByPhoneNumber(string phoneNumber)
         {
             throw new NotImplementedException();
         }

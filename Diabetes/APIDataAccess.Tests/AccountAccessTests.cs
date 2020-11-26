@@ -47,7 +47,7 @@ namespace APIDataAccess.Tests
             var input = "exists";
             var userManager = GetUserManager(input, expected);
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", Arg.Any<object>(), "DDB").
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<AccountDBModel>() { new AccountDBModel(){ FirstName = expected } });
 
             var data = new AccountAccess(sql, userManager);
@@ -65,7 +65,7 @@ namespace APIDataAccess.Tests
             var input = "doesnotexist";
             var userManager = GetEmptyUserManager();
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", Arg.Any<object>(), "DDB").
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<AccountDBModel>());
 
             var data = new AccountAccess(sql, userManager);
@@ -73,6 +73,60 @@ namespace APIDataAccess.Tests
 
             Assert.AreEqual(null, res);
         }
+        #endregion
+
+        #region GetByPhoneNumber
+
+        [TestMethod]
+        public async Task GetByPhoneNumber_Exists()
+        {
+            var input = "exists";
+            var expected = "Name";
+            var userManager = GetUserManager(input, expected);
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<AccountDBModel>());
+
+            var data = new AccountAccess(sql, userManager);
+            var res = await data.GetByPhoneNumber(input);
+
+            Assert.AreEqual(expected, res.FirstName);
+            Assert.AreEqual(expected, res.Email);
+            Assert.AreEqual(expected, res.PhoneNumber);
+        }
+
+        #endregion
+
+        #region CreateAccount
+
+        #endregion
+
+        #region DeleteAccount
+
+        #endregion
+
+        #region UpdateAccount
+
+        #endregion
+
+        #region UpdateNightScoutLink
+
+        #endregion
+
+        #region PhoneNumberExists
+
+        #endregion
+
+        #region EmailExists
+
+        #endregion
+
+        #region GetUnitOfMeasure
+
+        #endregion
+
+        #region UpdateUnitOfMeasure
+
         #endregion
     }
 }
