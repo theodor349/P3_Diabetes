@@ -1,0 +1,28 @@
+﻿<section class="currentNotifications">
+    <div class="scrollbar">
+        @if (notifications != null)
+        {
+            @foreach (var subjectNotifications in subjectNotificationMap.Values)
+            {
+                <SubjectNotification notificationClicked="notificationClicked" Notifications="subjectNotifications" subject="subjectNotifications[0].Subject"></SubjectNotification>
+            }
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter] public Dictionary<string, ActiveNotification> notifications { get; set; }
+    [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
+    private Dictionary<Subject, List<ActiveNotification>> subjectNotificationMap = new Dictionary<Subject, List<ActiveNotification>>();
+
+    protected override void OnInitialized()
+    {
+        foreach (var n in notifications.Values)
+        {
+            if (subjectNotificationMap.ContainsKey(n.Subject))
+                subjectNotificationMap[n.Subject].Add(n);
+            else
+                subjectNotificationMap.Add(n.Subject, new List<ActiveNotification>() { n });
+        }
+    }
+}

@@ -79,11 +79,20 @@ header h1 {
         height: 437px;
     }
 
-        .currentNotifications > div > div:nth-child(odd) {
+        .currentNotifications .dark {
             background: #333;
-            height: 38px;
         }
+            .currentNotifications .dark div {
+                height: 42px;
+            }
 
+    .currentNotifications .gray {
+        background: #555;
+    }
+
+        .currentNotifications .notification {
+            height: 32px;
+        }
 
     .currentNotifications h3 {
         margin: 5px auto 5px;
@@ -101,6 +110,10 @@ header h1 {
         text-align: left;
         cursor: pointer;
     }
+
+        .currentNotifications div div.content{
+            padding-top: 0;
+        }
 
         .currentNotifications div div p {
             margin: 8px 40px;

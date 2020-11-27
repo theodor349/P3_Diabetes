@@ -23,24 +23,32 @@
             <i class="fa fa-bell"></i>
         </div>
     }
-    
 </header>
 
-<section class="overviewContainer">
-    <div class="scrollbar">
-        @if (Subjects != null)
-        {
-            @foreach (var subject in Subjects.Values)
-	        {
-		        <SmallDetailComponent Subject="subject" TargetSubjectChanged="TargetSubjectChanged"></SmallDetailComponent>
-	        }
-        }
-    </div>
-</section>
+@if (page == 0)
+{
+    <section class="overviewContainer">
+        <div class="scrollbar">
+            @if (Subjects != null)
+            {
+                @foreach (var subject in Subjects.Values)
+                {
+                    <SmallDetailComponent Subject="subject" TargetSubjectChanged="TargetSubjectChanged"></SmallDetailComponent>
+                }
+            }
+        </div>
+    </section>
+}
+else if (page == 1)
+{
+    <AllNotifications notifications="notifications" notificationClicked="notificationClicked"></AllNotifications>
+}
 
 @code {
     [Parameter] public Dictionary<string, Subject> Subjects { get; set; }
     [Parameter] public EventCallback<string> TargetSubjectChanged { get; set; }
+    [Parameter] public Dictionary<string, ActiveNotification> notifications { get; set; }
+    [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
 
     private int page = 0;
 
