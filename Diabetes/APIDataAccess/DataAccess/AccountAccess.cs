@@ -14,39 +14,45 @@ namespace APIDataAccess.DataAccess
     public class AccountAccess : IAccountAccess
     {
         private readonly ISqlDataAccess _sql;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountAccess(ISqlDataAccess sql, UserManager<IdentityUser> userManager)
+        public AccountAccess(ISqlDataAccess sql)
         {
             _sql = sql;
-            _userManager = userManager;
         }
 
-        public async Task<AccountModel> Get(string id)
+        public  AccountModel Get(string id)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), new { id }, "DDB").FirstOrDefault();
-            var user = await _userManager.FindByIdAsync(id);
-
-            if (user == null)
+            if (model.FirstName == null)
+            {
                 return null;
-            else
-                return new AccountModel()
-                {
-                    ID = model.ID,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = user.Email,
-                    PhoneNumber = user.PhoneNumber,
-                    NSLink = model.NSLink,
-                    IsEUMeasure = model.IsEUMeasure
-                };
+            }
+            return GenerateAccountModel(model);
         }
 
-        public async Task<AccountModel> GetByPhoneNumber(string phoneNumber)
+        public  AccountModel GetByPhoneNumber(string phoneNumber)
         {
-            throw new NotImplementedException();
+            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { phoneNumber }, "DDB").FirstOrDefault();
+            if (model.FirstName == null)
+            {
+                return null;
+            }
+            return GenerateAccountModel(model);
         }
 
+        private AccountModel GenerateAccountModel(AccountDBModel model)
+        {
+            return new AccountModel()
+            {
+                ID = model.ID,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                NSLink = model.NSLink,
+                IsEUMeasure = model.IsEUMeasure
+            };
+        }
         public void CreateAccount(AccountDBModel model)
         {
             throw new NotImplementedException();
