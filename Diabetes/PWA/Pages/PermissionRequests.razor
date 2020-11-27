@@ -1,0 +1,17 @@
+﻿<section class="permissionContainer">
+    <div class="scrollbar">
+        @if (permissionRequests != null)
+        {
+            @foreach (var request in permissionRequests)
+            {
+                <PermissionRequestComponent Requests="request" Accept="Accept" Decline="Decline"></PermissionRequestComponent>
+            }
+        }
+    </div>
+</section>
+
+@code {
+    [Parameter] public List<PermissionRequestModel> permissionRequests { get; set; }
+    [Parameter] public EventCallback<int> Accept { get; set; }
+    [Parameter] public EventCallback<int> Decline { get; set; }
+}

@@ -1,4 +1,7 @@
 {
   "UserId": "Theodor@gmail.com",
-  "Token":  "thisIsAVeryLongToken"
+  "Token": "thisIsAVeryLongToken",
+  "FirstName": "Theodor",
+  "LastName": "Risager",
+  "NSLink": ""
 }

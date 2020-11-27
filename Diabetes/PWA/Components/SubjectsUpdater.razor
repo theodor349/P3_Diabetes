@@ -6,16 +6,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine("Update Started");
         await Update();
     }
 
     private async Task Update()
     {
-        Console.WriteLine("Update");
         var subjects = await GetData(user.UserID);
-        Console.WriteLine(subjects.Subjects[0].NotificationDatas.Count
-            );
         await subjectsUpdated.InvokeAsync(subjects);
 
         await Task.Delay(1000);

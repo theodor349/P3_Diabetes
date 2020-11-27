@@ -37,7 +37,7 @@ a {
 }
 
 header.profileName {
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     background: #D85948;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -51,7 +51,31 @@ header h1 {
     margin-bottom: 0;
 }
 
-
+.permissionContainer {
+    box-sizing: border-box;
+    background-color: #555;
+    height: 400px;
+}
+    .permissionContainer .scrollbar .collapsible .name {
+        height: 40px;
+        background-color: #333;
+    }
+    .permissionContainer .scrollbar .collapsible .buttons {
+        display: flex;
+        height: 40px;
+    }
+        .permissionContainer .scrollbar .collapsible .buttons .accept {
+            width: 50%;
+            background: #555;
+        }
+        .permissionContainer .scrollbar .collapsible .buttons .decline {
+            width: 50%;
+            background-color: #CD2100;
+        }
+        .permissionContainer .scrollbar .collapsible .buttons p {
+            text-align: center;
+            padding: 10px;
+        }
 
 .scrollbar {
     background: #555;
@@ -88,6 +112,7 @@ header h1 {
 
     .currentNotifications .gray {
         background: #555;
+        height: auto;
     }
 
         .currentNotifications .notification {
@@ -227,7 +252,7 @@ header h1 {
 
 .navProfile {
     text-align: left;
-    padding: 20px 0;
+    /*padding: 20px 0;*/
 }
 
     .navProfile p {

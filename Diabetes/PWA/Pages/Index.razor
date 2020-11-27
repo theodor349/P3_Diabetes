@@ -1,5 +1,4 @@
 ﻿@page "/"
-@inject HttpClient Http
 
 @if (loggedInUser != null)
 {
@@ -17,7 +16,7 @@
         }
         else if (page == 2)
         {
-            <Profile></Profile>
+            <Profile User="loggedInUser"></Profile>
         }
         else
         {
