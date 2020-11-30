@@ -8,7 +8,7 @@ namespace APIDataAccess.DataAccess
         float GetBatteryStatus(string link);
         float GetBloodGlucose(string link);
         DateTime GetLastReceived(string link);
-        string GetInsulinStatus(string link);
         StatusArrow.ArrowDirection GetStatus(string NSLink);
+        int GetInsulinStatus(string NSLink, float maxReservoir);
     }
 }

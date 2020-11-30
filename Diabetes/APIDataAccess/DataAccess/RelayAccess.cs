@@ -43,7 +43,7 @@ namespace APIDataAccess.DataAccess
             }
         }
 
-        public string GetInsulinStatus(string NSLink)
+        public int GetInsulinStatus(string NSLink, float maxReservoir)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/devicestatus");
             request.Credentials = CredentialCache.DefaultCredentials;
@@ -55,7 +55,7 @@ namespace APIDataAccess.DataAccess
                     StreamReader reader = new StreamReader(dataStream);
 
                     dynamic json = JsonConvert.DeserializeObject<object>(reader.ReadToEnd());
-                    return json[0].pump.status.status;
+                    return ((int)json[0].pump.reservoir / (int)maxReservoir) * 100;
                 }
             }
         }

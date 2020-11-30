@@ -41,10 +41,10 @@ namespace APIDataAccess.Tests
         [TestMethod]
         public void GetInsulinStatus_Exists()
         {
-            string insulinStatus = "sdsd";
-            string res = relayAccess.GetInsulinStatus("https://thomascgm.herokuapp.com");
+            int res = 9999;
+            res = relayAccess.GetInsulinStatus("https://thomascgm.herokuapp.com", 2000);
 
-            Assert.AreNotEqual(insulinStatus, res);
+            Assert.AreNotEqual(9999, res);
         }
 
         #endregion
