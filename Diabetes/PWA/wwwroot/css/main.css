@@ -669,22 +669,10 @@ textarea {
     margin-bottom: 40px;
 }
 
-.watcherManager{
-    height:400px;
+.connectionMananger {
+    
 }
-    .watcherManager .watcherActions{
-        display: flex;
+
+    .connectionMananger .subjects {
+        background-color: #333;
     }
-        .watcherManager .watcherActions .watcherAction.edit{
-            width: 50%;
-            background: #555;
-        }
-        .watcherManager .watcherActions .watcherAction.remove {
-            width: 50%;
-            background: #CD2100;
-        }
-        .watcherManager .watcherActions .watcherAction p {
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
