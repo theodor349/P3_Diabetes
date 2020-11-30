@@ -29,14 +29,14 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public AccountModel Get(string id)
+        public AccountDBModel Get(string id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(CreateAccountModel model)
+        public async Task<IActionResult> Register(CreateAccountDBModel model)
         {
             // TODO: Should be moved to DataAccess
             if (ModelState.IsValid)
@@ -63,7 +63,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Update(UpdateAccountModel updatedUser)
+        public ActionResult Update(UpdateAccountDBModel updatedUser)
         {
             throw new NotImplementedException();
         }
@@ -76,7 +76,7 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("ByPhoneNumber")]
-        public AccountModel GetByPhoneNumber(string phoneNumber)
+        public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
             throw new NotImplementedException();
         }

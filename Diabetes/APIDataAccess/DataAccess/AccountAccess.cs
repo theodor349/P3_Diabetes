@@ -20,7 +20,7 @@ namespace APIDataAccess.DataAccess
             _sql = sql;
         }
 
-        public  AccountModel Get(string id)
+        public AccountDBModel Get(string id)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), new { id }, "DDB").FirstOrDefault();
             if (model.FirstName == null)
@@ -30,7 +30,7 @@ namespace APIDataAccess.DataAccess
             return GenerateAccountModel(model);
         }
 
-        public  AccountModel GetByPhoneNumber(string phoneNumber)
+        public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { phoneNumber }, "DDB").FirstOrDefault();
             if (model.FirstName == null)
@@ -40,9 +40,9 @@ namespace APIDataAccess.DataAccess
             return GenerateAccountModel(model);
         }
 
-        private AccountModel GenerateAccountModel(AccountDBModel model)
+        private AccountDBModel GenerateAccountModel(AccountDBModel model)
         {
-            return new AccountModel()
+            return new AccountDBModel()
             {
                 ID = model.ID,
                 FirstName = model.FirstName,
@@ -53,19 +53,19 @@ namespace APIDataAccess.DataAccess
                 IsEUMeasure = model.IsEUMeasure
             };
         }
-        public void CreateAccount(AccountDBModel model)
+        public void CreateAccountOnDB(CreateAccountDBModel model)
         {
-            throw new NotImplementedException();
+            _sql.SaveData(SpCommands.spAccount_CreateAccount.ToString(), model, "DDB");
         }
 
         public void DeleteAccount(string id)
         {
-            throw new NotImplementedException();
+            _sql.DeleteData(SpCommands.spAccount_DeleteAccount.ToString(), id, "DDB");
         }
 
-        public void UpdateAccount(UpdateAccountModel model)
+        public void UpdateAccount(UpdateAccountDBModel model)
         {
-            throw new NotImplementedException();
+            _sql.SaveData(SpCommands.spAccount_UpdateAccount.ToString(), model, "DDB");
         }
 
         public void UpdateNighScoutLink(string id, string nsLink)

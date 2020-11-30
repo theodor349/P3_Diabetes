@@ -23,17 +23,17 @@ namespace APIHandler.Handlers
             _ph = ph;
         }
 
-        public AccountModel Get(string id)
+        public AccountDBModel Get(string id)
         {
             throw new NotImplementedException();
         }
 
-        public AccountModel GetByPhoneNumber(string phoneNumber)
+        public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
             throw new NotImplementedException();
         }
 
-        public void RegisterAccount(CreateAccountModel model)
+        public void RegisterAccount(CreateAccountDBModel model)
         {
             throw new NotImplementedException();
         }
@@ -43,7 +43,7 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public void UpdateAccount(CreateAccountModel model)
+        public void UpdateAccount(CreateAccountDBModel model)
         {
             throw new NotImplementedException();
         }
@@ -73,7 +73,7 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        private void CreateAccount(CreateAccountModel model)
+        private void CreateAccount(CreateAccountDBModel model)
         {
             throw new NotImplementedException();
         }

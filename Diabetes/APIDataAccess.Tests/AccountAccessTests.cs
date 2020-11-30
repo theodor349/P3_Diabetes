@@ -90,33 +90,60 @@ namespace APIDataAccess.Tests
 
         #region CreateAccount
 
-        //[TestMethod]
-        //public void CreateAccount_Call(CreateAccountModel model)
-        //{
-        //    var sql = Substitute.For<ISqlDataAccess>();
-        //    var data = new AccountAccess(sql);
-        //    var input = new CreateAccountModel()
-        //    {
-        //        FirstName = "FirstName",
-        //        LastName = "Lastname",
-        //        IsEUMeasure = true
-        //    };
+        [TestMethod]
+        public void CreateAccount_Call()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var data = new AccountAccess(sql);
+            var input = new CreateAccountDBModel() {
+                FirstName = "FirstName",
+                LastName = "LastName"
+            };
 
-        //    data.CreateAccount(new AccountDBModel());
-        //    sql.Received(1).SaveData(SpCommands.spAccount_CreateAccount.ToString(), Arg.Is<CreateAccountModel>((x) =>
-        //    x.FirstName.Equals("FirstName") &&
-        //    x.LastName.Equals("LastName") &&
-        //    x.IsEUMeasure == true
-        //    ), );
-        //}
+            data.CreateAccountOnDB(input);
+            sql.Received(1).SaveData(SpCommands.spAccount_CreateAccount.ToString(), Arg.Is<CreateAccountDBModel>((x) =>
+            x.FirstName.Equals("FirstName") &&
+            x.LastName.Equals("LastName")
+            ), "DDB");
+        }
 
         #endregion
 
         #region DeleteAccount
 
+        [TestMethod]
+        public void DeleteAccount_Call()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var data = new AccountAccess(sql);
+            data.DeleteAccount("id");
+
+            sql.Received(1).DeleteData(SpCommands.spAccount_DeleteAccount.ToString(), Arg.Any<string>(), "DDB");
+        }
+
         #endregion
 
         #region UpdateAccount
+
+        [TestMethod]
+        public void UpdateAccount_Call()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var data = new AccountAccess(sql);
+            var input = new UpdateAccountDBModel() {
+                ID = "idstring",
+                FirstName = "FirstName",
+                LastName = "LastName"
+            };
+
+            data.UpdateAccount(input);
+
+            sql.Received(1).SaveData(SpCommands.spAccount_UpdateAccount.ToString(), Arg.Is<UpdateAccountDBModel>((x) =>
+            x.ID.Equals("idstring") &&
+            x.FirstName.Equals("FirstName") &&
+            x.LastName.Equals("LastName")
+            ), "DDB");
+        }
 
         #endregion
 

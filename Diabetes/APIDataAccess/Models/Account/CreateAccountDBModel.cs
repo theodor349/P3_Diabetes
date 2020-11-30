@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace APIDataAccess.Models.Account
 {
-    public class CreateAccountModel
+    public class CreateAccountDBModel
     {
-        public CreateAccountModel()
+        public CreateAccountDBModel()
         {
 
         }
-        public CreateAccountModel(string firstName, string lastName, string email, string phoneNumber, string password, string nSLink, bool isEUMeasure)
+        public CreateAccountDBModel(string firstName, string lastName, string email, string phoneNumber, string password, string nSLink, bool isEUMeasure)
         {
             FirstName = firstName;
             LastName = lastName;
