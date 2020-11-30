@@ -67,7 +67,7 @@ namespace APIDataAccess.Tests
         [TestMethod]
         public void GetStatus_Exists()
         {
-            StatusArrow.ArrowDirection res = relayAccess.GetStatus("https://thomascgm.herokuapp.com");
+            PumpDataModel.ArrowDirection res = relayAccess.GetStatus("https://thomascgm.herokuapp.com");
 
             Assert.AreNotEqual(null, res); 
         }

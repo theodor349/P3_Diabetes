@@ -76,7 +76,7 @@ namespace APIDataAccess.DataAccess
             }
         }
 
-        public StatusArrow.ArrowDirection GetStatus(string NSLink)
+        public PumpDataModel.ArrowDirection GetStatus(string NSLink)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/entries/current");
             request.Credentials = CredentialCache.DefaultCredentials;
@@ -89,14 +89,14 @@ namespace APIDataAccess.DataAccess
 
                         switch (args[3])
                         {
-                            case "Flat": return StatusArrow.ArrowDirection.Flat;
-                            case "DoubleDown": return StatusArrow.ArrowDirection.DoubleDown;
-                            case "DoubleUp": return StatusArrow.ArrowDirection.DoubleUp;
-                            case "FortyFiveDown": return StatusArrow.ArrowDirection.FortyFiveDown;
-                            case "FortyFiveUp": return StatusArrow.ArrowDirection.FortyFiveUp;
-                            case "SingleUp": return StatusArrow.ArrowDirection.SingleUp;
-                            case "SingleDown": return StatusArrow.ArrowDirection.SingleDown;
-                            default: return StatusArrow.ArrowDirection.Null;
+                            case "Flat": return PumpDataModel.ArrowDirection.Flat;
+                            case "DoubleDown": return PumpDataModel.ArrowDirection.DoubleDown;
+                            case "DoubleUp": return PumpDataModel.ArrowDirection.DoubleUp;
+                            case "FortyFiveDown": return PumpDataModel.ArrowDirection.FortyFiveDown;
+                            case "FortyFiveUp": return PumpDataModel.ArrowDirection.FortyFiveUp;
+                            case "SingleUp": return PumpDataModel.ArrowDirection.SingleUp;
+                            case "SingleDown": return PumpDataModel.ArrowDirection.SingleDown;
+                            default: return PumpDataModel.ArrowDirection.Null;
                         }
                     }
                 }
