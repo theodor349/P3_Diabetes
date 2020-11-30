@@ -6,8 +6,8 @@ namespace APIDataAccess.DataAccess
     {
         float GetBatteryStatus(string link);
         float GetBloodGlucose(string link);
-        DateTime GetConnectionStatus(string link);
-        float GetInsulinStatus(string link);
-        bool IsConnectionOK(string link);
+        DateTime GetLastReceived(string link);
+        string GetInsulinStatus(string link);
+        string GetStatus(string NSLink);
     }
 }
