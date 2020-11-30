@@ -31,8 +31,10 @@
     @if (isNote)
     {
         <section class="notes">
-            <DetailNote Id="1"></DetailNote>
-            <DetailNote Id="0"></DetailNote>
+            @foreach (var n in subject.NotificationDatas)
+            {
+                <DetailNote Notification="n"></DetailNote>
+            }
         </section>
     }
     else

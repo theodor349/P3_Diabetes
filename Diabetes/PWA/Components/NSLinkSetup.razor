@@ -1,38 +1,65 @@
-﻿<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    @*<ValidationSummary />*@
-
-    <InputText id="nsLink" placeholder="Nighscout Link" @bind-Value="user.NSLink" />
-    <br />
-    <button class="notificationBtn" type="button" value="Test" @onclick="TestConnection">Test Connection</button>
-    <button class="notificationBtn" type="submit" value="Submit">Submit</button>
-</EditForm>
-@if (connectionOK)
+﻿@if (string.IsNullOrWhiteSpace(user.NSLink))
 {
-    <p>Not Connected</p>
+    <EditForm Model="@link" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        @*<ValidationSummary />*@
+        @if (showBadConnection)
+        {
+            <div>
+                <p>It was not possible to connect to the link</p>
+            </div>
+        }
+        <div>
+            <p>Insert valid Nightscout link</p>
+        </div>
+        <InputText id="nsLink" placeholder="Nighscout Link" @bind-Value="link" />
+        <br />
+        <button class="notificationBtn" type="submit" value="Submit">Submit</button>
+    </EditForm>
 }
 else
 {
-    <p>Connected</p>
+    <div>
+        <p>Nightscout link</p>
+    </div>
+    <div>
+        <p>@user.NSLink</p>
+    </div>
+    <div @onclick="RemoveLink">
+        <p>Remove</p>
+    </div>
 }
 
 @code {
 
     [Parameter] public LoginUser user { get; set; }
-    private bool connectionOK = true;
+    private string link;
+    private bool showBadConnection = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await TestConnection();
+        link = user.NSLink;
     }
 
-    private async Task TestConnection()
+    private async Task<bool> IsValidConnection(string link)
     {
-        connectionOK = !connectionOK;
+        return false;
     }
 
-    private void HandleValidSubmit()
+    private void RemoveLink()
     {
+        user.NSLink = "";
+    }
 
+    private async Task HandleValidSubmit()
+    {
+        if (await IsValidConnection(link))
+        {
+            user.NSLink = link;
+        }
+        else
+        {
+            showBadConnection = true;
+        }
     }
 }

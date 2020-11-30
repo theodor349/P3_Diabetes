@@ -1,32 +1,13 @@
 ﻿@inject HttpClient Http
 
 <div>
-    @if (note != null)
-    {
-        <h4>
-            @note.Title:
-        </h4>
-        <div>
-            @foreach (var line in note.Lines)
-            {
-                <p>@line</p>
-            }
-        </div>
-    }
+    <h4>
+        @Notification.Title:
+    </h4>
+    <div>
+        <p>@Notification.Note</p>
+    </div>
 </div>
 @code {
-    [Parameter]
-    public int Id { get; set; }
-    Note note;
-
-    protected override async Task OnInitializedAsync()
-    {
-        note = await Http.GetFromJsonAsync<Note>("api/notificationsetting/get" + Id.ToString() + ".json");
-    }
-
-    class Note
-    {
-        public string Title { get; set; }
-        public string[] Lines { get; set; }
-    }
+    [Parameter] public NotificationData Notification { get; set; }
 }

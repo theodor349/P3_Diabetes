@@ -93,6 +93,8 @@ else
 
     private void UpdateSubject(Subject s)
     {
+        s.PumpData.BloodGlucose += (float)new Random().NextDouble() * 10;
+
         if (targetSubject == null)
             targetSubject = s;
         else if (s.ID.Equals(targetSubject.ID))
@@ -127,14 +129,6 @@ else
                 }
                 else
                 {
-                    var nTest = new ActiveNotification()
-                    {
-                        Active = true,
-                        Data = notification.Data,
-                        Subject = notification.Subject
-                    };
-                    if (!activeNotifications.ContainsKey("test"))
-                        activeNotifications.Add("test", nTest);
                     if (activeNotifications.ContainsKey(id))
                         RemoveActiveNotification(notification);
                 }
