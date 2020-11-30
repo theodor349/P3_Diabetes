@@ -6,6 +6,7 @@ using APIDataAccess.Models.Relay;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using APIHandler.Handlers;
 
 namespace API.Controllers
 {
@@ -14,10 +15,37 @@ namespace API.Controllers
     [Authorize]
     public class RelayController : ControllerBase
     {
-        [HttpGet]
-        public List<PumpDataPairModel> Get()
+        private readonly IRelayHandler relayHandler;
+
+        public RelayController(IRelayHandler relayHandler)
         {
-            throw new NotImplementedException();
+            this.relayHandler = relayHandler;
+        }
+
+        public PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir)
+        {
+            PumpDataModel.AttributeFlags attributeFlags = (PumpDataModel.AttributeFlags)attribute;
+            PumpDataModel pumpDataModel = new PumpDataModel();
+
+            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.BloodGlucose))
+            {
+                pumpDataModel.BloodGlucose = relayHandler.GetBloodGlucose(NSLink);
+                pumpDataModel.Status = relayHandler.GetStatus(NSLink);
+            }
+
+            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Battery))
+            {
+                pumpDataModel.BatteryStatus = relayHandler.GetBatteryStatus(NSLink);
+            }
+
+            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Insulin))
+            {
+                pumpDataModel.InsulinStatus = relayHandler.GetInsulinStatus(NSLink, maxReservoir);
+            }
+
+            pumpDataModel.LastReceived = relayHandler.GetLastReceived(NSLink);
+
+            return pumpDataModel;
         }
     }
 }
