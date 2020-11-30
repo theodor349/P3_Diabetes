@@ -32,5 +32,49 @@ namespace APIHandler.Tests
         //        x.IsEUMeasure.Equals(input.IsEUMeasure)
         //    ));
         //}
+        #region Get
+
+        #endregion
+
+        #region GetByPhoneNumber
+
+        #endregion
+
+        #region RegisterAccount
+
+        #endregion
+
+        #region UnregisterAccount
+
+        #endregion
+
+        #region UpdateNightScoutLink
+
+        #endregion
+
+        #region EmailExists
+
+        #endregion
+
+        #region PhoneNumberExists
+
+        #endregion
+
+        #region GetUnitOfMeasurement
+
+        #endregion
+
+        #region UpdateUnitOfMeasurement
+
+        #endregion
+
+        #region CreateAccount
+
+        #endregion
+
+        #region DeleteAccount
+
+        #endregion
     }
+
 }
