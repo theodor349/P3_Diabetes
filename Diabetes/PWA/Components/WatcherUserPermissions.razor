@@ -1,0 +1,30 @@
+﻿<div>
+    <div @onclick="() => open = !open">
+        <div>
+            <p>@Name</p>
+        </div>
+        <div>
+            <p>@Permissions.Count Connections</p>
+        </div>
+    </div>
+    @if (open)
+    {
+        @foreach (var p in Permissions)
+        {
+            <div>
+                <WatcherComponent Permission="p"></WatcherComponent>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    [Parameter] public string Name { get; set; }
+    [Parameter] public List<Permission> Permissions { get; set; }
+    private bool open = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine("Connection");
+    }
+}

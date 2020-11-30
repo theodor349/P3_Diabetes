@@ -1,8 +1,8 @@
 ﻿
 @if (subject != null)
 {
-    <div class="collapsible dark" @onclick="() => showNotifications = !showNotifications">
-        <div>
+    <div class="collapsible" @onclick="() => showNotifications = !showNotifications">
+        <div class="dark">
             <p>@subject.GetName()</p>
         </div>
         @if (showNotifications)
@@ -10,20 +10,18 @@
             <div class="content gray" >
                 @foreach (var notification in Notifications)
                 {
-                    <a>
-                        @if (notification.Data.Type == NotificationType.Message)
-                        {
-                            <div class="message notification" @onclick="() => NotificationClicked(notification)">
-                                <p>@notification.Data.Title</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="warning notification" @onclick="() => NotificationClicked(notification)">
-                                <p>@notification.Data.Title</p>
-                            </div>
-                        }
-                    </a>
+                    @if (notification.Data.Type == NotificationType.Message)
+                    {
+                        <div class="message notification" @onclick="() => NotificationClicked(notification)">
+                            <p>@notification.Data.Title</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="warning notification" @onclick="() => NotificationClicked(notification)">
+                            <p>@notification.Data.Title</p>
+                        </div>
+                    }
                 }
             </div>
         }

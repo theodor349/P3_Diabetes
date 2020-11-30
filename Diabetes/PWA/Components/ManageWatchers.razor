@@ -1,0 +1,34 @@
+﻿@inject HttpClient Http;
+
+<div>
+    @foreach (var user in UserPermissions)
+    {
+        <WatcherUserPermissions Permissions="user.Value" Name="@user.Key"></WatcherUserPermissions>
+    }
+</div>
+
+@code {
+    private Dictionary<string, List<Permission>> UserPermissions = new Dictionary<string, List<Permission>>();
+    private List<Permission> permissions = new List<Permission>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        permissions = (await Http.GetFromJsonAsync<Permissions>("api/permission/permissions.json")).PermissionList;
+        SortPermissions(permissions);
+    }
+
+    private void SortPermissions(List<Permission> permissions)
+    {
+        foreach (var p in permissions)
+        {
+            if (!UserPermissions.ContainsKey(p.GetName()))
+            {
+                UserPermissions.Add(p.GetName(), new List<Permission>() { p });
+            }
+            else
+            {
+                UserPermissions[p.GetName()].Add(p);
+            }
+        }
+    }
+}

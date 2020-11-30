@@ -1,0 +1,38 @@
+﻿<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+
+    <InputText id="nsLink" placeholder="Nighscout Link" @bind-Value="user.NSLink" />
+    <br />
+    <button class="notificationBtn" type="button" value="Test" @onclick="TestConnection">Test Connection</button>
+    <button class="notificationBtn" type="submit" value="Submit">Submit</button>
+</EditForm>
+@if (connectionOK)
+{
+    <p>Not Connected</p>
+}
+else
+{
+    <p>Connected</p>
+}
+
+@code {
+
+    [Parameter] public LoginUser user { get; set; }
+    private bool connectionOK = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await TestConnection();
+    }
+
+    private async Task TestConnection()
+    {
+        connectionOK = !connectionOK;
+    }
+
+    private void HandleValidSubmit()
+    {
+
+    }
+}

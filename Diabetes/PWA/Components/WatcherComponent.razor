@@ -1,0 +1,20 @@
+﻿<div>
+    <div>
+        <p>@Permission.GetAccessString()</p>
+    </div>
+    <div>
+        <p>Expires: @Permission.GetExpireDate()</p>
+    </div>
+    <div class="watcherActions">
+        <div class="watcherAction edit">
+            <p>Edit</p>
+        </div>
+        <div class="watcherAction remove">
+            <p>Delete</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Permission Permission { get; set; }
+}

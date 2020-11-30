@@ -16,7 +16,7 @@
         }
         else if (page == 2)
         {
-            <Profile User="loggedInUser"></Profile>
+            <Profile User="loggedInUser" subjects="subjects"></Profile>
         }
         else
         {
@@ -127,6 +127,14 @@ else
                 }
                 else
                 {
+                    var nTest = new ActiveNotification()
+                    {
+                        Active = true,
+                        Data = notification.Data,
+                        Subject = notification.Subject
+                    };
+                    if (!activeNotifications.ContainsKey("test"))
+                        activeNotifications.Add("test", nTest);
                     if (activeNotifications.ContainsKey(id))
                         RemoveActiveNotification(notification);
                 }

@@ -79,6 +79,11 @@ header h1 {
 
 .scrollbar {
     background: #555;
+    overflow: auto;
+}
+
+.currentNotifications .notification {
+    height: 42px;
 }
 
 .currentNotifications {
@@ -106,18 +111,13 @@ header h1 {
         .currentNotifications .dark {
             background: #333;
         }
-            .currentNotifications .dark div {
+            .currentNotifications .dark {
                 height: 42px;
             }
 
     .currentNotifications .gray {
         background: #555;
-        height: auto;
     }
-
-        .currentNotifications .notification {
-            height: 32px;
-        }
 
     .currentNotifications h3 {
         margin: 5px auto 5px;
@@ -125,7 +125,6 @@ header h1 {
     }
 
     .currentNotifications div div div {
-        height: 38px;
         padding-left: 20px;
     }
 
@@ -669,3 +668,23 @@ textarea {
     width: 70px;
     margin-bottom: 40px;
 }
+
+.watcherManager{
+    height:400px;
+}
+    .watcherManager .watcherActions{
+        display: flex;
+    }
+        .watcherManager .watcherActions .watcherAction.edit{
+            width: 50%;
+            background: #555;
+        }
+        .watcherManager .watcherActions .watcherAction.remove {
+            width: 50%;
+            background: #CD2100;
+        }
+        .watcherManager .watcherActions .watcherAction p {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }

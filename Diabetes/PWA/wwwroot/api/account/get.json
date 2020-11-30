@@ -4,10 +4,6 @@
       "ID": "abc1234",
       "FirstName": "Tais",
       "LastName": "Hors",
-      "Email": "tais349@gmail.com",
-      "PhoneNumber": "12345678",
-      "NSLink": "",
-      "IsEUMeasure": true,
       "PumpData": {
         "BloodGlucose": 1.0,
         "BatteryStatus": 0.3,
@@ -40,10 +36,6 @@
       "ID": "abc567",
       "FirstName": "Theodor",
       "LastName": "Risager",
-      "Email": "theodor349@gmail.com",
-      "PhoneNumber": "87654321",
-      "NSLink": "",
-      "IsEUMeasure": true,
       "PumpData": {
         "BloodGlucose": 11.0,
         "BatteryStatus": 0.8,
