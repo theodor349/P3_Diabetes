@@ -1,11 +1,14 @@
 ﻿using APIDataAccess.Models.Relay;
-using System.Collections.Generic;
+using System;
 
 namespace APIHandler.Handlers
 {
     public interface IRelayHandler
     {
-        List<PumpDataPairModel> Get(string userId);
-        bool IsConnectionOK(string link);
+        float GetBatteryStatus(string link);
+        float GetBloodGlucose(string link);
+        int GetInsulinStatus(string NSLink, float maxReservoir);
+        DateTime GetLastReceived(string link);
+        PumpDataModel.ArrowDirection GetStatus(string NSLink);
     }
 }

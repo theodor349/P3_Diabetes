@@ -1,94 +1,77 @@
 ﻿using APIDataAccess.DataAccess;
-using APIDataAccess.Internal.DataAccess;
-using APIDataAccess.Models.Permission;
-using APIHandler.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using System;
-using System.Collections.Generic;
+using Newtonsoft.Json;
+using APIDataAccess.Models.Relay;
 
 namespace APIDataAccess.Tests
 {
     [TestClass]
     public class RelayAccessTests
     {
+        RelayAccess relayAccess = new RelayAccess();
+
         #region GetBloodGlucose
         [TestMethod]
         public void GetBloodGlucose_Exists()
         {
-            
-        }
+            float res = 9999;
+            res = relayAccess.GetBloodGlucose("https://thomascgm.herokuapp.com");
 
-        [TestMethod]
-        public void GetBloodGLucose_NotExists()
-        {
-
+            Assert.AreNotEqual(9999, res);
         }
 
         #endregion
 
-        //#region GetBatteryStatus
+        #region GetBatteryStatus
 
-        //[TestMethod]
-        //public void GetBatteryStatus_Exists(string link)
-        //{
-            
-        //}
+        [TestMethod]
+        public void GetBatteryStatus_Exists()
+        {
+            float res = 9999;
+            res = relayAccess.GetBatteryStatus("https://thomascgm.herokuapp.com");
 
-        //[TestMethod]
-        //public void GetBatteryStatus_NotExists(string link)
-        //{
+            Assert.AreNotEqual(9999, res);
+        }
 
-        //}
+        #endregion
 
-        //#endregion
+        #region GetInsulinStatus
 
-        //#region GetInsulinStatus
+        [TestMethod]
+        public void GetInsulinStatus_Exists()
+        {
+            int res = 9999;
+            res = relayAccess.GetInsulinStatus("https://thomascgm.herokuapp.com", 2000);
 
-        //[TestMethod]
-        //public void GetInsulinStatus_Exists(string link)
-        //{
-            
-        //}
+            Assert.AreNotEqual(9999, res);
+        }
 
-        //[TestMethod]
-        //public void GetInsulinStatus_NotExists(string link)
-        //{
+        #endregion
 
-        //}
+        #region GetLastReceived
 
-        //#endregion
+        [TestMethod]
+        public void GetLastReceived_Exists()
+        {
+            DateTime lastWeek = new DateTime(DateTime.Now.AddDays(-7).Ticks);
+            DateTime res = relayAccess.GetLastReceived("https://thomascgm.herokuapp.com");
 
-        //#region GetConnectionStatus
+            Assert.IsTrue(lastWeek < res);
+        }
 
-        //[TestMethod]
-        //public void GetConnectionStatus_Exists(string link)
-        //{
-            
-        //}
+        #endregion
 
-        //[TestMethod]
-        //public void GetConnectionStatus_NotExists(string link)
-        //{
+        #region GetStatus
 
-        //}
+        [TestMethod]
+        public void GetStatus_Exists()
+        {
+            PumpDataModel.ArrowDirection res = relayAccess.GetStatus("https://thomascgm.herokuapp.com");
 
-        //#endregion
+            Assert.AreNotEqual(null, res); 
+        }
 
-        //#region IsConnectionOK
-
-        //[TestMethod]
-        //public void IsConnectionOK_Exists(string link)
-        //{
-            
-        //}
-
-        //[TestMethod]
-        //public void IsConnectionOK_NotExists(string link)
-        //{
-
-        //}
-
-        //#endregion
+        #endregion
     }
 }
