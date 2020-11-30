@@ -8,7 +8,7 @@ namespace APIDataAccess.DataAccess
         void CreateAccount(AccountDBModel model);
         void DeleteAccount(string id);
         bool EmailExists(string email);
-        Task<AccountModel> Get(string id);
+        AccountModel Get(string id);
         AccountModel GetByPhoneNumber(string phoneNumber);
         bool GetUnitOfMeasure(string id);
         bool PhoneNumberExists(string phoneNumber);

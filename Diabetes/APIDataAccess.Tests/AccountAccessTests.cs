@@ -16,42 +16,20 @@ namespace APIDataAccess.Tests
     [TestClass]
     public class AccountAccessTests
     {
-        private UserManager<IdentityUser> GetUserManager(string input, string expected)
-        {
-            var store = new Mock<IUserStore<IdentityUser>>();
-            store.Setup(x => x.FindByIdAsync(input, CancellationToken.None))
-            .ReturnsAsync(new IdentityUser()
-            {
-                UserName = expected,
-                Id = expected,
-                Email = expected,
-                PhoneNumber = expected
-            });
-            var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
-            return userManager;
-        }
-        private UserManager<IdentityUser> GetEmptyUserManager()
-        {
-            var store = new Mock<IUserStore<IdentityUser>>();
-            var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
-            return userManager;
-        }
-
         #region Get
         // Exists
         [DataRow("name")]
         [DataRow("name2")]
         [TestMethod]
-        public async Task Get_Exists(string expected)
+        public void Get_Exists(string expected)
         {
             var input = "exists";
-            var userManager = GetUserManager(input, expected);
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", Arg.Any<object>(), "DDB").
-                Returns(new List<AccountDBModel>() { new AccountDBModel(){ FirstName = expected } });
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<AccountDBModel>() { new AccountDBModel(){ FirstName = expected, Email = expected, PhoneNumber = expected } });
 
-            var data = new AccountAccess(sql, userManager);
-            var res = await data.Get(input);
+            var data = new AccountAccess(sql);
+            var res = data.Get(input);
 
             Assert.AreEqual(expected, res.FirstName);
             Assert.AreEqual(expected, res.Email);
@@ -60,19 +38,106 @@ namespace APIDataAccess.Tests
 
         // Does not exist 
         [TestMethod]
-        public async Task Get_NotExisting()
+        public void Get_NotExisting()
         {
-            var input = "doesnotexist";
-            var userManager = GetEmptyUserManager();
+            var input = "exists";
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<AccountDBModel, dynamic>("spAccount_Get", Arg.Any<object>(), "DDB").
-                Returns(new List<AccountDBModel>());
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<AccountDBModel>() { new AccountDBModel() { FirstName = null } });
 
-            var data = new AccountAccess(sql, userManager);
-            var res = await data.Get(input);
+            var data = new AccountAccess(sql);
+            var res = data.Get(input);
+
+            Assert.AreEqual(null, res);
+
+        }
+        #endregion
+
+        #region GetByPhoneNumber
+
+        [TestMethod]
+        public void GetByPhoneNumber_Exists()
+        {
+            var input = "exists";
+            var expected = "Name";
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<AccountDBModel>() { new AccountDBModel() { FirstName = expected, Email = expected, PhoneNumber = expected } });
+
+            var data = new AccountAccess(sql);
+            var res = data.GetByPhoneNumber(input);
+
+            Assert.AreEqual(expected, res.FirstName);
+            Assert.AreEqual(expected, res.Email);
+            Assert.AreEqual(expected, res.PhoneNumber);
+        }
+
+        [TestMethod]
+        public void GetByPhoneNumber_NotExisting()
+        {
+            var input = "exists";
+            var sql = Substitute.For<ISqlDataAccess>();
+            sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<AccountDBModel>() { new AccountDBModel() { FirstName = null } });
+
+            var data = new AccountAccess(sql);
+            var res = data.GetByPhoneNumber(input);
 
             Assert.AreEqual(null, res);
         }
+
+        #endregion
+
+        #region CreateAccount
+
+        //[TestMethod]
+        //public void CreateAccount_Call(CreateAccountModel model)
+        //{
+        //    var sql = Substitute.For<ISqlDataAccess>();
+        //    var data = new AccountAccess(sql);
+        //    var input = new CreateAccountModel()
+        //    {
+        //        FirstName = "FirstName",
+        //        LastName = "Lastname",
+        //        IsEUMeasure = true
+        //    };
+
+        //    data.CreateAccount(new AccountDBModel());
+        //    sql.Received(1).SaveData(SpCommands.spAccount_CreateAccount.ToString(), Arg.Is<CreateAccountModel>((x) =>
+        //    x.FirstName.Equals("FirstName") &&
+        //    x.LastName.Equals("LastName") &&
+        //    x.IsEUMeasure == true
+        //    ), );
+        //}
+
+        #endregion
+
+        #region DeleteAccount
+
+        #endregion
+
+        #region UpdateAccount
+
+        #endregion
+
+        #region UpdateNightScoutLink
+
+        #endregion
+
+        #region PhoneNumberExists
+
+        #endregion
+
+        #region EmailExists
+
+        #endregion
+
+        #region GetUnitOfMeasure
+
+        #endregion
+
+        #region UpdateUnitOfMeasure
+
         #endregion
     }
 }
