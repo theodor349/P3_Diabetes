@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APIDataAccess.Models.Relay;
+using System;
 
 namespace APIDataAccess.DataAccess
 {
@@ -8,6 +9,6 @@ namespace APIDataAccess.DataAccess
         float GetBloodGlucose(string link);
         DateTime GetLastReceived(string link);
         string GetInsulinStatus(string link);
-        string GetStatus(string NSLink);
+        StatusArrow.ArrowDirection GetStatus(string NSLink);
     }
 }

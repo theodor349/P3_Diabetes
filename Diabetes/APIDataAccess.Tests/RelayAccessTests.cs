@@ -1,14 +1,8 @@
 ﻿using APIDataAccess.DataAccess;
-using APIDataAccess.Internal.DataAccess;
-using APIDataAccess.Models.Permission;
-using APIHandler.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using Newtonsoft.Json;
+using APIDataAccess.Models.Relay;
 
 namespace APIDataAccess.Tests
 {
@@ -73,7 +67,7 @@ namespace APIDataAccess.Tests
         [TestMethod]
         public void GetStatus_Exists()
         {
-            string res = relayAccess.GetStatus("https://thomascgm.herokuapp.com");
+            StatusArrow.ArrowDirection res = relayAccess.GetStatus("https://thomascgm.herokuapp.com");
 
             Assert.AreNotEqual(null, res); 
         }

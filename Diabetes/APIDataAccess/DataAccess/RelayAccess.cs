@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json;
+using APIDataAccess.Models.Relay;
 
 namespace APIDataAccess.DataAccess
 {
@@ -80,7 +81,7 @@ namespace APIDataAccess.DataAccess
             }
         }
 
-        public string GetStatus(string NSLink)
+        public StatusArrow.ArrowDirection GetStatus(string NSLink)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/entries/current");
             request.Credentials = CredentialCache.DefaultCredentials;
@@ -93,10 +94,17 @@ namespace APIDataAccess.DataAccess
 
                     string[] args = reader.ReadLine().Split('	');
 
-                    if (args.Length == 5)
-                        return args[3];
-                    else
-                        return "-1";
+                    switch (args[3])
+                    {
+                        case "Flat": return StatusArrow.ArrowDirection.Flat;
+                        case "DoubleDown": return StatusArrow.ArrowDirection.DoubleDown;
+                        case "DoubleUp": return StatusArrow.ArrowDirection.DoubleUp;
+                        case "FortyFiveDown": return StatusArrow.ArrowDirection.FortyFiveDown;
+                        case "FortyFiveUp": return StatusArrow.ArrowDirection.FortyFiveUp;
+                        case "SingleUp": return StatusArrow.ArrowDirection.SingleUp;
+                        case "SingleDown": return StatusArrow.ArrowDirection.SingleDown;
+                        default: return StatusArrow.ArrowDirection.Null;
+                    }
                 }
             }
         }
