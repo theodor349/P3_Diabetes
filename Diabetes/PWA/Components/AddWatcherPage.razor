@@ -1,0 +1,144 @@
+﻿<div class="addPermissionBox">
+    <h1>
+        Add Watcher
+    </h1>
+    <EditForm Model="@request" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        @*<ValidationSummary />*@
+    <div>
+        @* Dates *@
+        <div class="twoBtns">
+            <div class="active">Temporary</div>
+            <div>permanent</div>
+        </div>
+        <label for="">Start date:</label>
+        <br>
+        <InputDate @bind-Value="request.StartDate"></InputDate>
+        <label for="">End date:</label>
+        <br>
+        <InputDate @bind-Value="request.ExspireDate"></InputDate>
+
+        @* Days*@
+        <div class="twoBtns">
+            <div class="active">Day access</div>
+            <div>Full access</div>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Monday"></InputCheckbox>
+            <label for="">Monday</label>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Tuesday"></InputCheckbox>
+            <label for="">Tuesday</label>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Wednesday"></InputCheckbox>
+            <label for="">Wednesday</label>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Thursday"></InputCheckbox>
+            <label for="">Thursday</label>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Friday"></InputCheckbox>
+            <label for="">Friday</label>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Saturday"></InputCheckbox>
+            <label for="">Saturday</label>
+        </div>
+        <div class="checkbox">
+            <InputCheckbox @bind-Value="request.Sunday"></InputCheckbox>
+            <label for="">Sunday</label>
+        </div>
+
+        @* Weeks *@
+        <div class="twoBtns">
+            <div class="active">Week access</div>
+            <div>Full access</div>
+        </div>
+        <div class="WeeksOfAccess">
+            <InputNumber @bind-Value="request.WeeksActive"></InputNumber>
+            <label for="">Weeks with access</label>
+        </div>
+        <div class="WeeksOfAccess">
+            <InputNumber @bind-Value="request.WeeksInactive"></InputNumber>
+            <label for="">Weeks with no access</label>
+        </div>
+
+        @* Data Access *@
+
+        @if (isLimitedData)
+        {
+            <div class="twoBtns">
+                <div class="active">Limit data</div>
+                <div @onclick="() => isLimitedData = false">Full data</div>
+            </div>
+            <div class="checkbox">
+                <InputCheckbox @bind-Value="request.Bloodglucose"></InputCheckbox>
+                <label for="">Blood sugar</label>
+            </div>
+            <div class="checkbox">
+                <InputCheckbox @bind-Value="request.Battery"></InputCheckbox>
+                <label for="">Pump battery</label>
+            </div>
+            <div class="checkbox">
+                <InputCheckbox @bind-Value="request.Insulin"></InputCheckbox>
+                <label for="">Insulin level</label>
+            </div>
+        }
+        else
+        {
+            <div class="twoBtns">
+                <div @onclick="() => isLimitedData = true">Limit data</div>
+                <div class="active">Full data</div>
+            </div>
+        }
+    </div>
+        <div class="notificationBtn">
+            <button class="notificationBtn" type="submit" value="Send permission">Send permission</button>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter] public LoginUser User { get; set; }
+
+    private PermissionRequest request;
+    private bool isPermanent = false;
+    private bool isDayAccess = false;
+    private bool isWeekAccess = false;
+    private bool isLimitedData = true;
+
+    protected override void OnInitialized()
+    {
+        request = new PermissionRequest()
+        {
+            StartDate = DateTime.Now,
+            ExspireDate = DateTime.Now.AddDays(1)
+        };
+    }
+
+    private void HandleValidSubmit()
+    {
+
+    }
+
+    class PermissionRequest
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime ExspireDate { get; set; }
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
+        public int WeeksActive { get; set; }
+        public int WeeksInactive { get; set; }
+        public bool Bloodglucose { get; set; }
+        public bool Battery { get; set; }
+        public bool Insulin { get; set; }
+    }
+}

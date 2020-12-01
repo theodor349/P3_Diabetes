@@ -676,3 +676,65 @@ textarea {
     .connectionMananger .subjects {
         background-color: #333;
     }
+
+
+
+
+.addPermissionBox {
+    height: 510px;
+    overflow: auto;
+}
+
+    .addPermissionBox form p {
+        width: 200px;
+        text-align: left;
+    }
+
+
+.checkbox {
+    width: 150px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.WeeksOfAccess {
+    width: 200px;
+    margin: 0 auto 10px;
+}
+
+    .WeeksOfAccess input {
+        width: 30px;
+        margin-right: 5px;
+        padding: 2px;
+    }
+
+input[type="checkbox"] {
+    width: 20px;
+}
+
+input.small {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+
+.twoBtns {
+    display: flex;
+    margin-bottom: 14px;
+    margin-top: 20px;
+}
+
+    .twoBtns div {
+        background: #D68C49;
+    }
+
+        .twoBtns div.active {
+            background: #D85948;
+            font-weight: bold;
+        }
+
+    .twoBtns div {
+        height: 34px;
+        line-height: 30px;
+        width: 50%;
+    }
