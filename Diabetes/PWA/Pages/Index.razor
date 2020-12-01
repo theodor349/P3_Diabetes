@@ -93,7 +93,7 @@ else
 
     private void UpdateSubject(Subject s)
     {
-        s.PumpData.BloodGlucose += (float)new Random().NextDouble() * 10;
+        s.PumpData.BloodGlucose += DateTime.Now.Second % 14;
 
         if (targetSubject == null)
             targetSubject = s;

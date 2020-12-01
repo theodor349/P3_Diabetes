@@ -37,7 +37,7 @@
       "FirstName": "Theodor",
       "LastName": "Risager",
       "PumpData": {
-        "BloodGlucose": 11.0,
+        "BloodGlucose": 3.0,
         "BatteryStatus": 0.8,
         "Delta": 0.1,
         "InsulinStatus": 0.6,

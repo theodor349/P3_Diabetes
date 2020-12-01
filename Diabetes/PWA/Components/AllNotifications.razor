@@ -15,8 +15,9 @@
     [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
     private Dictionary<Subject, List<ActiveNotification>> subjectNotificationMap = new Dictionary<Subject, List<ActiveNotification>>();
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
+        subjectNotificationMap = new Dictionary<Subject, List<ActiveNotification>>();
         foreach (var n in notifications.Values)
         {
             if (subjectNotificationMap.ContainsKey(n.Subject))
