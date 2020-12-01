@@ -11,97 +11,119 @@
         {
             <div class="twoBtns">
                 <div class="active">Temporary</div>
-                <div @onclick="() => isTemporary = false">Permanent</div>
-            </div>
-            <div class="dates">
-                <label for="">Start date:</label>
-                <InputDate @bind-Value="request.StartDate"></InputDate>
-            </div>
-            <br />
-            <div class="dates">
-                <label for="">End date:</label>
-                <InputDate @bind-Value="request.ExspireDate"></InputDate>
+                <div @onclick="() => isTemporary = false">Recurring</div>
             </div>
         }
         else
         {
             <div class="twoBtns">
                 <div @onclick="() => isTemporary = true">Temporary</div>
-                <div class="active">Permanent</div>
+                <div class="active">Recurring</div>
+            </div>
+        }
+        <div class="dates">
+            <label for="">Start date:</label>
+            <InputDate @bind-Value="request.StartDate"></InputDate>
+        </div>
+        <div class="dates">
+            <label for="">End date:</label>
+            <InputDate @bind-Value="request.ExspireDate"></InputDate>
+        </div>
+        @if (isTemporary)
+        {
+            <div class="dates">
+                <label for="">Start time:</label>
+                <InputText type="time" @bind-Value="TimeProxyStart" />
+            </div>
+            <div class="dates">
+                <label for="">End time:</label>
+                <InputText type="time" @bind-Value="TimeProxyEnd" />
             </div>
         }
 
-        @* Days*@
-        @if (isDayAccess)
+        @if (!isTemporary)
         {
-            <div class="twoBtns">
-                <div class="active">Day access</div>
-                <div @onclick="() => isDayAccess = false">Full access</div>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Monday"></InputCheckbox>
-                <label for="">Monday</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Tuesday"></InputCheckbox>
-                <label for="">Tuesday</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Wednesday"></InputCheckbox>
-                <label for="">Wednesday</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Thursday"></InputCheckbox>
-                <label for="">Thursday</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Friday"></InputCheckbox>
-                <label for="">Friday</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Saturday"></InputCheckbox>
-                <label for="">Saturday</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Sunday"></InputCheckbox>
-                <label for="">Sunday</label>
-            </div>
-        }
-        else
-        {
-            <div class="twoBtns">
-                <div @onclick="() => isDayAccess = true">Day access</div>
-                <div class="active">Full access</div>
-            </div>
-        }
+            @* Days *@
+            @if (isDayAccess)
+            {
+                <div class="twoBtns">
+                    <div class="active">Day access</div>
+                    <div @onclick="() => isDayAccess = false">Full access</div>
+                </div>
+
+                <div class="dates">
+                    <label for="">Start time:</label>
+                    <InputText type="time" @bind-Value="TimeProxyStart" />
+                </div>
+                <div class="dates">
+                    <label for="">End time:</label>
+                    <InputText type="time" @bind-Value="TimeProxyEnd" />
+                </div>
+
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Monday"></InputCheckbox>
+                    <label for="">Monday</label>
+                </div>
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Tuesday"></InputCheckbox>
+                    <label for="">Tuesday</label>
+                </div>
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Wednesday"></InputCheckbox>
+                    <label for="">Wednesday</label>
+                </div>
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Thursday"></InputCheckbox>
+                    <label for="">Thursday</label>
+                </div>
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Friday"></InputCheckbox>
+                    <label for="">Friday</label>
+                </div>
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Saturday"></InputCheckbox>
+                    <label for="">Saturday</label>
+                </div>
+                <div class="checkbox">
+                    <InputCheckbox @bind-Value="request.Sunday"></InputCheckbox>
+                    <label for="">Sunday</label>
+                </div>
+            }
+            else
+            {
+                <div class="twoBtns">
+                    <div @onclick="() => isDayAccess = true">Day access</div>
+                    <div class="active">Full access</div>
+                </div>
+            }
 
 
-        @* Weeks *@
-        @if (isWeekAccess)
-        {
-            <div class="twoBtns">
-                <div class="active">Week access</div>
-                <div @onclick="() => isWeekAccess = false">Full access</div>
-            </div>
-            <div class="WeeksOfAccess">
-                <InputNumber @bind-Value="request.WeeksActive"></InputNumber>
-                <label for="">Weeks with access</label>
-            </div>
-            <div class="WeeksOfAccess">
-                <InputNumber @bind-Value="request.WeeksInactive"></InputNumber>
-                <label for="">without access</label>
-            </div>
-        }
-        else
-        {
-            <div class="twoBtns">
-                <div @onclick="() => isWeekAccess = true">Week access</div>
-                <div class="active">Full access</div>
-            </div>
+            @* Weeks *@
+            @if (isWeekAccess)
+            {
+                <div class="twoBtns">
+                    <div class="active">Week access</div>
+                    <div @onclick="() => isWeekAccess = false">Full access</div>
+                </div>
+                <div class="WeeksOfAccess">
+                    <InputNumber @bind-Value="request.WeeksActive"></InputNumber>
+                    <label for="">Weeks with access</label>
+                </div>
+                <div class="WeeksOfAccess">
+                    <InputNumber @bind-Value="request.WeeksInactive"></InputNumber>
+                    <label for="">without access</label>
+                </div>
+            }
+            else
+            {
+                <div class="twoBtns">
+                    <div @onclick="() => isWeekAccess = true">Week access</div>
+                    <div class="active">Full access</div>
+                </div>
+            }
         }
 
         @* Data Access *@
-
         @if (isLimitedData)
         {
             <div class="twoBtns">
@@ -129,8 +151,8 @@
             </div>
         }
     </div>
-        <div class="notificationBtn">
-            <button class="notificationBtn" type="submit" value="Send permission">Send permission</button>
+        <div class="addPermissionBtn">
+            <button class="notificationBtn" type="submit" value="Send Permission">Send permission</button>
         </div>
     </EditForm>
 </div>
@@ -139,7 +161,7 @@
     [Parameter] public LoginUser User { get; set; }
 
     private PermissionRequest request;
-    private bool isTemporary = false;
+    private bool isTemporary = true;
     private bool isDayAccess = false;
     private bool isWeekAccess = false;
     private bool isLimitedData = true;
@@ -155,8 +177,13 @@
 
     private void HandleValidSubmit()
     {
-
+        Console.WriteLine(dayStart.ToString());
     }
+
+    private TimeSpan dayStart = new TimeSpan(8, 0, 0);
+    private TimeSpan dayEnd = new TimeSpan(16, 0, 0);
+    string TimeProxyStart { get => dayStart.ToString(); set => TimeSpan.TryParse(value, out dayStart); }
+    string TimeProxyEnd { get => dayEnd.ToString(); set => TimeSpan.TryParse(value, out dayEnd); }
 
     class PermissionRequest
     {

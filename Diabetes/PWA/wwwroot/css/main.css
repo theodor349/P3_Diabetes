@@ -690,6 +690,10 @@ textarea {
         text-align: left;
     }
 
+    .addPermissionBox h1 {
+        text-align: center;
+    }
+
 
 .checkbox {
     width: 150px;
@@ -742,3 +746,13 @@ input.small {
         line-height: 30px;
         width: 50%;
     }
+
+.addPermissionBtn {
+    background: #777;
+    padding: 10px;
+    color: #ccc;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
