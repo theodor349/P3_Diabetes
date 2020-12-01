@@ -68,7 +68,23 @@ else
     <Login loggedIn="(user) => loggedInUser = user"></Login>
 }
 
+@if (playSound)
+{
+    <audio autoplay loop>
+        <source src="/Sounds/@sound" />
+    </audio>
+}
+else
+{
+    <audio muted>
+        <source src="/Sounds/@sound" />
+    </audio>
+}
+
 @code {
+    private bool playSound = true;
+    private string sound = "Next.mp3";
+
     private int page = 0;
     private LoginUser loggedInUser;
     private Subject targetSubject;
@@ -120,12 +136,12 @@ else
         {
             var notification = new ActiveNotification() { Subject = s, Data = n };
             var id = notification.ToString();
-            if(n.ThresholdType == ThresholdType.High)
+            if (n.ThresholdType == ThresholdType.High)
             {
-                if(n.Threshold <= s.PumpData.BloodGlucose)
+                if (n.Threshold <= s.PumpData.BloodGlucose)
                 {
                     if (!activeNotifications.ContainsKey(id))
-                        activeNotifications.Add(id, notification);
+                        AddActiveNotification(id, notification);
                 }
                 else
                 {
@@ -138,7 +154,7 @@ else
                 if (n.Threshold >= s.PumpData.BloodGlucose)
                 {
                     if (!activeNotifications.ContainsKey(id))
-                        activeNotifications.Add(id, notification);
+                        AddActiveNotification(id, notification);
                 }
                 else
                 {
@@ -149,9 +165,20 @@ else
         }
     }
 
+    private void AddActiveNotification(string id, ActiveNotification notification)
+    {
+        PlaySound(true);
+        activeNotifications.Add(id, notification);
+    }
+
     private void RemoveActiveNotification(ActiveNotification notification)
     {
         activeNotifications.Remove(notification.ToString());
+    }
+
+    private void PlaySound(bool isWarning)
+    {
+        playSound = true;
     }
 
     private void NotificationButtonClicked(NotificationButtonType type)
