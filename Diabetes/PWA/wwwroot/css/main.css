@@ -717,6 +717,9 @@ input.small {
     margin-bottom: 20px;
 }
 
+.dates{
+    text-align: center;
+}
 
 .twoBtns {
     display: flex;
@@ -726,6 +729,7 @@ input.small {
 
     .twoBtns div {
         background: #D68C49;
+        text-align: center;
     }
 
         .twoBtns div.active {
