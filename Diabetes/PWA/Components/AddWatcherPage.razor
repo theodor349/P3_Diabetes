@@ -159,6 +159,7 @@
 
 @code {
     [Parameter] public LoginUser User { get; set; }
+    [Parameter] public EventCallback<bool> Submitted { get; set; }
 
     private PermissionRequest request;
     private bool isTemporary = true;
@@ -175,9 +176,10 @@
         };
     }
 
-    private void HandleValidSubmit()
+    private async Task HandleValidSubmit()
     {
         Console.WriteLine(dayStart.ToString());
+        await Submitted.InvokeAsync(true);
     }
 
     private TimeSpan dayStart = new TimeSpan(8, 0, 0);
