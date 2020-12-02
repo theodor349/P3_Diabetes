@@ -1,6 +1,6 @@
 ﻿@inject HttpClient Http
 
-@if (page == 0)
+@if (page == 0 || page == 2)
 {
     <header class="profileName">
         <h1>@User.GetName()</h1>
@@ -15,7 +15,7 @@
     </header>
 }
 
-<section class="navProfile">
+<section class="@(page == 0 ? "navProfile" : "")">
     @if (page == 0)
     {
         <div>

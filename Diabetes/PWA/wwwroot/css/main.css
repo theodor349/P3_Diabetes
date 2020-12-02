@@ -757,3 +757,28 @@ input.small {
     text-align: center;
     width: 276px;
 }
+
+
+.center{
+    text-align: center;
+}
+
+.nsLinkLable{
+    font-weight: bold;
+    text-align: center;
+}
+
+.addNsLinkBtn {
+    text-align: center;
+    color: #eee;
+    background: #D85948;
+    font-weight: bold;
+    height: 34px;
+    line-height: 30px;
+    width: 50%;
+}
+
+.badConnection {
+    text-align: center;
+    padding-left: 0px;
+}

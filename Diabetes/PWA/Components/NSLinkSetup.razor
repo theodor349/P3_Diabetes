@@ -1,31 +1,36 @@
 ﻿@if (string.IsNullOrWhiteSpace(user.NSLink))
 {
     <EditForm Model="@link" OnValidSubmit="@HandleValidSubmit">
-        <DataAnnotationsValidator />
         @*<ValidationSummary />*@
+        <br />
         @if (showBadConnection)
         {
-            <div>
-                <p>It was not possible to connect to the link</p>
+            <div class="badConnection">
+                <label>Link not reachable</label>
             </div>
         }
-        <div>
-            <p>Insert valid Nightscout link</p>
+        <div class="nsLinkLable">
+            <label>Insert valid Nightscout link</label>
         </div>
-        <InputText id="nsLink" placeholder="Nighscout Link" @bind-Value="link" />
+        <div class="center">
+            <InputText id="nsLink" placeholder="Nighscout Link" @bind-Value="link" />
+        </div>
         <br />
-        <button class="notificationBtn" type="submit" value="Submit">Submit</button>
+        <div class="center">
+            <div class="addNsLinkBtn" @onclick="HandleValidSubmit">Submit</div>
+        </div>
     </EditForm>
 }
 else
 {
-    <div>
+    <br />
+    <div class="nsLinkLable">
         <p>Nightscout link</p>
     </div>
-    <div>
+    <div class="nsLink">
         <p>@user.NSLink</p>
     </div>
-    <div @onclick="RemoveLink">
+    <div class="addNsLinkBtn" @onclick="RemoveLink">
         <p>Remove</p>
     </div>
 }
