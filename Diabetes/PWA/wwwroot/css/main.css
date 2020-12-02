@@ -829,6 +829,43 @@ input.small {
     padding-left: 20px;
 }
 
+.collapsible .name {
+    font-weight: bold;
+    padding: 10px;
+}
+
 p.text {
     margin: 0 auto;
+}
+
+.twoBtns.small {
+    display: flex;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+    .twoBtns.small div {
+        background: #D68C49;
+        text-align: center;
+    }
+
+        .twoBtns.small div.active {
+            background: #D85948;
+            font-weight: bold;
+        }
+
+    .twoBtns.small div {
+        width: 50%;
+    }
+        .twoBtns.small div p {
+            font-weight: bold;
+            font-size: 15px
+        }
+
+.request {
+    border-bottom: solid 5px #444;
+}
+
+.manageWatcherTitle.dark{
+    background-color: #333;
 }

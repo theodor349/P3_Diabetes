@@ -6,10 +6,10 @@
         <p class="text">@Permission.GetAccessString()</p>
     </div>
     <div class="twoBtns">
-        <div>
+        <div @onclick="() => Edit(Permission.Id)">
             <p>Edit</p>
         </div>
-        <div class="active">
+        <div class="active" @onclick="() => Delte(Permission.Id)">
             <p>Delete</p>
         </div>
     </div>

@@ -1,13 +1,13 @@
-﻿<div class="collapsible">
+﻿<div class="collapsible request">
     <div class="name">
         <p>@Requests.GetName()</p>
     </div>
-    <div class="buttons">
-        <div class="accept" @onclick="() => AcceptRequest(Requests.Id)">
-            <p>Accept</p>
+    <div class="twoBtns small">
+        <div class="active" @onclick="() => AcceptRequest(Requests.Id)">
+            <p class="text">Accept</p>
         </div>
-        <div class="decline" @onclick="() => DeclineRequest(Requests.Id)">
-            <p>Decline</p>
+        <div @onclick="() => DeclineRequest(Requests.Id)">
+            <p class="text">Decline</p>
         </div>
     </div>
 </div>
