@@ -6,6 +6,11 @@
         <DataAnnotationsValidator />
         @*<ValidationSummary />*@
     <div>
+        <div class="dates">
+            <label for="">Recipient phonenumber </label>
+            <InputText @bind-Value="request.PhoneNumber"></InputText>
+        </div>
+
         @* Dates *@
         @if (isTemporary)
         {
@@ -152,7 +157,7 @@
         }
     </div>
         <div class="addPermissionBtn">
-            <button class="notificationBtn" type="submit" value="Send Permission">Send permission</button>
+            <button class="addPermissionBtn" type="submit" value="Send Permission">Send permission</button>
         </div>
     </EditForm>
 </div>
@@ -189,6 +194,9 @@
 
     class PermissionRequest
     {
+        [Required]
+        [StringLength(8)]
+        public string PhoneNumber { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime ExspireDate { get; set; }
         public bool Monday { get; set; }
