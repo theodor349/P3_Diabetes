@@ -1,9 +1,9 @@
-﻿<div>
-    <div @onclick="() => open = !open">
-        <div>
-            <p>@Name</p>
+﻿<div class="watcherBox">
+    <div @onclick="() => open = !open" class="watcherNameHeader">
+        <div class="watcherName">
+            <p class="watcherName">@Name</p>
         </div>
-        <div>
+        <div class="connectionCount">
             <p>@Permissions.Count Connections</p>
         </div>
     </div>

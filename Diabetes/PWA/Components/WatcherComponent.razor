@@ -1,15 +1,15 @@
-﻿<div>
-    <div>
-        <p>@Permission.GetAccessString()</p>
+﻿<div class="connectionBox">
+    <div class="connectionExpireDate">
+        <p class="text">Expires: @Permission.GetExpireDate()</p>
     </div>
-    <div>
-        <p>Expires: @Permission.GetExpireDate()</p>
+    <div class="connectionAccess">
+        <p class="text">@Permission.GetAccessString()</p>
     </div>
-    <div class="watcherActions">
-        <div class="watcherAction edit">
+    <div class="twoBtns">
+        <div>
             <p>Edit</p>
         </div>
-        <div class="watcherAction remove">
+        <div class="active">
             <p>Delete</p>
         </div>
     </div>

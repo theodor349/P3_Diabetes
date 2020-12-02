@@ -769,7 +769,7 @@ input.small {
 }
 
 .addNsLinkBtn {
-    text-align: center;
+    margin: 0 auto;
     color: #eee;
     background: #D85948;
     font-weight: bold;
@@ -781,4 +781,54 @@ input.small {
 .badConnection {
     text-align: center;
     padding-left: 0px;
+}
+
+
+.manageWatcherTitle {
+    font-weight: bold;
+    border-bottom: solid 2px #222;
+    height: 50px;
+    padding: 10px;
+}
+
+.watcherBox {
+    border-bottom: solid 2px #222;
+}
+
+.watcherNameHeader {
+    text-align: left;
+    padding-left: 20px;
+    background: #333;
+    padding: 10px 0px 1px 20px;
+}
+
+.watcherName {
+    font-weight: bold;
+    color: #ccc;
+}
+    p.watcherName {
+        margin: 0 auto;
+    }
+
+.connectionCount {
+    color: #ccc;
+}
+
+.connectionBox {
+    border-bottom: solid 2px #333;
+    text-align: left;
+    padding-top: 10px;
+}
+
+.connectionExpireDate {
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+.connectionAccess {
+    padding-left: 20px;
+}
+
+p.text {
+    margin: 0 auto;
 }

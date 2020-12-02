@@ -1,11 +1,11 @@
 ﻿@inject HttpClient Http;
 
 <div class="connectionMananger">
-    <div class="Title">
+    <div class="manageWatcherTitle">
         <h4>Manage Connections</h4>
     </div>
 
-    <div class="subjects scrollbar">
+    <div class="scrollbar" style="height: 430px;">
         @foreach (var user in UserPermissions)
         {
             <WatcherUserPermissions Permissions="user.Value" Name="@user.Key"></WatcherUserPermissions>
