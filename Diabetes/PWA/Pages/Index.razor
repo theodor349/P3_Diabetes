@@ -82,7 +82,7 @@ else
 }
 
 @code {
-    private bool playSound = true;
+    private bool playSound = false;
     private string sound = "Next.mp3";
 
     private int page = 0;
@@ -91,6 +91,12 @@ else
     private Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
     private Dictionary<string, ActiveNotification> activeNotifications = new Dictionary<string, ActiveNotification>();
     private Stack<ActiveNotification> focusedNotifications = new Stack<ActiveNotification>();
+
+    // TODO: Make Work
+    private void PlaySound(bool isWarning)
+    {
+        playSound = false;
+    }
 
     private void SetPage(int p)
     {
@@ -168,17 +174,13 @@ else
     private void AddActiveNotification(string id, ActiveNotification notification)
     {
         PlaySound(true);
+        focusedNotifications.Push(notification);
         activeNotifications.Add(id, notification);
     }
 
     private void RemoveActiveNotification(ActiveNotification notification)
     {
         activeNotifications.Remove(notification.ToString());
-    }
-
-    private void PlaySound(bool isWarning)
-    {
-        playSound = true;
     }
 
     private void NotificationButtonClicked(NotificationButtonType type)
