@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models.Account;
 using APIDataAccess.Models.Account;
+using APIHandler.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -21,17 +22,19 @@ namespace API.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IAccountHandler _accountHandler;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IAccountHandler accountHandler)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _accountHandler = accountHandler;
         }
 
         [HttpGet]
         public AccountDBModel Get(string id)
         {
-            throw new NotImplementedException();
+            return _accountHandler.Get(id);
         }
 
         [HttpPost]
@@ -65,7 +68,12 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update(UpdateAccountDBModel updatedUser)
         {
-            throw new NotImplementedException();
+            if (IsValidateModel(updatedUser))
+            {
+                _accountHandler.UpdateAccount(updatedUser);
+                return Ok();
+            }
+            return BadRequest();
         }
 
         [HttpDelete]
@@ -78,14 +86,14 @@ namespace API.Controllers
         [Route("ByPhoneNumber")]
         public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
-            throw new NotImplementedException();
+            return _accountHandler.GetByPhoneNumber(phoneNumber);
         }
 
         [HttpGet]
         [Route("EmailExists")]
         public bool EmailExists(string email)
         {
-            throw new NotImplementedException();
+            return (_accountHandler.EmailExists(email));
         }
 
         [HttpGet]
@@ -121,6 +129,13 @@ namespace API.Controllers
         public ActionResult UpdateUnitOfMeasurement(UpdateUnitOfMesureModel input)
         {
             throw new NotImplementedException();
+        }
+        private bool IsValidateModel(UpdateAccountDBModel updateAccountDBModel)
+        {
+            if (updateAccountDBModel.ID == null && updateAccountDBModel.FirstName == null && updateAccountDBModel.LastName == null && updateAccountDBModel.PhoneNumber == null)
+                return false;
+            else
+                return true;
         }
     }
 }
