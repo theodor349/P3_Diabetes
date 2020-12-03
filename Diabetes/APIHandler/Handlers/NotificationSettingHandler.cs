@@ -10,59 +10,38 @@ namespace APIHandler.Handlers
 {
     public class NotificationSettingHandler : INotificationSettingHandler
     {
-        private readonly INotificationSettingAccess notificationSettingAccess;
-        private readonly INotificationsSettingsUtils notificationsSettingsUtils;
+        private readonly INotificationSettingAccess _nsa;
+        private readonly INotificationsSettingsUtils _nsu;
 
         public NotificationSettingHandler(INotificationSettingAccess notificationSettingAccess, INotificationsSettingsUtils notificationsSettingsUtils)
         {
-            this.notificationSettingAccess = notificationSettingAccess;
-            this.notificationsSettingsUtils = notificationsSettingsUtils;
-        }
-
-        private float ConvertThresholdValue(string threshold)
-        {
-            return float.Parse(threshold);
-        }
-
-        private ThresholdType ConvertThresholdType(string thresholdType)
-        {
-            if (thresholdType == "High")
-                return ThresholdType.High;
-            else
-                return ThresholdType.Low; 
-        }
-
-        private NotificationType ConvertNotificationType(string notificationType)
-        {
-            if (notificationType == "Warning")
-                return NotificationType.Warning;
-            else
-                return NotificationType.Message;
+            _nsa = notificationSettingAccess;
+            _nsu = notificationsSettingsUtils;
         }
 
         private CreateNotificationSettingModel CreateDefault(string ownerID, string type)
         {
-            float threshold = ConvertThresholdValue(notificationsSettingsUtils.GetDefaultValue(type, "Threshold"));
-            ThresholdType thresholdType = ConvertThresholdType(notificationsSettingsUtils.GetDefaultValue(type, "Thresholdtype"));
-            NotificationType notificationType = ConvertNotificationType(notificationsSettingsUtils.GetDefaultValue(type, "NotificationType"));
-            string note = notificationsSettingsUtils.GetDefaultValue(type, "Note");
+            float threshold = float.Parse(_nsu.GetDefaultValue(type, "Threshold"));
+            ThresholdType thresholdType = StringToEnum<ThresholdType>(_nsu.GetDefaultValue(type, "ThresholdType"));
+            NotificationType notificationType = StringToEnum<NotificationType>(_nsu.GetDefaultValue(type, "NotificationType"));
+            string note = _nsu.GetDefaultValue(type, "Note");
 
             return new CreateNotificationSettingModel(ownerID, threshold, thresholdType, notificationType, note);
         }
 
         public List<NotificationSettingModel> Get(string userId)
         {
-            return notificationSettingAccess.Get(userId);
+            return _nsa.Get(userId);
         }
 
         public void Update(UpdateNotificationSettingModel model)
         {
-            notificationSettingAccess.Update(model);
+            _nsa.Update(model);
         }
 
         public void DeleteByUserId(string userId)
         {
-            notificationSettingAccess.DeleteByUserId(userId);
+            _nsa.DeleteByUserId(userId);
         }
 
         public void CreateStandardSettings(string userId)
@@ -71,8 +50,13 @@ namespace APIHandler.Handlers
 
             CreateNotificationSettingModel model2 = CreateDefault(userId, "Low");
 
-            notificationSettingAccess.Create(model1);
-            notificationSettingAccess.Create(model2);
+            _nsa.Create(model1);
+            _nsa.Create(model2);
+        }
+
+        private T StringToEnum<T>(string enumName) where T : Enum
+        {
+            return (T)Enum.Parse(typeof(T), enumName);
         }
     }
 }

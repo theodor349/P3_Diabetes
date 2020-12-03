@@ -15,26 +15,25 @@ namespace API.Controllers
     [Authorize]
     public class NotificationSettingController : ControllerBase
     {
-        private readonly INotificationSettingHandler notificationSettingHandler;
+        private readonly INotificationSettingHandler _nsh;
 
         public NotificationSettingController(INotificationSettingHandler notificationSettingHandler)
         {
-            this.notificationSettingHandler = notificationSettingHandler;
+            _nsh = notificationSettingHandler;
         }
 
         [HttpGet]
         public List<NotificationSettingModel> Get(string userId)
         {
-            return notificationSettingHandler.Get(userId);
+            return _nsh.Get(userId);
         }
 
         [HttpPut]
         public ActionResult Update(UpdateNotificationSettingModel notificationSettingModel)
         {
-            bool vaild = ValidateModel(notificationSettingModel);
-            if (vaild)
+            if (IsValidateModel(notificationSettingModel))
             {
-                notificationSettingHandler.Update(notificationSettingModel);
+                _nsh.Update(notificationSettingModel);
                 return Ok();
             }
             else
@@ -42,12 +41,9 @@ namespace API.Controllers
             
         }
 
-        private bool ValidateModel(UpdateNotificationSettingModel updateNotificationSettingModel)
+        private bool IsValidateModel(UpdateNotificationSettingModel model)
         {
-            if (updateNotificationSettingModel.Note == null)
-                return false;
-            else
-                return true;
+            return model.Note != null;
         }
     }
 }

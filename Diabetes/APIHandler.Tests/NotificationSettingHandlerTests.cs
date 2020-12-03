@@ -11,7 +11,7 @@ using APIDataAccess.Models.NotificationSetting;
 
 namespace APIHandler.Tests
 {
-    
+    [TestClass]
     public class NotificationSettingHandlerTests
     {
         #region CreateStandardSettings
@@ -31,9 +31,9 @@ namespace APIHandler.Tests
             util.GetDefaultValue("Low", "NotificationType").Returns("Warning");
             util.GetDefaultValue("Low", "Note").Returns("If blood sugar is low, ask patient if they has eaten or drinken something with fast carbohydrates. If blood sugar gets(Around 2.2 or lower) keep a good eye on patient.");
 
-            NotificationSettingHandler notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
+            var notificationSettingHandler = new NotificationSettingHandler(notificationSettingDataAccesser, util);
 
-            notificationSettingHandler.CreateStandardSettings("");
+            notificationSettingHandler.CreateStandardSettings("userid");
 
             notificationSettingDataAccesser.Received(2).Create(Arg.Any<CreateNotificationSettingModel>());
         }
