@@ -13,5 +13,6 @@ namespace APIDataAccess.Models.Permission
         public int WeeksActive { get; set; }
         public int WeeksDeactive { get; set; }
         public int Attributes { get; set; }
+        public bool Accepted { get; set; }
     }
 }

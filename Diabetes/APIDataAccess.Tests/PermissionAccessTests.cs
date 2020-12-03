@@ -114,7 +114,7 @@ namespace APIDataAccess.Tests
 
             DateTime testTime = DateTime.Now;
 
-            PermissionDBModel updatedPermission = new PermissionDBModel()
+            UpdatePermissionModel updatedPermission = new UpdatePermissionModel()
             {
                 Id = 3,
                 StartDate = testTime,
@@ -122,14 +122,14 @@ namespace APIDataAccess.Tests
                 WeeksActive = 2,
                 WeeksDeactive = 1,
                 Attributes = 4,
-                Accepted = true
+                Accepted = true,
             };
 
             var data = new PermissionAccess(sql);
 
             data.Update(updatedPermission);
 
-            sql.Received(1).SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), Arg.Is<PermissionDBModel>((x) =>
+            sql.Received(1).SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), Arg.Is<UpdatePermissionModel>((x) =>
 
                 x.Id == 3 &&
                 x.StartDate == testTime &&
