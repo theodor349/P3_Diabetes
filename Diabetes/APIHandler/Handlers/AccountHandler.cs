@@ -43,7 +43,7 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public void UpdateAccount(CreateAccountDBModel model)
+        public void UpdateAccount(UpdateAccountDBModel model)
         {
             throw new NotImplementedException();
         }

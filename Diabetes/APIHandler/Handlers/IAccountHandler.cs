@@ -11,7 +11,7 @@ namespace APIHandler.Handlers
         bool PhoneNumberExists(string phone);
         void RegisterAccount(CreateAccountDBModel model);
         void UnregisterAccount(string id);
-        void UpdateAccount(CreateAccountDBModel model);
+        void UpdateAccount(UpdateAccountDBModel model);
         void UpdateNightScoutLink(string id, string link);
         void UpdateUnitOfMeasurement(string id, bool input);
     }
