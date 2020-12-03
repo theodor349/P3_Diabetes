@@ -1,0 +1,30 @@
+﻿<div class="connectionBox">
+    <div class="connectionExpireDate">
+        <p class="text">Expires: @Permission.GetExpireDate()</p>
+    </div>
+    <div class="connectionAccess">
+        <p class="text">@Permission.GetAccessString()</p>
+    </div>
+    <div class="twoBtns">
+        <div @onclick="() => Edit(Permission.Id)">
+            <p>Edit</p>
+        </div>
+        <div class="active" @onclick="() => Delte(Permission.Id)">
+            <p>Delete</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Permission Permission { get; set; }
+
+    private void Edit(int id)
+    {
+
+    }
+
+    private void Delte(int id)
+    {
+
+    }
+}

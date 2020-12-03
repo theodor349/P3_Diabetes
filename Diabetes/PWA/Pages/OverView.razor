@@ -1,0 +1,59 @@
+﻿<header class="overviewHeader">
+    @if (page == 0)
+    {
+        <div class="focus" @onclick="() => SetPage(0)">
+            <i class="fa fa-users"></i>
+        </div>
+    }
+    else
+    {
+        <div @onclick="() => SetPage(0)">
+            <i class="fa fa-users"></i>
+        </div>
+    }
+    @if (page == 1)
+    {
+        <div class="focus" @onclick="() => SetPage(1)">
+            <i class="fa fa-bell"></i>
+        </div>
+    }
+    else
+    {
+        <div @onclick="() => SetPage(1)">
+            <i class="fa fa-bell"></i>
+        </div>
+    }
+</header>
+
+@if (page == 0)
+{
+    <section class="overviewContainer">
+        <div class="scrollbar">
+            @if (Subjects != null)
+            {
+                @foreach (var subject in Subjects.Values)
+                {
+                    <SmallDetailComponent Subject="subject" TargetSubjectChanged="TargetSubjectChanged"></SmallDetailComponent>
+                }
+            }
+        </div>
+    </section>
+}
+else if (page == 1)
+{
+    <AllNotifications notifications="notifications" notificationClicked="notificationClicked"></AllNotifications>
+}
+
+@code {
+    [Parameter] public Dictionary<string, Subject> Subjects { get; set; }
+    [Parameter] public EventCallback<string> TargetSubjectChanged { get; set; }
+    [Parameter] public Dictionary<string, ActiveNotification> notifications { get; set; }
+    [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
+
+    private int page = 0;
+
+    private void SetPage(int p)
+    {
+        page = p;
+    }
+}

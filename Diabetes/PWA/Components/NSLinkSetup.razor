@@ -1,0 +1,70 @@
+﻿@if (string.IsNullOrWhiteSpace(user.NSLink))
+{
+    <EditForm Model="@link" OnValidSubmit="@HandleValidSubmit">
+        @*<ValidationSummary />*@
+        <br />
+        @if (showBadConnection)
+        {
+            <div class="badConnection">
+                <label>Link not reachable</label>
+            </div>
+        }
+        <div class="nsLinkLable">
+            <label>Insert valid Nightscout link</label>
+        </div>
+        <div class="center">
+            <InputText id="nsLink" placeholder="Nighscout Link" @bind-Value="link" />
+        </div>
+        <br />
+        <div class="center">
+            <div class="addNsLinkBtn" @onclick="HandleValidSubmit">Submit</div>
+        </div>
+    </EditForm>
+}
+else
+{
+    <br />
+    <div class="nsLinkLable">
+        <p>Nightscout link</p>
+    </div>
+    <div class="nsLink">
+        <p>@user.NSLink</p>
+    </div>
+    <div class="addNsLinkBtn" @onclick="RemoveLink">
+        <p>Remove</p>
+    </div>
+}
+
+@code {
+
+    [Parameter] public LoginUser user { get; set; }
+    private string link;
+    private bool showBadConnection = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        link = user.NSLink;
+    }
+
+    private async Task<bool> IsValidConnection(string link)
+    {
+        return false;
+    }
+
+    private void RemoveLink()
+    {
+        user.NSLink = "";
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (await IsValidConnection(link))
+        {
+            user.NSLink = link;
+        }
+        else
+        {
+            showBadConnection = true;
+        }
+    }
+}

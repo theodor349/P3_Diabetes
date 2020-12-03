@@ -1,0 +1,38 @@
+{
+  "PermissionList": [
+    {
+      "Id": 1,
+      "TargetID": "hellow",
+      "FirstName": "Hr",
+      "LastName": "Gajhede",
+      "IsOwner": false,
+      "BloodGlucose": true,
+      "Battery": true,
+      "Insuling": true,
+      "ExpireDate": "2020-10-10T10:00:00Z"
+    },
+    {
+      "Id": 2,
+      "TargetId": "hej",
+      "FirstName": "Daniel",
+      "LastName": "Møller",
+      "IsOwner": true,
+      "BloodGlucose": false,
+      "Battery": true,
+      "Insuling": true,
+      "ExpireDate": "2021-10-10T10:00:00Z"
+    },
+    {
+      "Id": 3,
+      "TargetID": "hellow",
+      "FirstName": "Hr",
+      "LastName": "Gajhede",
+      "IsOwner": false,
+      "BloodGlucose": true,
+      "Battery": false,
+      "Insuling": false,
+      "ExpireDate": "2022-10-10T10:00:00Z"
+    }
+
+  ]
+}

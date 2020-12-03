@@ -1,0 +1,871 @@
+﻿
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.bodyContainer {
+    width: 292.87px;
+    height: 521.08px;
+    box-sizing: border-box;
+    background-color: #333;
+    margin: 20px auto;
+    font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 5px;
+    position: relative;
+    text-align: center;
+    padding-bottom: 40px;
+    box-shadow: 0px 0px 10px 8px #ccc;
+    color: #ccc;
+}
+
+.notificationBadge {
+}
+
+.notificationBadge {
+    border-radius: 50%;
+    background-color: #CD2100;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    line-height: 15px;
+    display: inline-block;
+    padding: 0;
+    color: #eee;
+    font-size: 0.7em;
+    transform: translate(0px, -6px);
+}
+
+header.profileName {
+    /*margin-bottom: 10px;*/
+    background: #D85948;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding-bottom: 15px;
+    color: #eee;
+}
+
+header h1 {
+    font-size: 25px;
+    padding-top: 13px;
+    margin-bottom: 0;
+}
+
+.permissionContainer {
+    box-sizing: border-box;
+    background-color: #555;
+    height: 400px;
+}
+    .permissionContainer .scrollbar .collapsible .name {
+        height: 40px;
+        background-color: #333;
+    }
+    .permissionContainer .scrollbar .collapsible .buttons {
+        display: flex;
+        height: 40px;
+    }
+        .permissionContainer .scrollbar .collapsible .buttons .accept {
+            width: 50%;
+            background: #555;
+        }
+        .permissionContainer .scrollbar .collapsible .buttons .decline {
+            width: 50%;
+            background-color: #CD2100;
+        }
+        .permissionContainer .scrollbar .collapsible .buttons p {
+            text-align: center;
+            padding: 10px;
+        }
+
+.scrollbar {
+    background: #555;
+    overflow: auto;
+}
+
+.currentNotifications .notification {
+    height: 42px;
+}
+
+.currentNotifications {
+    box-sizing: border-box;
+    background-color: #eee;
+    height: 437px;
+}
+
+    .currentNotifications.currentWatching .notificationBtn {
+        width: 100%;
+        margin: 0;
+        padding: 6px;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .currentNotifications.currentWatching div {
+        padding: 0;
+    }
+
+    .currentNotifications > div {
+        height: 437px;
+    }
+
+        .currentNotifications .dark {
+            background: #333;
+        }
+            .currentNotifications .dark {
+                height: 42px;
+            }
+
+    .currentNotifications .gray {
+        background: #555;
+    }
+
+    .currentNotifications h3 {
+        margin: 5px auto 5px;
+        color: #999;
+    }
+
+    .currentNotifications div div div {
+        padding-left: 20px;
+    }
+
+    .currentNotifications div div {
+        border-top: 1px solid #555;
+        color: #eee;
+        text-align: left;
+        cursor: pointer;
+    }
+
+        .currentNotifications div div.content{
+            padding-top: 0;
+        }
+
+        .currentNotifications div div p {
+            margin: 8px 40px;
+        }
+
+        .currentNotifications div div:last-child {
+            border-bottom: 1px solid #555;
+        }
+
+    .currentNotifications .warning {
+        background-color: #CD2100;
+    }
+
+    .currentNotifications .message {
+        background-color: #444;
+    }
+
+.overviewHeader {
+    display: flex;
+    justify-content: space-around;
+    background: #333;
+    height: 40px;
+    border-bottom: 2px solid #222;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+    .overviewHeader > div {
+        width: 50%;
+    }
+
+    .overviewHeader > div {
+        color: inherit;
+    }
+
+    .overviewHeader div {
+        padding: 5px;
+        padding-top: 11px;
+    }
+
+        .overviewHeader div.focus {
+            background: #333;
+            box-shadow: 0px 0px 10px #222 inset;
+            color: #D85948;
+            height: 40px;
+            box-sizing: border-box;
+        }
+
+    .overviewHeader a:first-child div {
+        border-top-left-radius: 5px;
+    }
+
+    .overviewHeader a:last-child div {
+        border-top-right-radius: 5px;
+    }
+
+.overviewContainer .scrollbar {
+    height: 441px;
+    color: #eee;
+}
+
+.overviewContainer > div > a > div {
+    background: #333;
+    border-bottom: 1px solid #222;
+    box-sizing: border-box;
+    text-align: left;
+    padding: 5px 0 0px;
+}
+
+.overviewContainer > div > div.high {
+    background: #CD2100;
+}
+
+.overviewContainer > div > div.mid {
+    background: #D65847;
+    box-shadow: 0 0 25px #DB6C61 inset;
+}
+
+.overviewContainer > div > div.stabile {
+    /*    background: #3EA9CE; */
+}
+
+.overviewContainer h3 {
+    margin: 0 auto;
+    padding: 10px 0 12px 24px;
+}
+
+.overviewContainer div div div {
+    display: flex;
+    height: 30px;
+    border-top: none;
+}
+
+    .overviewContainer div div div div {
+        width: 33.3%;
+    }
+
+        .overviewContainer div div div div i {
+            margin: 0 auto;
+        }
+
+        .overviewContainer div div div div.bloodGlucose i {
+            margin: 0 auto 0 0;
+        }
+
+        .overviewContainer div div div div.bloodGlucose p {
+            margin: 0 5px 0 auto;
+            line-height: 0.8em;
+            font-weight: bold;
+        }
+
+.navProfile {
+    text-align: left;
+    /*padding: 20px 0;*/
+}
+
+    .navProfile p {
+        display: block;
+        margin: 0;
+        padding: 10px;
+        padding-left: 65px;
+    }
+
+        .navProfile p i {
+            margin-left: 5px;
+        }
+
+        .navProfile p > p {
+            margin-left: -10px;
+            display: inline;
+        }
+
+    .navProfile > div {
+        font-size: 1.1em;
+    }
+
+        .navProfile > div:first-child {
+            padding-bottom: 20px;
+            border-bottom: 2px solid #444;
+        }
+
+        .navProfile > div:last-child {
+            padding-top: 20px;
+        }
+
+.detailedMainView {
+    display: flex;
+    width: 170px;
+    margin: 5px auto 0;
+    justify-content: flex-end;
+}
+
+    .detailedMainView p {
+        margin: 0;
+    }
+
+    .detailedMainView > div {
+        font-size: 5em;
+        line-height: 0.8em;
+    }
+
+        .detailedMainView > div > div {
+            font-size: 0.2em;
+            line-height: 2em;
+            margin-left: 0.5em;
+        }
+
+.detailedSecondaryView {
+    display: flex;
+    justify-content: space-around;
+    width: 170px;
+    margin: 0 auto;
+}
+
+    .detailedSecondaryView div, .detailedSecondaryView p {
+        display: inline-block;
+        margin: 6px 0;
+    }
+
+.bloodGlucoseStatus {
+    margin-top: 1.2em;
+    margin-bottom: 0;
+}
+
+.detailSettings {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px auto 0;
+    width: 170px;
+    font-size: 1.8em;
+}
+
+    .detailSettings div {
+        padding: 10px;
+        background: #454545;
+        height: 50px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    .detailSettings a:visited {
+        color: inherit;
+    }
+
+    .detailSettings .active {
+        background: #555;
+    }
+
+.notes {
+    background: #555;
+    overflow-y: scroll;
+    height: 176px;
+    box-sizing: border-box;
+    text-align: left;
+    border-top: 8px solid #555;
+    border-bottom: 8px solid #555;
+    color: #ddd;
+}
+
+    .notes div div {
+        padding: 0;
+    }
+
+    .notes div {
+        padding: 5px 20px;
+        border-bottom: 2px dotted #888;
+    }
+
+        .notes div:last-child {
+            border-bottom: none;
+        }
+
+    .notes > div h4 {
+        margin-bottom: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .notes div h4:first-child,
+    .notes div p:first-child {
+        margin-top: 0;
+    }
+
+    .notes div p:last-child {
+        margin-bottom: 0;
+    }
+
+    .notes > div p:nth-child(2) {
+        margin-top: 0;
+    }
+
+    .notes > div {
+    }
+
+.currentNotificationsDetails {
+    box-sizing: border-box;
+    background-color: #555;
+    height: 176px;
+    padding-top: 2px;
+}
+
+    .currentNotificationsDetails div {
+        height: 176px;
+    }
+
+
+    .currentNotificationsDetails h3 {
+        margin: 5px auto 5px;
+        color: #999;
+    }
+
+    .currentNotificationsDetails div div {
+        height: 40px;
+    }
+
+    .currentNotificationsDetails div div {
+        border-top: 1px solid #555;
+        color: #eee;
+        text-align: left;
+    }
+
+        .currentNotificationsDetails div div p {
+            margin: 8px 50px;
+        }
+
+        .currentNotificationsDetails div div:last-child {
+            border-bottom: 1px solid #555;
+        }
+
+    .currentNotificationsDetails .warning {
+        background: #CD2100;
+    }
+
+    .currentNotificationsDetails .message {
+        background-color: #444;
+    }
+
+
+.notificationBox {
+    padding: 60px 20px;
+}
+
+    .notificationBox.largeMargin {
+        padding: 120px 20px;
+    }
+
+.bodyContainer .notificationBox h1:first-child {
+    font-size: 4em;
+    margin: 0 auto;
+    line-height: 0.8;
+}
+
+.notificationOptions {
+    display: flex;
+}
+
+    .notificationOptions a {
+        width: 130px;
+    }
+
+    .notificationOptions .notificationBtn {
+        margin: 10px;
+    }
+
+.notificationBtn {
+    background: #777;
+    padding: 10px;
+    margin: 10px auto;
+    color: #ccc;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+}
+
+.noData {
+    padding: 120px 20px;
+}
+
+    .noData h1 {
+        margin-bottom: 10px;
+    }
+
+    .noData h2 {
+        margin-top: 0;
+    }
+
+.detailnoData {
+    padding: 100px 20px;
+}
+
+.progressionBar {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+    .progressionBar > div {
+        border: 1px solid #282828;
+        width: 20%;
+        height: 20px;
+        box-shadow: 0px 0px 15px #252525 inset;
+    }
+
+        .progressionBar > div.active {
+            background: #D85948;
+            box-shadow: none;
+        }
+
+.watchRequest .notificationOptions {
+    margin-top: 140px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.navMenu {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin: 0;
+    padding: 0;
+    border-top: 2px solid #222;
+    background-color: #333;
+}
+
+    .navMenu div {
+        display: block;
+        width: 33.3%;
+        padding-top: 7px;
+    }
+
+        .navMenu div.focus {
+            background: #333;
+            box-shadow: 0px 0px 15px #151515 inset;
+            color: #D85948;
+        }
+
+        .navMenu div:first-child {
+            border-right: 1px solid #222;
+            border-bottom-left-radius: 5px;
+        }
+
+        .navMenu div:last-child {
+            border-left: 1px solid #222;
+            border-bottom-right-radius: 5px;
+        }
+
+    .navMenu div {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+
+
+
+
+.bodyContainer h1:first-child {
+    margin-top: 10px;
+    padding: 0;
+    font-size: 1.5em;
+    padding-top: 20px;
+}
+
+form div.notificationBtn {
+    margin: 0px auto 20px;
+}
+
+.signUpBox {
+    overflow-y: scroll;
+    height: 420px;
+    margin-bottom: 25px;
+    padding: 20px 0 0;
+    box-sizing: border-box;
+    border: 5px solid #222;
+}
+
+    .signUpBox h1:first-child {
+        padding-top: 0;
+    }
+
+    .signUpBox div:last-child {
+        background: #222;
+        margin: 0px auto;
+        padding: 20px;
+    }
+
+        .signUpBox div:last-child div {
+            padding: 0px;
+        }
+
+        .signUpBox div:last-child input:nth-child(2) {
+            margin-top: 5px;
+        }
+
+label.header {
+    font-size: 1.3em;
+    color: #ddd;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    background: #bbb;
+    padding: 8px 10px;
+    margin: 2px;
+    width: 200px;
+    border: none;
+}
+
+    input:focus {
+        outline: none;
+    }
+
+    input.smallNbr {
+        width: 50px;
+    }
+
+textarea {
+    background: #bbb;
+    width: 200px;
+    height: 100px;
+    padding: 6px 10px;
+    font-family: sans-serif;
+}
+
+    textarea.small {
+        background: #bbb;
+        width: 200px;
+        height: 50px;
+    }
+
+::placeholder {
+    font-style: italic;
+}
+
+.forgotPasswordBtn {
+    padding: 1px;
+    margin-top: 0;
+    background: none;
+}
+
+.registerBtn {
+    background: #444;
+}
+
+.loginBox {
+    padding-top: 20px;
+}
+
+    .loginBox hr {
+        border: 4px solid #292929;
+        margin-bottom: 20px;
+    }
+
+.logoImg {
+    width: 70px;
+    margin-bottom: 40px;
+}
+
+.connectionMananger {
+    
+}
+
+    .connectionMananger .subjects {
+        background-color: #333;
+    }
+
+
+
+
+.addPermissionBox {
+    height: 510px;
+    overflow: auto;
+}
+
+    .addPermissionBox form p {
+        width: 200px;
+        text-align: left;
+    }
+
+    .addPermissionBox h1 {
+        text-align: center;
+    }
+
+
+.checkbox {
+    width: 150px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.WeeksOfAccess {
+    width: 200px;
+    margin: 0 auto 10px;
+}
+
+    .WeeksOfAccess input {
+        width: 30px;
+        margin-right: 5px;
+        padding: 2px;
+    }
+
+input[type="checkbox"] {
+    width: 20px;
+}
+
+input.small {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.dates{
+    text-align: center;
+}
+
+.twoBtns {
+    display: flex;
+    margin-bottom: 14px;
+    margin-top: 20px;
+}
+
+    .twoBtns div {
+        background: #D68C49;
+        text-align: center;
+    }
+
+        .twoBtns div.active {
+            background: #D85948;
+            font-weight: bold;
+        }
+
+    .twoBtns div {
+        height: 34px;
+        line-height: 30px;
+        width: 50%;
+    }
+
+.addPermissionBtn {
+    background: #777;
+    padding: 6px;
+    color: #ccc;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 276px;
+}
+
+
+.center{
+    text-align: center;
+}
+
+.nsLinkLable{
+    font-weight: bold;
+    text-align: center;
+}
+
+.addNsLinkBtn {
+    margin: 0 auto;
+    color: #eee;
+    background: #D85948;
+    font-weight: bold;
+    height: 34px;
+    line-height: 30px;
+    width: 50%;
+}
+
+.badConnection {
+    text-align: center;
+    padding-left: 0px;
+}
+
+
+.manageWatcherTitle {
+    font-weight: bold;
+    border-bottom: solid 2px #222;
+    height: 50px;
+    padding: 10px;
+}
+
+.watcherBox {
+    border-bottom: solid 2px #222;
+}
+
+.watcherNameHeader {
+    text-align: left;
+    padding-left: 20px;
+    background: #333;
+    padding: 10px 0px 1px 20px;
+}
+
+.watcherName {
+    font-weight: bold;
+    color: #ccc;
+}
+    p.watcherName {
+        margin: 0 auto;
+    }
+
+.connectionCount {
+    color: #ccc;
+}
+
+.connectionBox {
+    border-bottom: solid 2px #333;
+    text-align: left;
+    padding-top: 10px;
+}
+
+.connectionExpireDate {
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+.connectionAccess {
+    padding-left: 20px;
+}
+
+.collapsible .name {
+    font-weight: bold;
+    padding: 10px;
+}
+
+p.text {
+    margin: 0 auto;
+}
+
+.twoBtns.small {
+    display: flex;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+    .twoBtns.small div {
+        background: #D68C49;
+        text-align: center;
+    }
+
+        .twoBtns.small div.active {
+            background: #D85948;
+            font-weight: bold;
+        }
+
+    .twoBtns.small div {
+        width: 50%;
+    }
+        .twoBtns.small div p {
+            font-weight: bold;
+            font-size: 15px
+        }
+
+.request {
+    border-bottom: solid 5px #444;
+}
+
+.manageWatcherTitle.dark{
+    background-color: #333;
+}

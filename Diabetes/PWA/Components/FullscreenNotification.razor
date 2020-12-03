@@ -1,0 +1,25 @@
+﻿<div class="notificationBox largeMargin">
+
+    <h1><i class="@notificationData.Data.IconClassName"></i></h1>
+    <h2>@notificationData.Data.Note</h2>
+
+
+
+    <div class="notificationOptions" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Snooze)">
+        <div class="notificationBtn">
+            Snooze
+        </div>
+        @if (notificationData.Data.Type == NotificationType.Message)
+        {
+            <div class="notificationBtn" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Dismiss)">
+                Dismiss
+            </div>
+        }
+    </div>
+
+</div>
+
+@code {
+    [Parameter] public ActiveNotification notificationData { get; set; }
+    [Parameter] public EventCallback<NotificationButtonType> notificationButtonClicked { get; set; }
+}

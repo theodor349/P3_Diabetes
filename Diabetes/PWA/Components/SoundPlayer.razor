@@ -1,0 +1,20 @@
+﻿@if (SoundsToPlay.Value.Count > 0)
+{
+    <audio onended="() => StopSound()"></audio>
+    <audio autoplay><source src="/Sounds/@sound" /></audio>
+}
+else
+{
+    <audio muted><source src="/Sounds/@sound" /></audio>
+}
+@code {
+    [Parameter] public CascadingValue<Queue<bool>> SoundsToPlay { get; set; }
+
+    private bool playSound = true;
+    private string sound = "Next.mp3";
+
+    private void StopSound()
+    {
+        SoundsToPlay.Value.Dequeue();
+    }
+}

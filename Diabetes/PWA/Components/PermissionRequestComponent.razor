@@ -1,0 +1,29 @@
+﻿<div class="collapsible request">
+    <div class="name">
+        <p>@Requests.GetName()</p>
+    </div>
+    <div class="twoBtns small">
+        <div class="active" @onclick="() => AcceptRequest(Requests.Id)">
+            <p class="text">Accept</p>
+        </div>
+        <div @onclick="() => DeclineRequest(Requests.Id)">
+            <p class="text">Decline</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public PermissionRequestModel Requests { get; set; }
+    [Parameter] public EventCallback<int> Accept { get; set; }
+    [Parameter] public EventCallback<int> Decline { get; set; }
+
+    private void AcceptRequest(int id)
+    {
+        Accept.InvokeAsync(id);
+    }
+
+    private void DeclineRequest(int id)
+    {
+        Decline.InvokeAsync(id);
+    }
+}

@@ -1,0 +1,93 @@
+﻿@inject HttpClient Http
+
+@if (page == 0 || page == 2)
+{
+    <header class="profileName">
+        <h1>@User.GetName()</h1>
+        @if (string.IsNullOrWhiteSpace(User.NSLink))
+        {
+            <i>No Nightscout connected</i>
+        }
+        else
+        {
+            <i>Nightscout connected</i>
+        }
+    </header>
+}
+
+<section class="@(page == 0 ? "navProfile" : "")">
+    @if (page == 0)
+    {
+        <div>
+            <div @onclick="() => page = 1">
+                <p>Account</p>
+            </div>
+            <div @onclick="() => page = 2">
+                <p>Nightscout</p>
+            </div>
+            <div @onclick="() => page = 3">
+                <p>Manage Connections</p>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(User.NSLink))
+            {
+                <div @onclick="() => page = 4">
+                    <p>Add Watchers</p>
+                </div>
+            }
+        </div>
+
+        <div @onclick="() => page = 5">
+            <p>
+                Pending requests
+                @if (permissionRequests.Count > 0)
+                {
+                    <span class="notificationBadge">@permissionRequests.Count</span>
+                }
+            </p>
+        </div>
+    }
+    else if (page == 1)
+    {
+
+    }
+    else if (page == 2)
+    {
+        <NSLinkSetup user="User"></NSLinkSetup>
+    }
+    else if (page == 3)
+    {
+        <ManageWatchers></ManageWatchers>
+    }
+    else if (page == 4)
+    {
+        <AddWatcherPage User="User" Submitted="x => page = 0 "></AddWatcherPage>
+    }
+    else if (page == 5)
+    {
+        <PermissionRequests permissionRequests="permissionRequests" Accept="AcceptRequest" Decline="DeclineRequest"></PermissionRequests>
+    }
+
+</section>
+
+@code {
+    [Parameter] public LoginUser User { get; set; }
+
+    private int page = 0;
+    private List<PermissionRequestModel> permissionRequests = new List<PermissionRequestModel>();
+    [Parameter] public Dictionary<string, Subject> subjects { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        permissionRequests = (await Http.GetFromJsonAsync<PermissionRequestsModel>("api/permission/permissionrequests.json")).Requests;
+    }
+
+    private void AcceptRequest(int id)
+    {
+        Console.WriteLine("Accepted: " + id);
+    }
+
+    private void DeclineRequest(int id)
+    {
+        Console.WriteLine("Decline: " + id);
+    }
+}

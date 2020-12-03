@@ -1,0 +1,13 @@
+﻿@inject HttpClient Http
+
+<div>
+    <h4>
+        @Notification.Title:
+    </h4>
+    <div>
+        <p>@Notification.Note</p>
+    </div>
+</div>
+@code {
+    [Parameter] public NotificationData Notification { get; set; }
+}

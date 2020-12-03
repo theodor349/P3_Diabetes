@@ -1,0 +1,40 @@
+﻿
+@if (subject != null)
+{
+    <div class="collapsible" @onclick="() => showNotifications = !showNotifications">
+        <div class="dark">
+            <p>@subject.GetName()</p>
+        </div>
+        @if (showNotifications)
+        {
+            <div class="content gray" >
+                @foreach (var notification in Notifications)
+                {
+                    @if (notification.Data.Type == NotificationType.Message)
+                    {
+                        <div class="message notification" @onclick="() => NotificationClicked(notification)">
+                            <p>@notification.Data.Title</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="warning notification" @onclick="() => NotificationClicked(notification)">
+                            <p>@notification.Data.Title</p>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
+}
+@code {
+    [Parameter] public Subject subject { get; set; }
+    [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
+    [Parameter] public List<ActiveNotification> Notifications { get; set; }
+    private bool showNotifications = false;
+
+    private async Task NotificationClicked(ActiveNotification data)
+    {
+        await notificationClicked.InvokeAsync(data);
+    }
+}

@@ -1,0 +1,58 @@
+﻿@if (data != null && NotificationDatas != null)
+{
+    <div class="detailedSecondaryView">
+        <div>
+            <div>
+                <BatteryIcon BatteryStatus="data.BatteryStatus"></BatteryIcon>
+            </div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100f)%</p>
+        </div>
+        <div>
+            <div> <i class="fa fa-thermometer-half"></i> </div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus * 100f)%</p>
+        </div>
+    </div>
+
+    <div class="detailedMainView">
+        <div>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", data.BloodGlucose)</p>
+        </div>
+        <div>
+            <div>
+                <p>@(data.Minutes)m</p>
+            </div>
+            <div>
+                <DeltaIcon Delta="data.Delta"></DeltaIcon>
+            </div>
+        </div>
+    </div>
+    <p class="bloodGlucoseStatus">@GetStatusMessage()</p>
+}
+
+@code {
+    [Parameter] public PumpData data { get; set; }
+    [Parameter] public List<NotificationData> NotificationDatas { get; set; }
+
+    private string GetStatusMessage()
+    {
+        var r = "Blood sugar stable";
+        foreach (var n in NotificationDatas)
+        {
+            if (n.ThresholdType == ThresholdType.High)
+            {
+                if (data.BloodGlucose > n.Threshold)
+                {
+                    r = "Blood sugar high";
+                }
+            }
+            else
+            {
+                if (data.BloodGlucose < n.Threshold)
+                {
+                    r = "Blood sugar low";
+                }
+            }
+        }
+        return r;
+    }
+}

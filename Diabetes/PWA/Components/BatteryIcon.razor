@@ -1,0 +1,24 @@
+﻿@if (BatteryStatus > 0.80f)
+{
+    <i class="fa fa-battery-4"></i>
+}
+else if (BatteryStatus > 0.60f)
+{
+    <i class="fa fa-battery-3"></i>
+}
+else if (BatteryStatus > 0.35f)
+{
+    <i class="fa fa-battery-2"></i>
+}
+else if (BatteryStatus > 0.10f)
+{
+    <i class="fa fa-battery-1"></i>
+}
+else
+{
+    <i class="fa fa-battery-0"></i>
+}
+
+@code {
+    [Parameter] public float BatteryStatus { get; set; }
+}

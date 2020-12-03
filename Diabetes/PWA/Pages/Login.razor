@@ -1,0 +1,53 @@
+﻿@inject HttpClient Http
+<br>
+<br>
+<div class="loginBox">
+    <img class="logoImg" src="/img/appLogo.svg" alt="">
+    <br><br>
+    <EditForm Model="@credentials" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        @*<ValidationSummary />*@
+
+        <InputText id="email" placeholder="Email" @bind-Value="credentials.Email" />
+        <InputText type="password" placeholder="Password" @bind-Value="@credentials.Password" />
+        <br />
+        <button class="notificationBtn" type="submit" value="Log in">Log In</button>
+    </EditForm>
+    <div class="notificationBtn forgotPasswordBtn">Forgot password</div>
+    <br><hr>
+    <div class="notificationBtn registerBtn">Sign up</div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<LoginUser> loggedIn { get; set; }
+
+    private LoginCredential credentials = new LoginCredential();
+    private string name = "test";
+
+    private async Task HandleValidSubmit()
+    {
+        var user = await GetLoginChredentials();
+        await loggedIn.InvokeAsync(user);
+    }
+
+    private async Task<LoginUser> GetLoginChredentials()
+    {
+        return await Http.GetFromJsonAsync<LoginUser>("api/Token/get.json");
+    }
+
+    class LoginCredential
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        [MinLength(6)]
+        public string Password { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(true)
+            await HandleValidSubmit();
+    }
+}

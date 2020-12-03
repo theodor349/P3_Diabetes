@@ -1,0 +1,65 @@
+﻿@inject HttpClient Http
+
+@if (subject != null)
+{
+    <header class="profileName">
+        <h1>@subject.FirstName @subject.LastName</h1>
+    </header>
+    <StatsContainer NotificationDatas="subject.NotificationDatas" data="subject.PumpData"></StatsContainer>
+
+    <div class="detailSettings">
+        @if (isNote)
+        {
+            <div class="active">
+                <i class="fa fa-pencil-square-o"></i>
+            </div>
+            <div @onclick="SetViewToNotifications">
+                <i class="fa fa-bell"></i>
+            </div>
+        }
+        else
+        {
+            <div @onclick="SetViewToNotes">
+                <i class="fa fa-pencil-square-o"></i>
+            </div>
+            <div class="active">
+                <i class="fa fa-bell"></i>
+            </div>
+        }
+    </div>
+
+    @if (isNote)
+    {
+        <section class="notes">
+            @foreach (var n in subject.NotificationDatas)
+            {
+                <DetailNote Notification="n"></DetailNote>
+            }
+        </section>
+    }
+    else
+    {
+        <CurrentNotificationsDetails SubjectID="@subject.ID" notifications="activeNotifications" notificationClicked="notificationClicked"></CurrentNotificationsDetails>
+    }
+}
+else
+{
+    <p>Loading... Target Subject</p>
+}
+
+@code {
+    [Parameter] public Subject subject { get; set; }
+    [Parameter] public Dictionary<string, ActiveNotification> activeNotifications { get; set; }
+    [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
+    private bool isNote = true;
+
+    public void SetViewToNotes()
+    {
+        isNote = true;
+    }
+
+    public void SetViewToNotifications()
+    {
+        isNote = false;
+    }
+}

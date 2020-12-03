@@ -1,7 +1,200 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@if (loggedInUser != null)
+{
+    <SubjectsUpdater subjectsUpdated="SubjectsUpdated" user="loggedInUser"></SubjectsUpdater>
 
-Welcome to your new app.
+    @if (focusedNotifications.Count > 0)
+    {
+        <FullscreenNotification notificationData="focusedNotifications.First()" notificationButtonClicked="NotificationButtonClicked"></FullscreenNotification>
+    }
+    else
+    {
+        @if (page == 1)
+        {
+            <OverView Subjects="subjects" TargetSubjectChanged="NewTargetSubject" notifications="activeNotifications" notificationClicked="NotificationClicked"></OverView>
+        }
+        else if (page == 2)
+        {
+            <Profile User="loggedInUser" subjects="subjects"></Profile>
+        }
+        else
+        {
+            <Details subject="targetSubject" activeNotifications="activeNotifications" notificationClicked="NotificationClicked"></Details>
+        }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        <section class="navMenu">
+            @if (page == 0)
+            {
+                <div class="focus" @onclick="() => SetPage(0)">
+                    <i class="fa fa-user-circle-o"></i>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => SetPage(0)">
+                    <i class="fa fa-user-circle-o"></i>
+                </div>
+            }
+            @if (page == 1)
+            {
+                <div class="focus" @onclick="() => SetPage(1)">
+                    <i class="fa fa-users"></i>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => SetPage(1)">
+                    <i class="fa fa-users"></i>
+                </div>
+            }
+            @if (page == 2)
+            {
+                <div class="focus" @onclick="() => SetPage(2)">
+                    <i class="fa fa-gear"></i>
+                </div>
+            }
+            else
+            {
+                <div @onclick="() => SetPage(2)">
+                    <i class="fa fa-gear"></i>
+                </div>
+            }
+        </section>
+    }
+}
+else
+{
+    <Login loggedIn="(user) => loggedInUser = user"></Login>
+}
+
+@if (playSound)
+{
+    <audio autoplay mute>
+        <source src="/Sounds/@sound" />
+    </audio>
+}
+else
+{
+    <audio muted>
+        <source src="/Sounds/@sound" />
+    </audio>
+}
+
+@code {
+    private bool playSound = false;
+    private string sound = "Next.mp3";
+
+    private int page = 0;
+    private LoginUser loggedInUser;
+    private Subject targetSubject;
+    private Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
+    private Dictionary<string, ActiveNotification> activeNotifications = new Dictionary<string, ActiveNotification>();
+    private Stack<ActiveNotification> focusedNotifications = new Stack<ActiveNotification>();
+
+    // TODO: Make Work
+    private void PlaySound(bool isWarning)
+    {
+        playSound = false;
+    }
+
+    private void SetPage(int p)
+    {
+        page = p;
+    }
+
+    private void SubjectsUpdated(SubjectList subjectList)
+    {
+        foreach (var subject in subjectList.Subjects)
+        {
+            Console.WriteLine(subject);
+            UpdateSubject(subject);
+            UpdateNotifications(subject);
+        }
+    }
+
+    private void UpdateSubject(Subject s)
+    {
+        s.PumpData.BloodGlucose += DateTime.Now.Second % 14;
+
+        if (targetSubject == null)
+            targetSubject = s;
+        else if (s.ID.Equals(targetSubject.ID))
+            targetSubject = s;
+
+        if (subjects.ContainsKey(s.ID))
+            subjects[s.ID] = s;
+        else
+            subjects.Add(s.ID, s);
+    }
+
+    private void NewTargetSubject(string id)
+    {
+        targetSubject = subjects[id];
+        SetPage(0);
+    }
+
+
+    // Notification
+    private void UpdateNotifications(Subject s)
+    {
+        foreach (var n in s.NotificationDatas)
+        {
+            var notification = new ActiveNotification() { Subject = s, Data = n };
+            var id = notification.ToString();
+            if (n.ThresholdType == ThresholdType.High)
+            {
+                if (n.Threshold <= s.PumpData.BloodGlucose)
+                {
+                    if (!activeNotifications.ContainsKey(id))
+                        AddActiveNotification(id, notification);
+                }
+                else
+                {
+                    if (activeNotifications.ContainsKey(id))
+                        RemoveActiveNotification(notification);
+                }
+            }
+            else
+            {
+                if (n.Threshold >= s.PumpData.BloodGlucose)
+                {
+                    if (!activeNotifications.ContainsKey(id))
+                        AddActiveNotification(id, notification);
+                }
+                else
+                {
+                    if (activeNotifications.ContainsKey(id))
+                        RemoveActiveNotification(notification);
+                }
+            }
+        }
+    }
+
+    private void AddActiveNotification(string id, ActiveNotification notification)
+    {
+        PlaySound(true);
+        focusedNotifications.Push(notification);
+        activeNotifications.Add(id, notification);
+    }
+
+    private void RemoveActiveNotification(ActiveNotification notification)
+    {
+        activeNotifications.Remove(notification.ToString());
+    }
+
+    private void NotificationButtonClicked(NotificationButtonType type)
+    {
+        var n = focusedNotifications.Pop();
+        if (type == NotificationButtonType.Dismiss)
+            activeNotifications.Remove(n.ToString());
+
+        if (focusedNotifications.Count != 0 && focusedNotifications.Peek()?.Active == false)
+            focusedNotifications.Pop();
+    }
+
+    private void NotificationClicked(ActiveNotification data)
+    {
+        focusedNotifications.Push(data);
+    }
+}
