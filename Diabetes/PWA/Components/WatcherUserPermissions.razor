@@ -22,9 +22,4 @@
     [Parameter] public string Name { get; set; }
     [Parameter] public List<Permission> Permissions { get; set; }
     private bool open = false;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Console.WriteLine("Connection");
-    }
 }

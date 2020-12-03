@@ -1,4 +1,6 @@
-﻿<div class="connectionBox">
+﻿@inject NetworkHelper Network;
+
+<div class="connectionBox">
     <div class="connectionExpireDate">
         <p class="text">Expires: @Permission.GetExpireDate()</p>
     </div>
@@ -6,9 +8,12 @@
         <p class="text">@Permission.GetAccessString()</p>
     </div>
     <div class="twoBtns">
-        <div @onclick="() => Edit(Permission.Id)">
-            <p>Edit</p>
-        </div>
+        @if (Permission.IsOwner)
+        {
+            <div @onclick="() => Edit(Permission.Id)">
+                <p>Edit</p>
+            </div>
+        }
         <div class="active" @onclick="() => Delte(Permission.Id)">
             <p>Delete</p>
         </div>
@@ -20,11 +25,10 @@
 
     private void Edit(int id)
     {
-
     }
 
     private void Delte(int id)
     {
-
+        Network.DeletePermission(id);
     }
 }

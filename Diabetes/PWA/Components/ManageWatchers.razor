@@ -1,4 +1,5 @@
 ﻿@inject HttpClient Http;
+@inject NetworkHelper Network;
 
 <div class="connectionMananger">
     <div class="manageWatcherTitle">
@@ -19,6 +20,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        permissions = await Network.GetPermissions();
         permissions = (await Http.GetFromJsonAsync<Permissions>("api/permission/permissions.json")).PermissionList;
         SortPermissions(permissions);
     }

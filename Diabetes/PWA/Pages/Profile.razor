@@ -1,4 +1,4 @@
-﻿@inject HttpClient Http
+﻿@inject NetworkHelper Network;
 
 @if (page == 0 || page == 2)
 {
@@ -78,16 +78,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        permissionRequests = (await Http.GetFromJsonAsync<PermissionRequestsModel>("api/permission/permissionrequests.json")).Requests;
+        permissionRequests = await Network.GetPermissionRequests();
     }
 
     private void AcceptRequest(int id)
     {
-        Console.WriteLine("Accepted: " + id);
+        Network.AcceptRequest(id);
     }
 
     private void DeclineRequest(int id)
     {
-        Console.WriteLine("Decline: " + id);
+        Network.DeclineRequest(id);
     }
 }

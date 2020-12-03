@@ -1,4 +1,4 @@
-﻿@inject HttpClient Http
+﻿@inject NetworkHelper Network
 
 @code {
     [Parameter] public LoginUser user { get; set; }
@@ -20,6 +20,6 @@
 
     private async Task<SubjectList> GetData(string id)
     {
-        return await Http.GetFromJsonAsync<SubjectList>("api/account/get.json");
+        return await Network.GetSubjectsData();
     }
 }

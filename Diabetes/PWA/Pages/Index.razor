@@ -115,8 +115,6 @@ else
 
     private void UpdateSubject(Subject s)
     {
-        s.PumpData.BloodGlucose += DateTime.Now.Second % 14;
-
         if (targetSubject == null)
             targetSubject = s;
         else if (s.ID.Equals(targetSubject.ID))

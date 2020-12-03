@@ -1,4 +1,4 @@
-﻿@inject HttpClient Http
+﻿@inject NetworkHelper Network
 <br>
 <br>
 <div class="loginBox">
@@ -32,17 +32,7 @@
 
     private async Task<LoginUser> GetLoginChredentials()
     {
-        return await Http.GetFromJsonAsync<LoginUser>("api/Token/get.json");
-    }
-
-    class LoginCredential
-    {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
-        [MinLength(6)]
-        public string Password { get; set; }
+        return await Network.Login(credentials);
     }
 
     protected override async Task OnInitializedAsync()
