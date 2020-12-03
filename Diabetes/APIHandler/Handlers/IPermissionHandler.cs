@@ -1,4 +1,5 @@
 ﻿using APIDataAccess.Models.Permission;
+using System;
 using System.Collections.Generic;
 
 namespace APIHandler.Handlers
@@ -8,13 +9,13 @@ namespace APIHandler.Handlers
         int AcceptPermissionRequest(int id);
         int Delete(int id);
         int DeleteByUserId(string userId);
-        UpdatePermissionDBModel Get(int id);
-        List<UpdatePermissionDBModel> GetByTargetId(string targetId);
-        List<UpdatePermissionDBModel> GetByWatcherId(string watcherId);
+        PermissionDBModel Get(int id);
+        List<PermissionDBModel> GetByTargetId(string targetId);
+        List<PermissionDBModel> GetByWatcherId(string watcherId);
         List<RequestPermissionDBModel> GetPendingPermissions(string userId);
-        Dictionary<string, int> GetPermissionAttributes(UpdatePermissionDBModel[] permissions);
-        bool IsPermissionActive(UpdatePermissionDBModel permission);
+        Dictionary<string, int> GetPermissionAttributes(PermissionDBModel[] permissions);
+        bool IsActive(PermissionDBModel permission, DateTime currDate);
         int RequestPermission(RequestPermissionDBModel request);
-        int Update(UpdatePermissionDBModel updatedPermission);
+        int Update(UpdatePermissionModel updatedPermission);
     }
 }

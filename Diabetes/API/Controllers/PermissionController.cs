@@ -21,40 +21,35 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public UpdatePermissionDBModel Get(int id)
+        public PermissionDBModel Get(int id)
         {
-            // check for valid id
             return permissionHandler.Get(id);
         }
 
         [HttpGet]
         [Route("User")]
-        public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
+        public List<PermissionDBModel> GetByTargetId(string targetId)
         {
-            // check for valid id
             return permissionHandler.GetByTargetId(targetId);
         }
 
         [HttpGet]
         [Route("User")]
-        public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
+        public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
-            // check for valid id
             return permissionHandler.GetByWatcherId(watcherId);
         }
 
         [HttpGet]
         [Route("GetPendingPermissions")]
         public List<RequestPermissionDBModel> GetPendingPermissions(string userId) {
-            //check for valid id
-
             return permissionHandler.GetPendingPermissions(userId);
         }
 
         [HttpPut]
-        public ActionResult Update(UpdatePermissionDBModel updatedPermission)
+        public ActionResult Update(UpdatePermissionModel model)
         {
-            if (permissionHandler.Update(updatedPermission) == 1)
+            if (permissionHandler.Update(model) == 1)
                 return Ok();
             else
                 return NotFound();
@@ -63,7 +58,6 @@ namespace API.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            //check for valid id
             if (permissionHandler.Delete(id) == 1)
                 return Ok();
             else
@@ -84,8 +78,6 @@ namespace API.Controllers
         [Route("AcceptPermissionRequest")]
         public ActionResult AcceptPermissionRequest(int id)
         {
-            //check for valid id
-
             if (permissionHandler.AcceptPermissionRequest(id) == 1)
                 return Ok();
             else

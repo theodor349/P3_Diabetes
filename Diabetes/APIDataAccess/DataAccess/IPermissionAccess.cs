@@ -8,12 +8,12 @@ namespace APIDataAccess.DataAccess
         int Create(RequestPermissionDBModel request);
         int Delete(int id);
         int DeleteByUserId(string userId);
-        UpdatePermissionDBModel Get(int id);
-        List<UpdatePermissionDBModel> GetByTargetId(string targetId);
-        List<UpdatePermissionDBModel> GetByWatcherId(string watcherId);
+        PermissionDBModel Get(int id);
+        List<PermissionDBModel> GetByTargetId(string targetId);
+        List<PermissionDBModel> GetByWatcherId(string watcherId);
         List<RequestPermissionDBModel> GetPendingPermissions(string userId);
         int AcceptPermissionRequest(int id);
         int DenyPermissionRequest(int id);
-        int Update(UpdatePermissionDBModel updatedPermission);
+        int Update(UpdatePermissionModel updatedPermission);
     }
 }

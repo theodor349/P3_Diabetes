@@ -8,54 +8,54 @@ namespace APIDataAccess.DataAccess
 {
     public class PermissionAccess : IPermissionAccess
     {
-        private readonly ISqlDataAccess _sqlDataAccess;
+        private readonly ISqlDataAccess _sql;
 
         public PermissionAccess(ISqlDataAccess sqlDataAccess)
         {
-            this._sqlDataAccess = sqlDataAccess;
+            _sql = sqlDataAccess;
         }
-        public UpdatePermissionDBModel Get(int id)
+        public PermissionDBModel Get(int id)
         {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), new { id }, "DDB").FirstOrDefault();
-        }
-
-        public List<UpdatePermissionDBModel> GetByWatcherId(string watcherId)
-        {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), new { watcherId }, "DDB");
+            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), new { id }, "DDB").FirstOrDefault();
         }
 
-        public List<UpdatePermissionDBModel> GetByTargetId(string targetId)
+        public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
-            return _sqlDataAccess.LoadData<UpdatePermissionDBModel, dynamic>(SpCommands.spPermission_GetByTargetId.ToString(), new { Id = targetId }, "DDB");
+            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), new { watcherId }, "DDB");
         }
 
-        public int Update(UpdatePermissionDBModel updatedPermission)
+        public List<PermissionDBModel> GetByTargetId(string targetId)
         {
-            return _sqlDataAccess.SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), updatedPermission, "DDB");
+            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetByTargetId.ToString(), new { Id = targetId }, "DDB");
+        }
+
+        public int Update(UpdatePermissionModel model)
+        {
+            return _sql.SaveData(SpCommands.spPermission_UpdatePermissionModel.ToString(), model, "DDB");
         }
 
         public int Delete(int id)
         {
-            return _sqlDataAccess.DeleteData(SpCommands.spPermission_Delete.ToString(), new {Id = id }, "DDB");
+            return _sql.DeleteData(SpCommands.spPermission_Delete.ToString(), new {Id = id }, "DDB");
         }
 
         public int Create(RequestPermissionDBModel request)
         {
-            return _sqlDataAccess.SaveData(SpCommands.spPermission_Create.ToString(), request, "DDB");
+            return _sql.SaveData(SpCommands.spPermission_Create.ToString(), request, "DDB");
         }
 
         public int DeleteByUserId(string userId)
         {
-            return _sqlDataAccess.DeleteData(SpCommands.spPermission_DeleteByUserId.ToString(), new { Id= userId }, "DDB");
+            return _sql.DeleteData(SpCommands.spPermission_DeleteByUserId.ToString(), new { Id= userId }, "DDB");
         }
 
         public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
         {
-            return _sqlDataAccess.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
+            return _sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
         }
 
         public int AcceptPermissionRequest(int id) {
-            return _sqlDataAccess.SaveData(SpCommands.spPermission_AcceptPermissionRequest.ToString(), new { Id = id, Accepted = true }, "DDB");
+            return _sql.SaveData(SpCommands.spPermission_AcceptPermissionRequest.ToString(), new { Id = id, Accepted = true }, "DDB");
         }
 
         public int DenyPermissionRequest(int id) {
