@@ -1,4 +1,5 @@
-﻿using APIDataAccess.DataAccess;
+﻿using API.Models.Account;
+using APIDataAccess.DataAccess;
 using APIDataAccess.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace APIHandler.Handlers
 
         public void UpdateAccount(UpdateAccountDBModel model)
         {
-            throw new NotImplementedException();
+            _aa.UpdateAccount(model);
         }
 
         public void UpdateNightScoutLink(string id, string link)
@@ -79,6 +80,11 @@ namespace APIHandler.Handlers
         }
 
         private void DeleteAccount(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AccountNameModel GetName(string id)
         {
             throw new NotImplementedException();
         }

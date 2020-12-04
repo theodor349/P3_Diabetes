@@ -24,20 +24,28 @@ namespace API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IAccountHandler _accountHandler;
+        private readonly IRelayHandler _relayHandler;
 
-        private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private string? UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IAccountHandler accountHandler)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IAccountHandler accountHandler, IRelayHandler relayHandler)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _accountHandler = accountHandler;
+            _relayHandler = relayHandler;
         }
 
         [HttpGet]
         public AccountDBModel Get()
         {
             return _accountHandler.Get(UserId);
+        }
+
+        [HttpGet]
+        public Models.Account.AccountNameModel GetName(string id)
+        {
+            return _accountHandler.GetName(id);
         }
 
         [HttpPost]
@@ -105,6 +113,22 @@ namespace API.Controllers
         {
             return _accountHandler.PhoneNumberExists(phoneNumber);
         }
+
+        [HttpGet]
+        [Route("UpdateNightScoutLink")]
+        public ActionResult UpdateNIghtScoutLink(string url)
+        {
+            if (_relayHandler.ConnectionOk(url))
+            {
+                _accountHandler.UpdateNightScoutLink(UserId, url);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         private bool IsValidateModel(UpdateAccountDBModel updateAccountDBModel)
         {
             if (updateAccountDBModel.ID == null && updateAccountDBModel.FirstName == null && updateAccountDBModel.LastName == null && updateAccountDBModel.PhoneNumber == null)

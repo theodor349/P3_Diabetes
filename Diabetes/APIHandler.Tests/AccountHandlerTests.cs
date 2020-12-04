@@ -101,14 +101,6 @@ namespace APIHandler.Tests
 
         #endregion
 
-        #region UpdateAccount
-
-        #endregion
-
-        #region UpdateNightScoutLink
-
-        #endregion
-
         #region EmailExists
 
         #endregion
