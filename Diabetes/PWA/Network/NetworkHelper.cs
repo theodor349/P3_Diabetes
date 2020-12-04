@@ -52,7 +52,7 @@ namespace PWA.Network
 
         public async Task<SubjectList> GetSubjectsData()
         {
-            var bgAdd = DateTime.Now.Second % 14;
+            var bgAdd = 0;// DateTime.Now.Second % 14;
             return new SubjectList()
             {
                 Subjects = new List<Subject>()
@@ -88,7 +88,7 @@ namespace PWA.Network
                                 Note = "You need to make sure Tais Hors consumes a juice",
                                 IconClassName = "fa fa-thermometer-quarter",
                                 Threshold = 4.0f,
-                                ThresholdType = ThresholdType.High,
+                                ThresholdType = ThresholdType.Low,
                             }
                         }
                     },
@@ -123,7 +123,7 @@ namespace PWA.Network
                                 Note = "You need to make sure Theodor Risager consumes a juice",
                                 IconClassName = "fa fa-thermometer-quarter",
                                 Threshold = 4.0f,
-                                ThresholdType = ThresholdType.High,
+                                ThresholdType = ThresholdType.Low,
                             }
                         }
                     }

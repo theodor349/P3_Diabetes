@@ -93,6 +93,7 @@ header h1 {
 }
 
     .currentNotifications.currentWatching .notificationBtn {
+        cursor: pointer;
         width: 100%;
         margin: 0;
         padding: 6px;
@@ -574,6 +575,7 @@ header h1 {
 }
 
 form div.notificationBtn {
+    cursor: pointer;
     margin: 0px auto 20px;
 }
 
@@ -646,12 +648,14 @@ textarea {
 }
 
 .forgotPasswordBtn {
+    cursor: pointer;
     padding: 1px;
     margin-top: 0;
     background: none;
 }
 
 .registerBtn {
+    cursor: pointer;
     background: #444;
 }
 
@@ -732,20 +736,18 @@ input.small {
 }
 
     .twoBtns div {
+        cursor: pointer;
         background: #D68C49;
         text-align: center;
+        height: 34px;
+        line-height: 30px;
+        width: 50%;
     }
 
         .twoBtns div.active {
             background: #D85948;
             font-weight: bold;
         }
-
-    .twoBtns div {
-        height: 34px;
-        line-height: 30px;
-        width: 50%;
-    }
 
 .addPermissionBtn {
     background: #777;
@@ -776,6 +778,7 @@ input.small {
     height: 34px;
     line-height: 30px;
     width: 50%;
+    cursor: pointer;
 }
 
 .badConnection {
@@ -842,6 +845,7 @@ p.text {
     display: flex;
     margin-bottom: 0px;
     margin-top: 0px;
+    cursor: pointer;
 }
 
     .twoBtns.small div {
