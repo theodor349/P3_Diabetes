@@ -174,17 +174,22 @@ namespace PWA.Network
             };
         }
 
-        public void DeletePermission(int id)
+        public async Task DeletePermission(int id)
         {
 
         }
 
-        public void AcceptRequest(int id)
+        public async Task AcceptRequest(int id)
         {
 
         }
 
-        public void DeclineRequest(int id)
+        public async Task DeclineRequest(int id)
+        {
+
+        }
+
+        public async Task SendRequest(PermissionRequestModel request)
         {
 
         }
