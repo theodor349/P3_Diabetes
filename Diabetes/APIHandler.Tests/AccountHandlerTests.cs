@@ -34,17 +34,74 @@ namespace APIHandler.Tests
         //}
         #region Get
 
+        [TestMethod]
+        public void Get_Exists()
+        {
+            var aa = Substitute.For<IAccountAccess>();
+            var nh = Substitute.For<INotificationSettingHandler>();
+            var ph = Substitute.For<IPermissionHandler>();
+            AccountHandler accountHandler = new AccountHandler(aa,nh, ph);
+
+            aa.Get("id").Returns(new AccountDBModel() {ID = "id"});
+
+            AccountDBModel accountDBModel = accountHandler.Get("id");
+            Assert.AreEqual("id", accountDBModel.ID);
+        }
+
+        [TestMethod]
+        public void Get_NotExists()
+        {
+            var aa = Substitute.For<IAccountAccess>();
+            var nh = Substitute.For<INotificationSettingHandler>();
+            var ph = Substitute.For<IPermissionHandler>();
+            AccountHandler accountHandler = new AccountHandler(aa, nh, ph);
+
+            AccountDBModel accountDBModel = accountHandler.Get("id");
+            Assert.AreEqual(null, accountDBModel);
+        }
+
         #endregion
 
         #region GetByPhoneNumber
+
+        [TestMethod]
+        public void GetByPhoneNumber_Exists()
+        {
+            var aa = Substitute.For<IAccountAccess>();
+            var nh = Substitute.For<INotificationSettingHandler>();
+            var ph = Substitute.For<IPermissionHandler>();
+            AccountHandler accountHandler = new AccountHandler(aa, nh, ph);
+
+            aa.GetByPhoneNumber("phoneNumber").Returns(new AccountDBModel() { PhoneNumber = "phoneNumber" });
+
+            AccountDBModel accountDBModel = accountHandler.GetByPhoneNumber("phoneNumber");
+            Assert.AreEqual("phoneNumber", accountDBModel.PhoneNumber);
+        }
+
+        [TestMethod]
+        public void GetByPhoneNumber_NotExists()
+        {
+            var aa = Substitute.For<IAccountAccess>();
+            var nh = Substitute.For<INotificationSettingHandler>();
+            var ph = Substitute.For<IPermissionHandler>();
+            AccountHandler accountHandler = new AccountHandler(aa, nh, ph);
+
+            AccountDBModel accountDBModel = accountHandler.GetByPhoneNumber("phoneNumber");
+            Assert.AreEqual(null, accountDBModel);
+        }
 
         #endregion
 
         #region RegisterAccount
 
+
         #endregion
 
         #region UnregisterAccount
+
+        #endregion
+
+        #region UpdateAccount
 
         #endregion
 

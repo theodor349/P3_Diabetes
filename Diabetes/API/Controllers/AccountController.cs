@@ -77,7 +77,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult UnRegistre(string id)
+        public ActionResult UnRegister(string id)
         {
             throw new NotImplementedException();
         }
@@ -93,42 +93,14 @@ namespace API.Controllers
         [Route("EmailExists")]
         public bool EmailExists(string email)
         {
-            return (_accountHandler.EmailExists(email));
+            return _accountHandler.EmailExists(email);
         }
 
         [HttpGet]
         [Route("PhoneNumberExists")]
         public bool PhoneNumberExists(string phoneNumber)
         {
-            throw new NotImplementedException();
-        }
-
-        [HttpGet]
-        [Route("NightScoutLink")]
-        public string GetNightScoutLink(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPut]
-        [Route("NightScoutLink")]
-        public ActionResult UpdateNightScoutLink(UpdateNightScoutLinkModel input)
-        {
-            throw new NotImplementedException();
-        }
-        
-        [HttpGet]
-        [Route("UnitOfMeasurement")]
-        public bool GetUnitOfMeasurement(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpPut]
-        [Route("UnitOfMeasurement")]
-        public ActionResult UpdateUnitOfMeasurement(UpdateUnitOfMesureModel input)
-        {
-            throw new NotImplementedException();
+            return _accountHandler.PhoneNumberExists(phoneNumber);
         }
         private bool IsValidateModel(UpdateAccountDBModel updateAccountDBModel)
         {

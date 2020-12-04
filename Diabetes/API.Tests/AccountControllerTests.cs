@@ -155,17 +155,5 @@ namespace API.Tests
         #region PhoneNumberExists
 
         #endregion
-
-        #region GetNightScoutLink
-
-        #endregion
-
-        #region GetUnitOfMeasurement
-
-        #endregion
-
-        #region UpdateUnitOfMeasurement
-
-        #endregion
     }
 }

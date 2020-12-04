@@ -25,12 +25,12 @@ namespace APIHandler.Handlers
 
         public AccountDBModel Get(string id)
         {
-            throw new NotImplementedException();
+            return _aa.Get(id);
         }
 
         public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
-            throw new NotImplementedException();
+            return _aa.GetByPhoneNumber(phoneNumber);
         }
 
         public void RegisterAccount(CreateAccountDBModel model)
