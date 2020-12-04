@@ -102,7 +102,7 @@ namespace PWA.Network
                 res.Subjects.Add(new Subject()
                 {
                     ID = id,
-                    FirstName = name.Firstname,
+                    FirstName = name.FirstName,
                     LastName = name.LastName,
                     PumpData = data,
                     NotificationDatas = notificationSettings,
@@ -237,7 +237,7 @@ namespace PWA.Network
 
     class Name
     {
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
         public string LastName { get; set; }
     }
     class NotificationSettings
