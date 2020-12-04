@@ -1,4 +1,6 @@
-﻿@if (string.IsNullOrWhiteSpace(user.NSLink))
+﻿@inject INetworkHelper Network
+
+@if (string.IsNullOrWhiteSpace(user.NSLink))
 {
     <EditForm Model="@link" OnValidSubmit="@HandleValidSubmit">
         @*<ValidationSummary />*@
@@ -48,7 +50,7 @@ else
 
     private async Task<bool> IsValidConnection(string link)
     {
-        return false;
+        return await Network.TestNSLink(link);
     }
 
     private void RemoveLink()
@@ -61,6 +63,7 @@ else
         if (await IsValidConnection(link))
         {
             user.NSLink = link;
+            await Network.UpdateNSLink(link);
         }
         else
         {

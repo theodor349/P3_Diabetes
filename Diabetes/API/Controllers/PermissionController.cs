@@ -56,7 +56,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Delete(int id)
+        public ActionResult Delete([System.Web.Http.FromUri] int id)
         {
             if (_ph.Delete(id) == 1)
                 return Ok();

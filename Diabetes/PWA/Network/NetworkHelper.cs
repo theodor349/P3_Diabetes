@@ -1,197 +1,247 @@
 ﻿using PWA.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace PWA.Network
 {
-    public class NetworkHelper
+    class AuthenticatedUser
+    {
+        public string Access_Token { get; set; }
+        public string UserName { get; set; }
+    }
+
+    public class NetworkHelper : INetworkHelper
     {
         private readonly HttpClient _client;
         private LoginUser _user;
 
-        public NetworkHelper(HttpClient client)
+        public NetworkHelper(HttpClient client, string url)
         {
             _client = client;
+            InitializeClient(url);
         }
 
-        public async Task<LoginUser> Login(LoginCredential credential)
+        private void InitializeClient(string url)
         {
-            _user = new LoginUser()
-            {
-                Email = "Theodor@thr.com",
-                Token = "longtoken",
-                FirstName = "Theodor",
-                LastName = "Risager",
-                NSLink = "Link.com",
-                UserID = "LongUserID"
-            };
-            return _user;
-        }
-
-        public async Task<List<PermissionRequestModel>> GetPermissionRequests()
-        {
-            return new List<PermissionRequestModel>()
-            {
-                new PermissionRequestModel()
-                {
-                    Id = 1,
-                    FirstName = "Hr",
-                    LastName = "Gajhede",
-                },
-                new PermissionRequestModel()
-                {
-                    Id = 2,
-                    FirstName = "Daniel",
-                    LastName = "Møller",
-                }
-            };
-        }
-
-        public async Task<SubjectList> GetSubjectsData()
-        {
-            var bgAdd = 0;// DateTime.Now.Second % 14;
-            return new SubjectList()
-            {
-                Subjects = new List<Subject>()
-                {
-                    new Subject()
-                    {
-                        ID = "abc1234",
-                        FirstName = "Tais",
-                        LastName = "Hors",
-                        PumpData = new PumpData()
-                        {
-                            BloodGlucose = 1 + bgAdd,
-                            BatteryStatus = 0.3f,
-                            Delta = 0.6f,
-                            InsulinStatus = 0.1f,
-                            Minutes = 6,
-                        },
-                        NotificationDatas = new List<NotificationData>()
-                        {
-                            new NotificationData()
-                            {
-                                Type = NotificationType.Message,
-                                Title = "High Blood Sugar",
-                                Note = "You need to make sure Tais Hors consumes some insulin",
-                                IconClassName = "fa fa-thermometer-quarter",
-                                Threshold = 10.0f,
-                                ThresholdType = ThresholdType.High,
-                            },
-                            new NotificationData()
-                            {
-                                Type = NotificationType.Warning,
-                                Title = "Low Blood Sugar",
-                                Note = "You need to make sure Tais Hors consumes a juice",
-                                IconClassName = "fa fa-thermometer-quarter",
-                                Threshold = 4.0f,
-                                ThresholdType = ThresholdType.Low,
-                            }
-                        }
-                    },
-                    new Subject()
-                    {
-                        ID = "abc12341324654",
-                        FirstName = "Theodor",
-                        LastName = "Risager",
-                        PumpData = new PumpData()
-                        {
-                            BloodGlucose = 3 + bgAdd,
-                            BatteryStatus = 0.8f,
-                            Delta = 0.1f,
-                            InsulinStatus = 0.6f,
-                            Minutes = 1,
-                        },
-                        NotificationDatas = new List<NotificationData>()
-                        {
-                            new NotificationData()
-                            {
-                                Type = NotificationType.Message,
-                                Title = "High Blood Sugar",
-                                Note = "You need to make sure Theodor Risager consumes some insulin",
-                                IconClassName = "fa fa-thermometer-quarter",
-                                Threshold = 10.0f,
-                                ThresholdType = ThresholdType.High,
-                            },
-                            new NotificationData()
-                            {
-                                Type = NotificationType.Warning,
-                                Title = "Low Blood Sugar",
-                                Note = "You need to make sure Theodor Risager consumes a juice",
-                                IconClassName = "fa fa-thermometer-quarter",
-                                Threshold = 4.0f,
-                                ThresholdType = ThresholdType.Low,
-                            }
-                        }
-                    }
-                }
-            };
-        }
-
-        public async Task<List<Permission>> GetPermissions()
-        {
-            return new List<Permission>()
-            {
-                new Permission()
-                {
-                    Id = 1,
-                    TargetId = "Hellow",
-                    FirstName = "Hr",
-                    LastName = "Gajhede",
-                    IsOwner = false,
-                    BloodGlucose = true,
-                    Battery = true,
-                    Insulin = true,
-                    ExpireDate = new DateTime(2020, 10, 10, 10, 0, 0)
-                },
-                new Permission()
-                {
-                    Id = 2,
-                    TargetId = "hej",
-                    FirstName = "Daniel",
-                    LastName = "Møller",
-                    IsOwner = true,
-                    BloodGlucose = false,
-                    Battery = true,
-                    Insulin = true,
-                    ExpireDate = new DateTime(2021, 10, 10, 10, 0, 0)
-                },
-                new Permission()
-                {
-                    Id = 3,
-                    TargetId = "Hellow",
-                    FirstName = "Hr",
-                    LastName = "Gajhede",
-                    IsOwner = false,
-                    BloodGlucose = true,
-                    Battery = false,
-                    Insulin = false,
-                    ExpireDate = new DateTime(2022, 10, 10, 10, 0, 0)
-                },
-            };
-        }
-
-        public async Task DeletePermission(int id)
-        {
-
+            _client.BaseAddress = new Uri(url);
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task AcceptRequest(int id)
         {
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Permission/AcceptPermissionRequest", id))
+            {
+                if (response.IsSuccessStatusCode)
+                {
 
+                }
+            }
         }
 
         public async Task DeclineRequest(int id)
         {
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Permission/DenyPermissionReqeust", id))
+            {
+                if (response.IsSuccessStatusCode)
+                {
 
+                }
+            }
         }
 
-        public async Task SendRequest(PermissionRequestModel request)
+        public async Task DeletePermission(int id)
         {
+            using (HttpResponseMessage response = await _client.DeleteAsync("api/Permission/" + id))
+            {
+                if (response.IsSuccessStatusCode)
+                {
 
+                }
+            }
         }
+
+        public async Task<List<PermissionRequestModel>> GetPermissionRequests()
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Permission/GetPendingPermissions"))
+            {
+                if (response.IsSuccessStatusCode)
+                    return (await response.Content.ReadAsAsync<PermissionRequestsModel>()).Requests;
+                else
+                    return null;
+            }
+        }
+
+        public async Task<List<Permission>> GetPermissions()
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Permission/GetPendingPermissions"))
+            {
+                if (response.IsSuccessStatusCode)
+                    return (await response.Content.ReadAsAsync<Permissions>()).PermissionList;
+                else
+                    return null;
+            }
+        }
+
+        public async Task<SubjectList> GetSubjectsData()
+        {
+            var res = new SubjectList()
+            {
+                Subjects = new List<Subject>()
+            };
+
+            var ids = await SubjectIds();
+            foreach (var id in ids)
+            {
+                var name = await GetName(id);
+                var data = await GetPumpData(id);
+                var notificationSettings = await GetNotificaitonSettings(id);
+                res.Subjects.Add(new Subject()
+                {
+                    ID = id,
+                    FirstName = name.Firstname,
+                    LastName = name.LastName,
+                    PumpData = data,
+                    NotificationDatas = notificationSettings,
+                });
+            }
+            return res;
+        }
+
+        private async Task<List<NotificationData>> GetNotificaitonSettings(string id)
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Relay/" + id))
+            {
+                if (response.IsSuccessStatusCode)
+                    return (await response.Content.ReadAsAsync<NotificationSettings>()).Notifications;
+                else
+                    return null;
+            }
+        }
+
+        private async Task<PumpData> GetPumpData(string id)
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Relay/" + id))
+            {
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadAsAsync<PumpData>();
+                else
+                    return null;
+            }
+        }
+
+        private async Task<Name> GetName(string id)
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Account/GetName/" + id))
+            {
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadAsAsync<Name>();
+                else
+                    return null;
+            }
+        }
+
+        private async Task<List<string>> SubjectIds()
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Account"))
+            {
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadAsAsync<List<string>>();
+                else
+                    return null;
+            }
+        }
+
+        public async Task<LoginUser> Login(LoginCredential credential)
+        {
+            await Authenticate(credential);
+            return await GetUserData();
+        }
+
+        private async Task<LoginUser> GetUserData()
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Account"))
+            {
+                if (response.IsSuccessStatusCode)
+                    return await response.Content.ReadAsAsync<LoginUser>();
+                else
+                    return null;
+            }
+        }
+
+        private async Task Authenticate(LoginCredential credential)
+        {
+            var data = new FormUrlEncodedContent(new[]
+            {
+                new KeyValuePair<string, string>("grant_type", "password"),
+                new KeyValuePair<string, string>("username", credential.Email),
+                new KeyValuePair<string, string>("password", credential.Password),
+            });
+
+            using (HttpResponseMessage response = await _client.PostAsync("token", data))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
+                    SetupHeader(result.Access_Token);
+                }
+            }
+        }
+
+        private void SetupHeader(string token)
+        {
+            _client.DefaultRequestHeaders.Clear();
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _client.DefaultRequestHeaders.Add("Authorization", $"Bearer { token }");
+        }
+
+        public async Task SendRequest(RequestPermissionAPIModel request)
+        {
+            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Permission/RequestPermission", request))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                }
+            }
+        }
+
+        public async Task<bool> TestNSLink(string link)
+        {
+            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Permission/RequestPermission", link))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<bool>();
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+        }
+
+        public async Task UpdateNSLink(string link)
+        {
+            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Account/UpdateNightScoutLink", link))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                }
+            }
+        }
+    }
+
+    class Name
+    {
+        public string Firstname { get; set; }
+        public string LastName { get; set; }
+    }
+    class NotificationSettings
+    {
+        public List<NotificationData> Notifications { get; set; }
     }
 }

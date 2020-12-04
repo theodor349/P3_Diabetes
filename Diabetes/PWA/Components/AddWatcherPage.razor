@@ -1,4 +1,4 @@
-﻿@inject NetworkHelper Network
+﻿@inject INetworkHelper Network
 
 <div class="addPermissionBox">
     <h1>
@@ -196,7 +196,7 @@
 
     private async Task SendRequest(PermissionRequestModel request)
     {
-        await Network.SendRequest(request);
+        await Network.SendRequest(new RequestPermissionAPIModel());
     }
 
     class PermissionRequest
