@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.Models.Account;
 using APIDataAccess.Models.Account;
@@ -24,6 +25,8 @@ namespace API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IAccountHandler _accountHandler;
 
+        private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IAccountHandler accountHandler)
         {
             _userManager = userManager;
@@ -32,9 +35,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public AccountDBModel Get(string id)
+        public AccountDBModel Get()
         {
-            return _accountHandler.Get(id);
+            return _accountHandler.Get(UserId);
         }
 
         [HttpPost]
