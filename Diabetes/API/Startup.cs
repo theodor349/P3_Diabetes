@@ -18,6 +18,7 @@ using System.Text;
 using APIDataAccess.DataAccess;
 using APIDataAccess.Internal.DataAccess;
 using APIHandler.Handlers;
+using APIHandler.Utils;
 
 namespace API
 {
@@ -50,6 +51,7 @@ namespace API
             // Handlers
             services.AddTransient<IAccountHandler, AccountHandler>();
             services.AddTransient<INotificationSettingHandler, NotificationSettingHandler>();
+            services.AddTransient<INotificationsSettingsUtils, NotificationsSettingsUtils>();
             services.AddTransient<IPermissionHandler, PermissionHandler>();
             services.AddTransient<IRelayHandler, RelayHandler>();
 

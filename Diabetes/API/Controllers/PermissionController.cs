@@ -14,42 +14,42 @@ namespace API.Controllers
     [Authorize]
     public class PermissionController : ControllerBase
     {
-        private readonly IPermissionHandler permissionHandler;
+        private readonly IPermissionHandler _ph;
 
         public PermissionController(IPermissionHandler permissionHandler) {
-            this.permissionHandler = permissionHandler;
+            _ph = permissionHandler;
         }
 
         [HttpGet]
         public PermissionDBModel Get(int id)
         {
-            return permissionHandler.Get(id);
+            return _ph.Get(id);
         }
 
         [HttpGet]
-        [Route("User")]
+        [Route("ByTarget")]
         public List<PermissionDBModel> GetByTargetId(string targetId)
         {
-            return permissionHandler.GetByTargetId(targetId);
+            return _ph.GetByTargetId(targetId);
         }
 
         [HttpGet]
-        [Route("User")]
+        [Route("ByWatcher")]
         public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
-            return permissionHandler.GetByWatcherId(watcherId);
+            return _ph.GetByWatcherId(watcherId);
         }
 
         [HttpGet]
         [Route("GetPendingPermissions")]
         public List<RequestPermissionDBModel> GetPendingPermissions(string userId) {
-            return permissionHandler.GetPendingPermissions(userId);
+            return _ph.GetPendingPermissions(userId);
         }
 
         [HttpPut]
         public ActionResult Update(UpdatePermissionModel model)
         {
-            if (permissionHandler.Update(model) == 1)
+            if (_ph.Update(model) == 1)
                 return Ok();
             else
                 return NotFound();
@@ -58,7 +58,7 @@ namespace API.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            if (permissionHandler.Delete(id) == 1)
+            if (_ph.Delete(id) == 1)
                 return Ok();
             else
                 return NotFound();
@@ -68,23 +68,23 @@ namespace API.Controllers
         [Route("RequestPermission")]
         public ActionResult RequestPermission(RequestPermissionDBModel request)
         {
-            if (permissionHandler.RequestPermission(request) == 1)
+            if (_ph.RequestPermission(request) == 1)
                 return Ok();
             else
                 return NotFound();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("AcceptPermissionRequest")]
         public ActionResult AcceptPermissionRequest(int id)
         {
-            if (permissionHandler.AcceptPermissionRequest(id) == 1)
+            if (_ph.AcceptPermissionRequest(id) == 1)
                 return Ok();
             else
                 return NotFound();
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("DenyPermissionReqeust")]
         public ActionResult DenyPermissionRequest(int id)
         {

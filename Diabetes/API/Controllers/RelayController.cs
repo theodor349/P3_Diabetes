@@ -22,6 +22,7 @@ namespace API.Controllers
             this.relayHandler = relayHandler;
         }
 
+        [HttpGet]
         public PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir)
         {
             PumpDataModel.AttributeFlags attributeFlags = (PumpDataModel.AttributeFlags)attribute;
