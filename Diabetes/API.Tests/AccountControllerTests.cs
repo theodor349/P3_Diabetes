@@ -10,6 +10,8 @@ using Moq;
 using Microsoft.AspNetCore.Http;
 using APIDataAccess.Models.Account;
 using APIDataAccess.DataAccess;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Tests
 {
@@ -22,15 +24,28 @@ namespace API.Tests
         public void Get_Calls()
         {
             var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
             var store = new Mock<IUserStore<IdentityUser>>();
             var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
             var contextAccessor = new Mock<IHttpContextAccessor>();
             var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
             var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
 
-            AccountController accountController = new AccountController(userManager, signInManager, accountHandler);
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
 
-            accountController.Get("UserId");
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+
+            accountController.Get();
 
             accountHandler.Received(1).Get(Arg.Any<string>());
         }
@@ -47,13 +62,14 @@ namespace API.Tests
         public void Update_Pass()
         {
             var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
             var store = new Mock<IUserStore<IdentityUser>>();
             var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
             var contextAccessor = new Mock<IHttpContextAccessor>();
             var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
             var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
 
-            AccountController accountController = new AccountController(userManager, signInManager, accountHandler);
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel("test1", "test2", "test3", "test4");
 
@@ -66,13 +82,14 @@ namespace API.Tests
         public void Update_NotPass()
         {
             var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
             var store = new Mock<IUserStore<IdentityUser>>();
             var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
             var contextAccessor = new Mock<IHttpContextAccessor>();
             var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
             var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
 
-            AccountController accountController = new AccountController(userManager, signInManager, accountHandler);
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel();
 
@@ -110,13 +127,14 @@ namespace API.Tests
         public void GetByPhoneNumber_Call()
         {
             var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
             var store = new Mock<IUserStore<IdentityUser>>();
             var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
             var contextAccessor = new Mock<IHttpContextAccessor>();
             var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
             var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
 
-            AccountController accountController = new AccountController(userManager, signInManager, accountHandler);
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             accountController.GetByPhoneNumber("phoneNumber");
 
@@ -133,6 +151,7 @@ namespace API.Tests
         public void EmailExists_Test(bool output)
         {
             var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
             var store = new Mock<IUserStore<IdentityUser>>();
             var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
             var contextAccessor = new Mock<IHttpContextAccessor>();
@@ -141,7 +160,7 @@ namespace API.Tests
 
             accountHandler.EmailExists("Email").Returns(output);
 
-            AccountController accountController = new AccountController(userManager, signInManager, accountHandler);
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             bool expected = output;
             bool res = accountController.EmailExists("Email");
@@ -152,7 +171,70 @@ namespace API.Tests
 
         #endregion
 
-        #region PhoneNumberExists
+        #region UpdateNightScoutLink
+
+        [TestMethod]
+        public void UpdateNightScoutLink_Valid()
+        {
+            var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
+            var store = new Mock<IUserStore<IdentityUser>>();
+            var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
+            var contextAccessor = new Mock<IHttpContextAccessor>();
+            var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
+            var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
+
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+            relayHandler.ConnectionOk("url").Returns(true);
+
+            var res = accountController.UpdateNIghtScoutLink("url");
+
+            Assert.AreEqual(typeof(OkResult), res.GetType());
+        }
+
+        [TestMethod]
+        public void UpdateNightScoutLink_Invalid()
+        {
+            var accountHandler = Substitute.For<IAccountHandler>();
+            var relayHandler = Substitute.For<IRelayHandler>();
+            var store = new Mock<IUserStore<IdentityUser>>();
+            var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
+            var contextAccessor = new Mock<IHttpContextAccessor>();
+            var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
+            var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
+
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
+
+            AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
+
+            relayHandler.ConnectionOk("url").Returns(false);
+
+            var res = accountController.UpdateNIghtScoutLink("url");
+
+            Assert.AreEqual(typeof(BadRequestResult), res.GetType());
+        }
+
 
         #endregion
     }

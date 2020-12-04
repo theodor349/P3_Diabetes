@@ -30,5 +30,9 @@ namespace APIHandler.Handlers
         {
             return relayAccess.GetInsulinStatus(link, maxReservoir);
         }
+        public bool ConnectionOk(string NSLink)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

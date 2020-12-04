@@ -10,5 +10,6 @@ namespace APIHandler.Handlers
         int GetInsulinStatus(string NSLink, float maxReservoir);
         DateTime GetLastReceived(string link);
         PumpDataModel.ArrowDirection GetStatus(string NSLink);
+        bool ConnectionOk(string NSLink);
     }
 }
