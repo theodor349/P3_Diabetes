@@ -18,9 +18,7 @@ namespace APIDataAccess.Models.Permission
         public int Attributes { get; set; }
         public bool Accepted { get; set; }
 
-        public bool IsActive(DateTime currDate) {
-            return Accepted && WithinStartExpireDate(StartDate, ExpireDate, currDate) && IsIntervalActive(currDate);
-        }
+        public bool IsActive(DateTime currDate) => Accepted && WithinStartExpireDate(StartDate, ExpireDate, currDate) && IsIntervalActive(currDate);
 
         #region Interval Functions  
 
