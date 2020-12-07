@@ -19,23 +19,23 @@ namespace APIDataAccess.Models.Permission
         public bool Accepted { get; set; }
 
         public bool IsActive(DateTime currDate) {
-            if (!Accepted)
-                return false;
-            // Time frame
-            if (!WithinStartExpireDate(StartDate, ExpireDate, currDate))
-                return false;
-            if (WeeksActive == 0)
-                return true;
-            // Recurrence
-            if (!WithinActiveInterval(StartDate, ExpireDate, currDate, WeeksActive, WeeksDeactive))
-                return false;
-            if (!WithinActiveDay(Days, currDate))
-                return false;
-
-            return true;
+            return Accepted && WithinStartExpireDate(StartDate, ExpireDate, currDate) && IsIntervalActive(currDate);
         }
 
         #region Interval Functions  
+
+        bool IsIntervalActive(DateTime currDate) {
+            if (WeeksActive == 0) {
+                return true;
+            } else {
+                if (WithinActiveInterval(StartDate, ExpireDate, currDate, WeeksActive, WeeksDeactive) &&
+                    WithinActiveDay(Days, currDate)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool WithinActiveDay(int days, DateTime now) {
             int day = GetDayOfWeek(now);
             int bitDay = day == 0 ? 1 : (int)Math.Pow(2, day);
