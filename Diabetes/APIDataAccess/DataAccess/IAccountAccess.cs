@@ -13,7 +13,8 @@ namespace APIDataAccess.DataAccess
         bool GetUnitOfMeasure(string id);
         bool PhoneNumberExists(string phoneNumber);
         void UpdateAccount(UpdateAccountDBModel model);
-        void UpdateNighScoutLink(string id, string nsLink);
-        void UpdateUnitOfMeasure(string id, bool value);
+        void UpdateNighScoutLink(UpdateNightScoutLinkModel model);
+        void UpdateUnitOfMeasure(UpdateUnitOfMesureModel model);
+        AccountNameModel GetName(string id);
     }
 }

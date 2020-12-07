@@ -68,29 +68,46 @@ namespace APIDataAccess.DataAccess
             _sql.SaveData(SpCommands.spAccount_UpdateAccount.ToString(), model, "DDB");
         }
 
-        public void UpdateNighScoutLink(string id, string nsLink)
+        public void UpdateNighScoutLink(UpdateNightScoutLinkModel model)
         {
-            throw new NotImplementedException();
+            _sql.SaveData(SpCommands.spAccount_UpdateNightScoutLink.ToString(), model, "DDB");
         }
 
         public bool PhoneNumberExists(string phoneNumber)
         {
-            throw new NotImplementedException();
+            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { phoneNumber }, "DDB").FirstOrDefault();
+            if (model.FirstName == null)
+                return false;
+            else
+                return true;
         }
 
         public bool EmailExists(string email)
         {
-            throw new NotImplementedException();
+            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByEmail.ToString(), new { email }, "DDB").FirstOrDefault();
+            if (model.FirstName == null)
+                return false;
+            else
+                return true;
         }
 
         public bool GetUnitOfMeasure(string id)
         {
-            throw new NotImplementedException();
+            AccountDBModel model = Get(id);
+            if (model.IsEUMeasure)
+                return true;
+            else
+                return false;
         }
 
-        public void UpdateUnitOfMeasure(string id, bool value)
+        public void UpdateUnitOfMeasure(UpdateUnitOfMesureModel model)
         {
-            throw new NotImplementedException();
+            _sql.SaveData(SpCommands.spAccount_UpdateUnitOfMeasure.ToString(), model, "DDB");
+        }
+
+        public AccountNameModel GetName(string id)
+        {
+            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { id }, "DDB").FirstOrDefault();
         }
     }
 }

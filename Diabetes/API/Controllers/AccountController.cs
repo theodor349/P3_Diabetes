@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using API.Models.Account;
 using APIDataAccess.Models.Account;
 using APIHandler.Handlers;
 using Microsoft.AspNetCore.Authorization;
@@ -43,7 +42,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public Models.Account.AccountNameModel GetName(string id)
+        public AccountNameModel GetName(string id)
         {
             return _accountHandler.GetName(id);
         }
@@ -116,11 +115,11 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("UpdateNightScoutLink")]
-        public ActionResult UpdateNIghtScoutLink(string url)
+        public ActionResult UpdateNightScoutLink(string url)
         {
             if (_relayHandler.ConnectionOk(url))
             {
-                _accountHandler.UpdateNightScoutLink(UserId, url);
+                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { ID = UserId, NewLink = url});
                 return Ok();
             }
             else

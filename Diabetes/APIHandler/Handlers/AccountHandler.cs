@@ -1,5 +1,4 @@
-﻿using API.Models.Account;
-using APIDataAccess.DataAccess;
+﻿using APIDataAccess.DataAccess;
 using APIDataAccess.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -49,29 +48,29 @@ namespace APIHandler.Handlers
             _aa.UpdateAccount(model);
         }
 
-        public void UpdateNightScoutLink(string id, string link)
+        public void UpdateNightScoutLink(UpdateNightScoutLinkModel model)
         {
-            throw new NotImplementedException();
+            _aa.UpdateNighScoutLink(model);
         }
 
         public bool EmailExists(string email)
         {
-            throw new NotImplementedException();
+            return _aa.EmailExists(email);
         }
 
         public bool PhoneNumberExists(string phone)
         {
-            throw new NotImplementedException();
+            return _aa.PhoneNumberExists(phone);
         }
 
         public bool GetUnitOfMeasurement(string id)
         {
-            throw new NotImplementedException();
+            return _aa.GetUnitOfMeasure(id);
         }
 
-        public void UpdateUnitOfMeasurement(string id, bool input)
+        public void UpdateUnitOfMeasurement(UpdateUnitOfMesureModel model)
         {
-            throw new NotImplementedException();
+            _aa.UpdateUnitOfMeasure(model);
         }
 
         private void CreateAccount(CreateAccountDBModel model)
@@ -86,7 +85,7 @@ namespace APIHandler.Handlers
 
         public AccountNameModel GetName(string id)
         {
-            throw new NotImplementedException();
+            return _aa.GetName(id);
         }
     }
 }

@@ -17,10 +17,10 @@ namespace APIDataAccess.DataAccess
         spAccount_DeleteAccount,
         spAccount_UpdateAccount,
         spAccount_UpdateNightScoutLink,
-        spAccount_PhoneNumberExists,
-        spAccount_EmailExists,
         spAccount_GetUnitOfMeasure,
         spAccount_UpdateUnitOfMeasure,
+        spAccount_GetByEmail,
+        spAccount_GetName,
 
         spPermission_Get,
         spPermission_GetByTargetId,
