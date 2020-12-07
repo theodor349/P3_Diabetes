@@ -23,7 +23,7 @@ namespace APIDataAccess.DataAccess
 
         public List<NotificationSettingModel> Get(string userId)
         {
-            var data = _sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetByUser.ToString(), new { UserId = userId }, "DDB");
+            var data = _sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetByUser.ToString(), new { Id = userId }, "DDB");
             return data;
         }
 
@@ -34,7 +34,7 @@ namespace APIDataAccess.DataAccess
 
         public void DeleteByUserId(string userId)
         {
-            _sql.DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), userId, "DDB");
+            _sql.DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), new { Id = userId }, "DDB");
         }
     }
 }

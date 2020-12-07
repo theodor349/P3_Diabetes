@@ -6,7 +6,7 @@ namespace APIDataAccess.Models.Account
 {
     public class AccountDBModel
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NSLink { get; set; }

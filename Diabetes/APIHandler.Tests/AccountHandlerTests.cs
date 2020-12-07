@@ -42,10 +42,10 @@ namespace APIHandler.Tests
             var ph = Substitute.For<IPermissionHandler>();
             AccountHandler accountHandler = new AccountHandler(aa,nh, ph);
 
-            aa.Get("id").Returns(new AccountDBModel() {ID = "id"});
+            aa.Get("id").Returns(new AccountDBModel() {Id = "id"});
 
             AccountDBModel accountDBModel = accountHandler.Get("id");
-            Assert.AreEqual("id", accountDBModel.ID);
+            Assert.AreEqual("id", accountDBModel.Id);
         }
 
         [TestMethod]

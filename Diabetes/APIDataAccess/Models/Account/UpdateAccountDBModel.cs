@@ -13,13 +13,13 @@ namespace APIDataAccess.Models.Account
         }
         public UpdateAccountDBModel(string id, string firstname, string lastname, string phoneNumber)
         {
-            ID = id;
+            Id = id;
             FirstName = firstname;
             LastName = lastname;
             PhoneNumber = phoneNumber;
         }
 
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }

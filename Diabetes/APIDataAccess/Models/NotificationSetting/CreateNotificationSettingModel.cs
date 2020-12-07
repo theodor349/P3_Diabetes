@@ -13,15 +13,15 @@ namespace APIDataAccess.Models.NotificationSetting
         }
         public CreateNotificationSettingModel(string OwnerID, float ThresHold, ThresholdType thresholdType, NotificationType notificationType, string Note)
         {
-            this.OwnerID = OwnerID;
-            this.ThresHold = ThresHold;
+            this.OwnerId = OwnerID;
+            this.Threshold = ThresHold;
             ThresholdType = thresholdType;
             NotificationType = notificationType;
             this.Note = Note;
         }
 
-        public string OwnerID { get; set; }
-        public float ThresHold { get; set; }
+        public string OwnerId { get; set; }
+        public float Threshold { get; set; }
         public ThresholdType ThresholdType { get; set; }
         public NotificationType NotificationType { get; set; }
         public string Note { get; set; }

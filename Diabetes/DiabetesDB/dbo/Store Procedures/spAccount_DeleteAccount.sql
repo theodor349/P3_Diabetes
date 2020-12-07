@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_DeleteAccount]
-	@param1 int = 0,
-	@param2 int
+	@Id int
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	DELETE 
+	FROM Permission
+	WHERE Id = @Id;
+END

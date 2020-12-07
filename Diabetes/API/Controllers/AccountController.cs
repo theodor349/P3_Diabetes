@@ -119,7 +119,7 @@ namespace API.Controllers
         {
             if (_relayHandler.ConnectionOk(url))
             {
-                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { ID = UserId, NewLink = url});
+                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url});
                 return Ok();
             }
             else
@@ -130,7 +130,7 @@ namespace API.Controllers
 
         private bool IsValidateModel(UpdateAccountDBModel updateAccountDBModel)
         {
-            if (updateAccountDBModel.ID == null && updateAccountDBModel.FirstName == null && updateAccountDBModel.LastName == null && updateAccountDBModel.PhoneNumber == null)
+            if (updateAccountDBModel.Id == null && updateAccountDBModel.FirstName == null && updateAccountDBModel.LastName == null && updateAccountDBModel.PhoneNumber == null)
                 return false;
             else
                 return true;

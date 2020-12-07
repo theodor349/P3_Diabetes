@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spNotificationSetting_DeleteByUserId]
-	@param1 int = 0,
-	@param2 int
+	@Id nvarchar(450)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	DELETE
+	FROM NotificationSetting
+	WHERE [Owner] = @Id;
+END

@@ -17,7 +17,6 @@ namespace APIDataAccess.DataAccess
         spAccount_DeleteAccount,
         spAccount_UpdateAccount,
         spAccount_UpdateNightScoutLink,
-        spAccount_GetUnitOfMeasure,
         spAccount_UpdateUnitOfMeasure,
         spAccount_GetByEmail,
         spAccount_GetName,
@@ -30,8 +29,6 @@ namespace APIDataAccess.DataAccess
         spPermission_Create,
         spPermission_DeleteByUserId,
         spPermission_GetPendingPermissions,
-        spPermission_GetPermissionAttributes,
         spPermission_AcceptPermissionRequest,
-        spPermission_DenyPermissionRequest,
     }
 }

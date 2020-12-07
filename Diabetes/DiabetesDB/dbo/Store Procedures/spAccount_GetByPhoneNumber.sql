@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_GetByPhoneNumber]
-	@param1 int = 0,
-	@param2 int
+	@PhoneNumber nvarchar(450)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN 
+	SELECT *
+	FROM Account
+	WHERE PhoneNumber = @PhoneNumber;
+END

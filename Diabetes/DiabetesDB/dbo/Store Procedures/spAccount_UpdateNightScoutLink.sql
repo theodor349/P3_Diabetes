@@ -1,6 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_UpdateNightScoutLink]
-	@param1 int = 0,
-	@param2 int
+	@Id nvarchar(450),
+	@NewLink nvarchar(450)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN 
+	UPDATE Account
+	SET [NSLink] = @NewLink
+	WHERE [Id] = @Id;
+END

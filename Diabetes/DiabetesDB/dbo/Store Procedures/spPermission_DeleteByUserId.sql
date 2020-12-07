@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spPermission_DeleteByUserId]
-	@id nvarchar(450)
+	@Id nvarchar(450)
 AS
 BEGIN
 	DELETE
 	FROM Permission
-	WHERE [WatcherId] = @id OR [TargetId] = @id;
+	WHERE WatcherId = @Id OR [TargetId] = @Id;
 END

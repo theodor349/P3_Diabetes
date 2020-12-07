@@ -76,20 +76,20 @@
     <Build Include="dbo\Store Procedures\spPermission_DeleteByUserId.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetPendingPermissions.sql" />
     <Build Include="dbo\Store Procedures\spPermission_AcceptPermissionRequest.sql" />
-    <Build Include="dbo\Store Procedures\spNotificationSetting_Update_1.sql" />
-    <Build Include="dbo\Store Procedures\spNotificationSetting_DeleteByUserId_1.sql" />
-    <Build Include="dbo\Store Procedures\spNotificationSetting_Create_1.sql" />
-    <Build Include="dbo\Store Procedures\spAccount_GetByPhoneNumber_1.sql" />
+    <Build Include="dbo\Store Procedures\spNotificationSetting_Update.sql" />
+    <Build Include="dbo\Store Procedures\spNotificationSetting_DeleteByUserId.sql" />
+    <Build Include="dbo\Store Procedures\spNotificationSetting_Create.sql" />
+    <Build Include="dbo\Store Procedures\spAccount_GetByPhoneNumber.sql" />
     <Build Include="dbo\Store Procedures\spAccount_CreateAccount.sql" />
     <Build Include="dbo\Store Procedures\spAccount_DeleteAccount.sql" />
     <Build Include="dbo\Store Procedures\spAccount_UpdateAccount.sql" />
     <Build Include="dbo\Store Procedures\spAccount_UpdateNightScoutLink.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetUnitOfMeasure.sql" />
-    <Build Include="dbo\Store Procedures\spAccount_UpdateUnitOfMeasure_1.sql" />
+    <Build Include="dbo\Store Procedures\spAccount_UpdateUnitOfMeasure.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetByEmail.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetName.sql" />
     <Build Include="dbo\Store Procedures\spPermission_GetPendingPermissions.sql" />
-    <Build Include="dbo\Store Procedures\spPermission_GetPermissionAttributes_1.sql" />
+    <Build Include="dbo\Store Procedures\spPermission_GetPermissionAttributes.sql" />
     <Build Include="dbo\Store Procedures\spPermission_DenyPermissionRequest.sql" />
   </ItemGroup>
   <ItemGroup>

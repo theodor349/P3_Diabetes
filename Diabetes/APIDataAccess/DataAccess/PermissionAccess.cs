@@ -51,11 +51,11 @@ namespace APIDataAccess.DataAccess
 
         public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
         {
-            return _sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { id = userId }, "DDB");
+            return _sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), new { Id = userId }, "DDB");
         }
 
         public int AcceptPermissionRequest(int id) {
-            return _sql.SaveData(SpCommands.spPermission_AcceptPermissionRequest.ToString(), new { Id = id, Accepted = true }, "DDB");
+            return _sql.SaveData(SpCommands.spPermission_AcceptPermissionRequest.ToString(), new { Id = id }, "DDB");
         }
 
         public int DenyPermissionRequest(int id) {

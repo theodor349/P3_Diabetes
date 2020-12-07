@@ -1,6 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_UpdateUnitOfMeasure]
-	@param1 int = 0,
-	@param2 int
+	@Id nvarchar(450),
+	@NewMeasure bit
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN 
+	UPDATE Account
+	SET [UnitOfMeasure] = @NewMeasure
+	WHERE [Id] = @Id;
+END

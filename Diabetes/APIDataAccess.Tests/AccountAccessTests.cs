@@ -133,7 +133,7 @@ namespace APIDataAccess.Tests
             var data = new AccountAccess(sql);
             var input = new UpdateAccountDBModel()
             {
-                ID = "idstring",
+                Id = "idstring",
                 FirstName = "FirstName",
                 LastName = "LastName"
             };
@@ -141,7 +141,7 @@ namespace APIDataAccess.Tests
             data.UpdateAccount(input);
 
             sql.Received(1).SaveData(SpCommands.spAccount_UpdateAccount.ToString(), Arg.Is<UpdateAccountDBModel>((x) =>
-            x.ID.Equals("idstring") &&
+            x.Id.Equals("idstring") &&
             x.FirstName.Equals("FirstName") &&
             x.LastName.Equals("LastName")
             ), "DDB");

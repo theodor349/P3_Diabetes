@@ -27,32 +27,19 @@ namespace APIDataAccess.DataAccess
             {
                 return null;
             }
-            return GenerateAccountModel(model);
+            return model;
         }
 
         public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
-            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { phoneNumber }, "DDB").FirstOrDefault();
+            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { PhoneNumber = phoneNumber }, "DDB").FirstOrDefault();
             if (model.FirstName == null)
             {
                 return null;
             }
-            return GenerateAccountModel(model);
+            return model;
         }
 
-        private AccountDBModel GenerateAccountModel(AccountDBModel model)
-        {
-            return new AccountDBModel()
-            {
-                ID = model.ID,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                NSLink = model.NSLink,
-                IsEUMeasure = model.IsEUMeasure
-            };
-        }
         public void CreateAccountOnDB(CreateAccountDBModel model)
         {
             _sql.SaveData(SpCommands.spAccount_CreateAccount.ToString(), model, "DDB");
@@ -84,7 +71,7 @@ namespace APIDataAccess.DataAccess
 
         public bool EmailExists(string email)
         {
-            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByEmail.ToString(), new { email }, "DDB").FirstOrDefault();
+            var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByEmail.ToString(), new { Email = email }, "DDB").FirstOrDefault();
             if (model.FirstName == null)
                 return false;
             else
@@ -107,7 +94,7 @@ namespace APIDataAccess.DataAccess
 
         public AccountNameModel GetName(string id)
         {
-            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { id }, "DDB").FirstOrDefault();
+            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { Id }, "DDB").FirstOrDefault();
         }
     }
 }

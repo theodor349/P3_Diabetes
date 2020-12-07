@@ -4,6 +4,6 @@
 AS
 BEGIN
 	UPDATE Permission
-	SET [Accepted] = @Accepted
+	SET [Accepted] = 1
 	WHERE [Id] = @Id; 	
 END

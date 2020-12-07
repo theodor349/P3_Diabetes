@@ -4,5 +4,5 @@ AS
 BEGIN
 	SELECT * 
 	FROM Permission
-	WHERE [WatcherId] = @id;
+	WHERE [WatcherId] = @id AND Accepted = 0;
 END

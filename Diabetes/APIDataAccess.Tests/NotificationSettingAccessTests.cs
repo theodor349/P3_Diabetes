@@ -19,16 +19,16 @@ namespace APIDataAccess.Tests
             var sql = Substitute.For<ISqlDataAccess>();
             var input = new CreateNotificationSettingModel()
             {
-                OwnerID = "user",
-                ThresHold = 32
+                OwnerId = "user",
+                Threshold = 32
             };
 
             var notificationSettingAccess = new NotificationSettingAccess(sql);
             notificationSettingAccess.Create(input);
 
             sql.Received(1).SaveData(SpCommands.spNotificationSetting_Create.ToString(), Arg.Is<CreateNotificationSettingModel>((x)=>
-                x.ThresHold == 32 &&
-                x.OwnerID.Equals("user")
+                x.Threshold == 32 &&
+                x.OwnerId.Equals("user")
             ), "DDB");
         }
 
@@ -92,7 +92,7 @@ namespace APIDataAccess.Tests
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var updateNotificationSettingModel = new UpdateNotificationSettingModel(){
-                ID = 42,
+                Id = 42,
                 Note = "test"
             };
 
@@ -101,7 +101,7 @@ namespace APIDataAccess.Tests
 
 
             sql.Received(1).SaveData(SpCommands.spNotificationSetting_Update.ToString(), Arg.Is<UpdateNotificationSettingModel>((x) =>
-            x.ID == 42 && x.Note.Equals("test")
+            x.Id == 42 && x.Note.Equals("test")
             ), "DDB");
         }
 

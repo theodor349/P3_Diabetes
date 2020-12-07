@@ -1,6 +1,15 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_CreateAccount]
-	@param1 int = 0,
-	@param2 int
+    @Id nvarchar(450),
+    @FirstName nvarchar(450),
+    @LastName nvarchar(450),
+    @Email nvarchar(450),
+    @PhoneNumber nvarchar(450),
+    @Password nvarchar(450),
+    @NSLink nvarchar(450),
+    @IsEUMeasure bit
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+    INSERT
+    INTO Account ([Id], [FirstName], [LastName], [Email], [PhoneNumber], [NSLink], [UnitOfMeasure])
+    VALUES (@Id, @FirstName, @LastName, @Email, @PhoneNumber, @NSLink, @IsEUMeasure);
+END

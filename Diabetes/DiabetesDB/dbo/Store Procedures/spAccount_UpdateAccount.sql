@@ -1,6 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_UpdateAccount]
-	@param1 int = 0,
-	@param2 int
+	@Id nvarchar(450),
+	@FirstName nvarchar(450),
+	@LastName nvarchar(450),
+	@PhoneNumber nvarchar(450)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	UPDATE Account
+	SET [FirstName] = @FirstName, [LastName] = @LastName, [PhoneNumber] = @PhoneNumber
+	WHERE [Id] = @Id;
+END

@@ -1,6 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[spNotificationSetting_Create]
-	@param1 int = 0,
-	@param2 int
+	@OwnerId nvarchar(450),
+	@Threshold float,
+	@ThresholdType int,
+	@NotificationType int,
+	@Note nvarchar(450)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	INSERT 
+	INTO NotificationSetting ([Owner], [Threshold], [ThresholdType], [NotificationType], [Note])
+	VALUES (@OwnerId, @Threshold, @ThresholdType, @NotificationType, @Note);
+END

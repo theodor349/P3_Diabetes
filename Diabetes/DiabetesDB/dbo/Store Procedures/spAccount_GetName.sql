@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spAccount_GetName]
-	@param1 int = 0,
-	@param2 int
+	@Id nvarchar(450)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	SELECT [FirstName], [LastName]
+	FROM Account
+	WHERE [Id] = @Id;
+END
