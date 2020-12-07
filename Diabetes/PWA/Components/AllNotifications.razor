@@ -13,17 +13,17 @@
 @code {
     [Parameter] public Dictionary<string, ActiveNotification> notifications { get; set; }
     [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
-    private Dictionary<Subject, List<ActiveNotification>> subjectNotificationMap = new Dictionary<Subject, List<ActiveNotification>>();
+    private Dictionary<string, List<ActiveNotification>> subjectNotificationMap = new Dictionary<string, List<ActiveNotification>>();
 
     protected override void OnParametersSet()
     {
-        subjectNotificationMap = new Dictionary<Subject, List<ActiveNotification>>();
+        subjectNotificationMap = new Dictionary<string, List<ActiveNotification>>();
         foreach (var n in notifications.Values)
         {
-            if (subjectNotificationMap.ContainsKey(n.Subject))
-                subjectNotificationMap[n.Subject].Add(n);
+            if (subjectNotificationMap.ContainsKey(n.Subject.ID))
+                subjectNotificationMap[n.Subject.ID].Add(n);
             else
-                subjectNotificationMap.Add(n.Subject, new List<ActiveNotification>() { n });
+                subjectNotificationMap.Add(n.Subject.ID, new List<ActiveNotification>() { n });
         }
     }
 }
