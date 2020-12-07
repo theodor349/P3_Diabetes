@@ -94,7 +94,6 @@ namespace APIHandler.Tests
 
         #region RegisterAccount
 
-
         #endregion
 
         #region UnregisterAccount

@@ -26,7 +26,7 @@ namespace APIDataAccess.Tests
             var input = "exists";
             var sql = Substitute.For<ISqlDataAccess>();
             sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), Arg.Any<object>(), "DDB").
-                Returns(new List<AccountDBModel>() { new AccountDBModel(){ FirstName = expected, Email = expected, PhoneNumber = expected } });
+                Returns(new List<AccountDBModel>() { new AccountDBModel() { FirstName = expected, Email = expected, PhoneNumber = expected } });
 
             var data = new AccountAccess(sql);
             var res = data.Get(input);
@@ -95,7 +95,8 @@ namespace APIDataAccess.Tests
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var data = new AccountAccess(sql);
-            var input = new CreateAccountDBModel() {
+            var input = new CreateAccountDBModel()
+            {
                 FirstName = "FirstName",
                 LastName = "LastName"
             };
@@ -130,7 +131,8 @@ namespace APIDataAccess.Tests
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var data = new AccountAccess(sql);
-            var input = new UpdateAccountDBModel() {
+            var input = new UpdateAccountDBModel()
+            {
                 ID = "idstring",
                 FirstName = "FirstName",
                 LastName = "LastName"
@@ -144,26 +146,6 @@ namespace APIDataAccess.Tests
             x.LastName.Equals("LastName")
             ), "DDB");
         }
-
-        #endregion
-
-        #region UpdateNightScoutLink
-
-        #endregion
-
-        #region PhoneNumberExists
-
-        #endregion
-
-        #region EmailExists
-
-        #endregion
-
-        #region GetUnitOfMeasure
-
-        #endregion
-
-        #region UpdateUnitOfMeasure
 
         #endregion
     }

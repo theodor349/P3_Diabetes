@@ -1,5 +1,4 @@
-﻿using API.Models.Account;
-using APIDataAccess.Models.Account;
+﻿using APIDataAccess.Models.Account;
 
 namespace APIHandler.Handlers
 {
@@ -13,8 +12,8 @@ namespace APIHandler.Handlers
         void RegisterAccount(CreateAccountDBModel model);
         void UnregisterAccount(string id);
         void UpdateAccount(UpdateAccountDBModel model);
-        void UpdateNightScoutLink(string id, string link);
-        void UpdateUnitOfMeasurement(string id, bool input);
+        void UpdateNightScoutLink(UpdateNightScoutLinkModel model);
+        void UpdateUnitOfMeasurement(UpdateUnitOfMesureModel model);
         AccountNameModel GetName(string id);
     }
 }

@@ -199,7 +199,7 @@ namespace API.Tests
 
             relayHandler.ConnectionOk("url").Returns(true);
 
-            var res = accountController.UpdateNIghtScoutLink("url");
+            var res = accountController.UpdateNightScoutLink("url");
 
             Assert.AreEqual(typeof(OkResult), res.GetType());
         }
@@ -230,7 +230,7 @@ namespace API.Tests
 
             relayHandler.ConnectionOk("url").Returns(false);
 
-            var res = accountController.UpdateNIghtScoutLink("url");
+            var res = accountController.UpdateNightScoutLink("url");
 
             Assert.AreEqual(typeof(BadRequestResult), res.GetType());
         }
