@@ -80,30 +80,29 @@ else
         <source src="/Sounds/@sound" />
     </audio>
 }
+@code{
+    public bool playSound = false;
+    public string sound = "Next.mp3";
 
-@code {
-    private bool playSound = false;
-    private string sound = "Next.mp3";
-
-    private int page = 0;
-    private LoginUser loggedInUser;
-    private Subject targetSubject;
-    private Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
-    private Dictionary<string, ActiveNotification> activeNotifications = new Dictionary<string, ActiveNotification>();
-    private Stack<ActiveNotification> focusedNotifications = new Stack<ActiveNotification>();
+    public int page = 0;
+    public LoginUser loggedInUser;
+    public Subject targetSubject;
+    public Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
+    public Dictionary<string, ActiveNotification> activeNotifications = new Dictionary<string, ActiveNotification>();
+    public Stack<ActiveNotification> focusedNotifications = new Stack<ActiveNotification>();
 
     // TODO: Make Work
-    private void PlaySound(bool isWarning)
+    public void PlaySound(bool isWarning)
     {
         playSound = false;
     }
 
-    private void SetPage(int p)
+    public void SetPage(int p)
     {
         page = p;
     }
 
-    private void SubjectsUpdated(SubjectList subjectList)
+    public void SubjectsUpdated(SubjectList subjectList)
     {
         foreach (var subject in subjectList.Subjects)
         {
@@ -126,7 +125,7 @@ else
             subjects.Add(s.ID, s);
     }
 
-    private void NewTargetSubject(string id)
+    public void NewTargetSubject(string id)
     {
         targetSubject = subjects[id];
         SetPage(0);
@@ -150,7 +149,7 @@ else
                 else
                 {
                     if (activeNotifications.ContainsKey(id))
-                        RemoveActiveNotification(notification);
+                        DeactiveActiveNotification(notification);
                 }
             }
             else
@@ -163,25 +162,81 @@ else
                 else
                 {
                     if (activeNotifications.ContainsKey(id))
-                        RemoveActiveNotification(notification);
+                        DeactiveActiveNotification(notification);
                 }
             }
         }
+
+        AddStandardNotifications(s);
+    }
+
+    private void AddStandardNotifications(Subject s)
+    {
+        AddBattery(s);
+        AddInsulin(s);
+    }
+
+    private void AddBattery(Subject s)
+    {
+        var n = new NotificationData()
+        {
+            Title = "Battery Low",
+            Note = s.GetName() + "'s battery is low",
+            Type = NotificationType.Message,
+            IconClassName = "fa fa-battery-0",
+        };
+        var an = new ActiveNotification()
+        {
+            Subject = s,
+            Data = n,
+            Active = true,
+        };
+        if (s.PumpData.BatteryStatus <= 0.05)
+            AddActiveNotification(an.ToString(), an);
+        else
+            DeactiveActiveNotification(an);
+    }
+
+    private void AddInsulin(Subject s)
+    {
+        var n = new NotificationData()
+        {
+            Title = "Insulin Low",
+            Note = s.GetName() + "'s pump is low on insulin",
+            Type = NotificationType.Message,
+            IconClassName = "fa fa-thermometer-half",
+        };
+        var an = new ActiveNotification()
+        {
+            Subject = s,
+            Data = n,
+            Active = true,
+        };
+        if (s.PumpData.BatteryStatus <= 0.05)
+            AddActiveNotification(an.ToString(), an);
+        else
+            DeactiveActiveNotification(an);
     }
 
     private void AddActiveNotification(string id, ActiveNotification notification)
     {
-        PlaySound(true);
-        focusedNotifications.Push(notification);
-        activeNotifications.Add(id, notification);
+        if (activeNotifications.ContainsKey(id))
+        {
+            activeNotifications[id].Active = true;
+        }
+        else
+        {
+            focusedNotifications.Push(notification);
+            activeNotifications.Add(id, notification);
+        }
     }
 
-    private void RemoveActiveNotification(ActiveNotification notification)
+    private void DeactiveActiveNotification(ActiveNotification notification)
     {
-        activeNotifications.Remove(notification.ToString());
+        notification.Active = false;
     }
 
-    private void NotificationButtonClicked(NotificationButtonType type)
+    public void NotificationButtonClicked(NotificationButtonType type)
     {
         var n = focusedNotifications.Pop();
         if (type == NotificationButtonType.Dismiss)
@@ -191,7 +246,7 @@ else
             focusedNotifications.Pop();
     }
 
-    private void NotificationClicked(ActiveNotification data)
+    public void NotificationClicked(ActiveNotification data)
     {
         focusedNotifications.Push(data);
     }
