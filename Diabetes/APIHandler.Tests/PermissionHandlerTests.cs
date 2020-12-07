@@ -98,7 +98,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate = new DateTime(2020, 10, 20, 10, 0, 0);   // 10:00
             var expireDate = new DateTime(2020, 10, 20, 10, 15, 0); // 10:15
@@ -114,7 +113,7 @@ namespace APIHandler.Tests {
                 Attributes = 1
             };
 
-            var res = handler.IsActive(p, testDate);
+            var res = p.IsActive(testDate);
 
             Assert.AreEqual(expected, res);
         }
@@ -123,7 +122,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate =     new DateTime(2020, 10, 20, 10, 0, 0);   // 10:00
             var expireDate =    new DateTime(2020, 10, 20, 10, 15, 0);  // 10:15
@@ -139,7 +137,7 @@ namespace APIHandler.Tests {
                 Attributes = 1
             };
 
-            var res = handler.IsActive(p, testDate);
+            var res = p.IsActive(testDate);
 
             Assert.AreEqual(expected, res);
         }
@@ -149,7 +147,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate =     new DateTime(2020, 10, 20, 10, 0, 0);   // 20/10
             var expireDate =    new DateTime(2020, 10, 22, 10, 0, 0);   // 22/10
@@ -165,7 +162,7 @@ namespace APIHandler.Tests {
                 Attributes = 1
             };
 
-            var res = handler.IsActive(p, testDate);
+            var res = p.IsActive(testDate);
 
             Assert.AreEqual(expected, res);
         }
@@ -174,7 +171,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate =     new DateTime(2020, 10, 20, 10, 0, 0);   // 20/10
             var expireDate =    new DateTime(2020, 10, 22, 10, 0, 0);   // 22/10
@@ -190,7 +186,7 @@ namespace APIHandler.Tests {
                 Attributes = 1
             };
 
-            var res = handler.IsActive(p, testDate);
+            var res = p.IsActive(testDate);
 
             Assert.AreEqual(expected, res);
         }
@@ -210,7 +206,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate_ = new DateTime(2020, 11, 9, 1, 0, 0);
             var expireDate = new DateTime(2020, 12, 17, 23, 0, 0);
@@ -229,7 +224,7 @@ namespace APIHandler.Tests {
                 Days = days
             };
 
-            var res = handler.IsActive(p, testDate__);
+            var res = p.IsActive(testDate__);
 
             Assert.AreEqual(expected, res);
         }
@@ -253,7 +248,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate_ = new DateTime(2020, 11, 9, 1, 0, 0);
             var expireDate = new DateTime(2020, 12, 30, 23, 0, 0);
@@ -271,7 +265,7 @@ namespace APIHandler.Tests {
                 Days = days
             };
 
-            var res = handler.IsActive(p, testDate__);
+            var res = p.IsActive(testDate__);
 
             Assert.AreEqual(expected, res);
         }
@@ -283,7 +277,6 @@ namespace APIHandler.Tests {
         {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
 
             var startDate = new DateTime(2020, 10, 20, 10, 0, 0);   // 10:00
             var expireDate = new DateTime(2020, 10, 20, 10, 15, 0); // 10:15
@@ -299,7 +292,7 @@ namespace APIHandler.Tests {
                 Accepted = accepted
             };
 
-            var res = handler.IsActive(p, testDate);
+            var res = p.IsActive(testDate);
 
             Assert.AreEqual(expected, res);
         }

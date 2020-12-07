@@ -14,7 +14,6 @@ namespace APIHandler.Handlers
         List<PermissionDBModel> GetByWatcherId(string watcherId);
         List<RequestPermissionDBModel> GetPendingPermissions(string userId);
         Dictionary<string, int> GetPermissionAttributes(PermissionDBModel[] permissions);
-        bool IsActive(PermissionDBModel permission, DateTime currDate);
         int RequestPermission(RequestPermissionDBModel request);
         int Update(UpdatePermissionModel updatedPermission);
     }
