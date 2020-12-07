@@ -117,8 +117,7 @@ namespace APIDataAccess.Tests
             var notificationSettingAccess = new NotificationSettingAccess(sql);
             notificationSettingAccess.DeleteByUserId("user");
 
-            sql.Received(1).DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), Arg.Any<string>(), "DDB");
-            
+            sql.Received(1).DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), Arg.Any<object>(), "DDB");
         }
 
         #endregion

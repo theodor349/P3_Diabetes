@@ -89,7 +89,6 @@
     <Build Include="dbo\Store Procedures\spAccount_GetByEmail.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetName.sql" />
     <Build Include="dbo\Store Procedures\spPermission_GetPendingPermissions.sql" />
-    <Build Include="dbo\Store Procedures\spPermission_GetPermissionAttributes.sql" />
     <Build Include="dbo\Store Procedures\spPermission_DenyPermissionRequest.sql" />
   </ItemGroup>
   <ItemGroup>

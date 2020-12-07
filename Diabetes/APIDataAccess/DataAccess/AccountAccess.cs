@@ -94,7 +94,7 @@ namespace APIDataAccess.DataAccess
 
         public AccountNameModel GetName(string id)
         {
-            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { Id }, "DDB").FirstOrDefault();
+            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { Id = id }, "DDB").FirstOrDefault();
         }
     }
 }
