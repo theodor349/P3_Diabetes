@@ -67,6 +67,7 @@ namespace PWA.Pages
                 BloodGlucoseNotification(old, curr, n);
             }
             BatteryNotification(old, curr);
+            InsulinNotification(old, curr);
 
             subjects[curr.ID] = curr;
         }
@@ -88,19 +89,6 @@ namespace PWA.Pages
             HandleActiveNotificatio(an, old, curr, func);
         }
 
-        private void HandleActiveNotificatio(ActiveNotification notification, Subject old, Subject curr, Func<Subject, bool> func)
-        {
-            var notificationEvent = CreateOrRemoveNotification(old, curr, func);
-            if (notificationEvent == NotificationEvent.Create)
-            {
-                AddActiveNotification(notification.ToString(), notification);
-            }
-            else if (notificationEvent == NotificationEvent.Remove)
-            {
-                RemoveActiveNotification(notification);
-            }
-        }
-
         private void BatteryNotification(Subject old, Subject curr)
         {
             var n = new NotificationData()
@@ -119,6 +107,39 @@ namespace PWA.Pages
             };
 
             HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f);
+        }
+
+        private void InsulinNotification(Subject old, Subject curr)
+        {
+            var n = new NotificationData()
+            {
+                Title = "Insulin Low",
+                Note = curr.GetName() + "'s pump is low on insulin",
+                Type = NotificationType.Message,
+                IconClassName = "fa fa-thermometer-half",
+            };
+            var an = new ActiveNotification()
+            {
+                Subject = curr,
+                Data = n,
+                Active = true,
+                Id = "Insulin",
+            };
+
+            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f);
+        }
+
+        private void HandleActiveNotificatio(ActiveNotification notification, Subject old, Subject curr, Func<Subject, bool> func)
+        {
+            var notificationEvent = CreateOrRemoveNotification(old, curr, func);
+            if (notificationEvent == NotificationEvent.Create)
+            {
+                AddActiveNotification(notification.ToString(), notification);
+            }
+            else if (notificationEvent == NotificationEvent.Remove)
+            {
+                RemoveActiveNotification(notification);
+            }
         }
 
         private NotificationEvent CreateOrRemoveNotification(Subject old, Subject curr, Func<Subject, bool> func)
