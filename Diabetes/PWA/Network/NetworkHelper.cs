@@ -102,7 +102,7 @@ namespace PWA.Network
             {
                 var name = await GetName(id);
                 var data = await GetPumpData(id);
-                var notificationSettings = await GetNotificaitonSettings(id);
+                var notificationSettings = await GetNotificationSettings(id);
                 res.Subjects.Add(new Subject()
                 {
                     ID = id,
@@ -115,7 +115,7 @@ namespace PWA.Network
             return res;
         }
 
-        private async Task<List<NotificationData>> GetNotificaitonSettings(string id)
+        private async Task<List<NotificationData>> GetNotificationSettings(string id)
         {
             using (HttpResponseMessage response = await _client.GetAsync("api/Relay/" + id))
             {
