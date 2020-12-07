@@ -52,7 +52,7 @@ namespace PWA.Network
 
         public async Task<SubjectList> GetSubjectsData()
         {
-            var bgAdd = 0;// DateTime.Now.Second % 14;
+            var bgAdd = DateTime.Now.Second % 14;
             return new SubjectList()
             {
                 Subjects = new List<Subject>()
@@ -65,7 +65,7 @@ namespace PWA.Network
                         PumpData = new PumpData()
                         {
                             BloodGlucose = 1 + bgAdd,
-                            BatteryStatus = 0.3f,
+                            BatteryStatus = 0.04f,
                             Delta = 0.6f,
                             InsulinStatus = 0.1f,
                             Minutes = 6,

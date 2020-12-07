@@ -16,10 +16,11 @@ namespace PWA.Models
         public Subject Subject { get; set; }
         public NotificationData Data { get; set; }
         public bool Active { get; set; }
+        public string Id { get; set; }
 
         public override string ToString()
         {
-            return Subject.ID + "-" + Data.Type.ToString();
+            return Subject.ID + "-" + Id;
         }
     }
 }
