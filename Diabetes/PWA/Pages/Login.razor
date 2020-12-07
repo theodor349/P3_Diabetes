@@ -27,7 +27,10 @@
     private async Task HandleValidSubmit()
     {
         var user = await GetLoginChredentials();
-        await loggedIn.InvokeAsync(user);
+        if(user != null)
+        {
+            await loggedIn.InvokeAsync(user);
+        }
     }
 
     private async Task<LoginUser> GetLoginChredentials()

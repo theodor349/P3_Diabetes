@@ -64,6 +64,10 @@ namespace PWA.Network
             }
         }
 
+        public async Task EditPermission(Permission p)
+        {
+        }
+
         public async Task<List<PermissionRequestModel>> GetPermissionRequests()
         {
             using (HttpResponseMessage response = await _client.GetAsync("api/Permission/GetPendingPermissions"))

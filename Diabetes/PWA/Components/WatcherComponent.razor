@@ -10,7 +10,7 @@
     <div class="twoBtns">
         @if (Permission.IsOwner)
         {
-            <div @onclick="() => Edit(Permission.Id)">
+            <div @onclick="() => Edit()">
                 <p>Edit</p>
             </div>
         }
@@ -23,8 +23,9 @@
 @code {
     [Parameter] public Permission Permission { get; set; }
 
-    private void Edit(int id)
+    private void Edit()
     {
+        Network.EditPermission(Permission);
     }
 
     private void Delte(int id)

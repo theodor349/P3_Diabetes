@@ -201,7 +201,10 @@ namespace PWA.Network
 
         public async Task UpdateNSLink(string link)
         {
+        }
 
+        public async Task EditPermission(Permission p)
+        {
         }
     }
 }
