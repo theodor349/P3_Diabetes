@@ -42,6 +42,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("GetName")]
         public AccountNameModel GetName(string id)
         {
             return _accountHandler.GetName(id);
@@ -51,7 +52,6 @@ namespace API.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(CreateAccountDBModel model)
         {
-            // TODO: Should be moved to DataAccess
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
