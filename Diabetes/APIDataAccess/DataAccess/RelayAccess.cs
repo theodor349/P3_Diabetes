@@ -87,7 +87,7 @@ namespace APIDataAccess.DataAccess
 
                         string[] args = reader.ReadLine().Split('	');
 
-                        switch (args[3])
+                        switch (args[3].Trim('"'))
                         {
                             case "Flat": return PumpDataModel.ArrowDirection.Flat;
                             case "DoubleDown": return PumpDataModel.ArrowDirection.DoubleDown;
