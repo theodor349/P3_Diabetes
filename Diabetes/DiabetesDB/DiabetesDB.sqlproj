@@ -84,7 +84,6 @@
     <Build Include="dbo\Store Procedures\spAccount_DeleteAccount.sql" />
     <Build Include="dbo\Store Procedures\spAccount_UpdateAccount.sql" />
     <Build Include="dbo\Store Procedures\spAccount_UpdateNightScoutLink.sql" />
-    <Build Include="dbo\Store Procedures\spAccount_GetUnitOfMeasure.sql" />
     <Build Include="dbo\Store Procedures\spAccount_UpdateUnitOfMeasure.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetByEmail.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetName.sql" />
