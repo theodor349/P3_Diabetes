@@ -26,7 +26,6 @@ namespace PWA.Network
 
         private void InitializeClient(string url)
         {
-            _client.BaseAddress = new Uri(url);
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
