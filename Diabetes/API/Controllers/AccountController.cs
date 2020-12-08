@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using APIDataAccess.Models.Account;
 using APIHandler.Handlers;
+using APIHandler.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -50,27 +51,12 @@ namespace API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(CreateAccountDBModel model)
+        public async Task<IActionResult> Register(InputCreateAccountModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
-                {
-                    PhoneNumber = model.PhoneNumber,
-                    UserName = model.Email,
-                    Email = model.Email,
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                if(await _accountHandler.RegisterAccount(model))
                     return Ok();
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
             }
             return BadRequest();
         }

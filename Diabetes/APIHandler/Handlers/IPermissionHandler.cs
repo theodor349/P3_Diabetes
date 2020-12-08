@@ -7,6 +7,7 @@ namespace APIHandler.Handlers
     public interface IPermissionHandler
     {
         int AcceptPermissionRequest(int id);
+        void CreatePermanent(string userId);
         int Delete(int id);
         int DeleteByUserId(string userId);
         PermissionDBModel Get(int id);

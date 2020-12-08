@@ -44,6 +44,11 @@ namespace APIDataAccess.DataAccess
             return _sql.SaveData(SpCommands.spPermission_Create.ToString(), request, "DDB");
         }
 
+        public int CreatePermanent(string userId)
+        {
+            return _sql.SaveData(SpCommands.spPermission_CreatePermanent.ToString(), new { UserId = userId }, "DDB");
+        }
+
         public int DeleteByUserId(string userId)
         {
             return _sql.DeleteData(SpCommands.spPermission_DeleteByUserId.ToString(), new { Id= userId }, "DDB");

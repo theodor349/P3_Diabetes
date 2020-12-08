@@ -187,6 +187,18 @@ namespace APIDataAccess.Tests
             sql.Received(1).SaveData(SpCommands.spPermission_Create.ToString(), Arg.Any<object>(), "DDB");
         }
 
+        [TestMethod]
+        public void CreatePermanent_CorrectCall()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+            var userId = "userId";
+            var data = new PermissionAccess(sql);
+
+            data.CreatePermanent(userId);
+
+            sql.Received(1).SaveData(SpCommands.spPermission_CreatePermanent.ToString(), Arg.Any<object>(), "DDB");
+        }
+
         #endregion
 
         #region DeleteByUserId

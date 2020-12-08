@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Permission]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
     [WatcherID] NVARCHAR(450) NOT NULL, 
     [TargetID] NVARCHAR(450) NOT NULL, 
     [StartDate] DATETIME2 NOT NULL, 

@@ -2,45 +2,62 @@
 using APIDataAccess.Models.Account;
 using APIHandler.Handlers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.AspNetCore.Identity;
+using Moq;
 using NSubstitute;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.AspNetCore.Http;
+using APIHandler.Models;
+using System.Threading.Tasks;
 
 namespace APIHandler.Tests
 {
     [TestClass]
     public class AccountHandlerTests
     {
-        //[DataRow("expected", true)]
-        //[DataRow("expected2", false)]
+        #region Register
         //[TestMethod]
-        //public void RegisterAccount_CallsCreate(string exStr, bool exBool)
+        //public async Task Register_Calls()
         //{
+        //    var userId = "userId";
+
         //    var aa = Substitute.For<IAccountAccess>();
         //    var nh = Substitute.For<INotificationSettingHandler>();
         //    var ph = Substitute.For<IPermissionHandler>();
-        //    var input = new CreateAccountModel(exStr, exStr, exStr, exStr, exStr, exStr, exBool);
+        //    var store = new Mock<IUserStore<IdentityUser>>();
+        //    var userManager = new UserManager<IdentityUser>(store.Object, null, null, null, null, null, null, null, null);
+        //    var contextAccessor = new Mock<IHttpContextAccessor>();
+        //    var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
+        //    var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null);
 
-        //    var data = new AccountHandler(aa, nh, ph);
-        //    data.RegisterAccount(input);
+        //    AccountHandler data = new AccountHandler(aa, nh, ph, userManager, signInManager);
+        //    var input = new InputCreateAccountModel()
+        //    {
+        //        FirstName = "Test",
+        //        LastName = "Test",
+        //        Email = "Test@test.com",
+        //        Password = "test12345",
+        //        NSLink = "test.com",
+        //        IsEUMeasure = true,
+        //        PhoneNumber = "12345678",
+        //    };
 
-        //    aa.Received(1).CreateAccount(Arg.Is<AccountDBModel>(x =>
-        //        x.FirstName.Equals(input.FirstName) &&
-        //        x.LastName.Equals(input.LastName) &&
-        //        x.NSLink.Equals(input.NSLink) &&
-        //        x.IsEUMeasure.Equals(input.IsEUMeasure)
-        //    ));
+        //    var res = await data.RegisterAccount(input);
+
+        //    Assert.AreEqual(true, res);
+        //    nh.Received(1).CreateStandardSettings(userId);
+        //    ph.Received(1).CreatePermanent(userId);
         //}
-        #region Get
+        #endregion
 
+
+        #region Get
         [TestMethod]
         public void Get_Exists()
         {
             var aa = Substitute.For<IAccountAccess>();
             var nh = Substitute.For<INotificationSettingHandler>();
             var ph = Substitute.For<IPermissionHandler>();
-            AccountHandler accountHandler = new AccountHandler(aa,nh, ph);
+            AccountHandler accountHandler = new AccountHandler(aa,nh, ph, null, null);
 
             aa.Get("id").Returns(new AccountDBModel() {Id = "id"});
 
@@ -54,7 +71,7 @@ namespace APIHandler.Tests
             var aa = Substitute.For<IAccountAccess>();
             var nh = Substitute.For<INotificationSettingHandler>();
             var ph = Substitute.For<IPermissionHandler>();
-            AccountHandler accountHandler = new AccountHandler(aa, nh, ph);
+            AccountHandler accountHandler = new AccountHandler(aa, nh, ph, null, null);
 
             AccountDBModel accountDBModel = accountHandler.Get("id");
             Assert.AreEqual(null, accountDBModel);
@@ -70,7 +87,7 @@ namespace APIHandler.Tests
             var aa = Substitute.For<IAccountAccess>();
             var nh = Substitute.For<INotificationSettingHandler>();
             var ph = Substitute.For<IPermissionHandler>();
-            AccountHandler accountHandler = new AccountHandler(aa, nh, ph);
+            AccountHandler accountHandler = new AccountHandler(aa, nh, ph, null, null);
 
             aa.GetByPhoneNumber("phoneNumber").Returns(new AccountDBModel() { PhoneNumber = "phoneNumber" });
 
@@ -84,7 +101,7 @@ namespace APIHandler.Tests
             var aa = Substitute.For<IAccountAccess>();
             var nh = Substitute.For<INotificationSettingHandler>();
             var ph = Substitute.For<IPermissionHandler>();
-            AccountHandler accountHandler = new AccountHandler(aa, nh, ph);
+            AccountHandler accountHandler = new AccountHandler(aa, nh, ph, null, null);
 
             AccountDBModel accountDBModel = accountHandler.GetByPhoneNumber("phoneNumber");
             Assert.AreEqual(null, accountDBModel);

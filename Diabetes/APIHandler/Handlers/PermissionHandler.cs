@@ -82,5 +82,10 @@ namespace APIHandler.Handlers
         {
             return _pa.AcceptPermissionRequest(id);
         }
+
+        public void CreatePermanent(string userId)
+        {
+            _pa.CreatePermanent(userId);
+        }
     }
 }
