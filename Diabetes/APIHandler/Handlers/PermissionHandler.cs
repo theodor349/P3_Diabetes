@@ -36,7 +36,7 @@ namespace APIHandler.Handlers
             return _pa.GetPendingPermissions(userId);
         }
 
-        public Dictionary<string, int> GetPermissionAttributes(PermissionDBModel[] permissions)
+        public Dictionary<string, int> GetPermissionAttributes(List<PermissionDBModel> permissions)
         {
             Dictionary<string, int> flagDictionary = new Dictionary<string, int>();
 
