@@ -115,8 +115,7 @@ namespace APIDataAccess.DataAccess
                     using (StreamReader reader = new StreamReader(dataStream))
                     {
                         dynamic json = JsonConvert.DeserializeObject<object>(reader.ReadToEnd());
-                        string status = reader.ReadLine();
-                        return json[0];
+                        return ((string)json["status"]).Equals("ok");
                     }
                 }
             }
