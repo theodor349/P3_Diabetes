@@ -32,7 +32,7 @@ namespace APIHandler.Tests {
                 Attributes = 1
             };
 
-            PermissionDBModel[] perms = { perm1 };
+            var perms = new List<PermissionDBModel>() { perm1 };
             var res = handler.GetPermissionAttributes(perms);
 
             Assert.IsTrue(res.Count > 0);
@@ -65,7 +65,7 @@ namespace APIHandler.Tests {
                 Attributes = 12
             };
 
-            PermissionDBModel[] perms = { perm1, perm2 };
+            List<PermissionDBModel> perms = new List<PermissionDBModel>(){ perm1, perm2 };
             var res = handler.GetPermissionAttributes(perms);
 
             Assert.AreEqual(13, res["2"]);
@@ -84,7 +84,7 @@ namespace APIHandler.Tests {
             PermissionDBModel perm = new PermissionDBModel();
             perm.TargetID = "2";
 
-            PermissionDBModel[] perms = { perm };
+            List<PermissionDBModel> perms = new List<PermissionDBModel>() { perm };
             Dictionary<string, int> res = handler.GetPermissionAttributes(perms);
 
             Assert.AreEqual(res.Count, 0);
