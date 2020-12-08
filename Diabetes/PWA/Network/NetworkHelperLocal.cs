@@ -52,7 +52,7 @@ namespace PWA.Network
 
         public async Task<SubjectList> GetSubjectsData()
         {
-            var bgAdd = DateTime.Now.Second % 14;
+            var bgAdd = 0;// DateTime.Now.Second % 14;
             return new SubjectList()
             {
                 Subjects = new List<Subject>()
