@@ -30,6 +30,7 @@ namespace API.Controllers
             this.accountHandler = accountHandler;
         }
 
+        [HttpGet]
         public List<PumpDataModel> GetNightscoutData() {
             List<PumpDataModel> results = new List<PumpDataModel>();
             List<PermissionDBModel> permissions = permissionHandler.GetByWatcherId(UserId);
