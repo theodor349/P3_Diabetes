@@ -1,8 +1,11 @@
 ﻿using APIDataAccess.DataAccess;
 using APIDataAccess.Models.Account;
+using APIHandler.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The handler will only recive valid data
@@ -15,12 +18,16 @@ namespace APIHandler.Handlers
         private readonly IAccountAccess _aa;
         private readonly INotificationSettingHandler _nh;
         private readonly IPermissionHandler _ph;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountHandler(IAccountAccess aa, INotificationSettingHandler nh, IPermissionHandler ph)
+        public AccountHandler(IAccountAccess aa, INotificationSettingHandler nh, IPermissionHandler ph, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             _aa = aa;
             _nh = nh;
             _ph = ph;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public AccountDBModel Get(string id)
@@ -33,9 +40,42 @@ namespace APIHandler.Handlers
             return _aa.GetByPhoneNumber(phoneNumber);
         }
 
-        public void RegisterAccount(CreateAccountDBModel model)
+        public async Task<bool> RegisterAccount(InputCreateAccountModel model)
         {
-            throw new NotImplementedException();
+            var userId = await CreateAuthUser(model);
+            if (userId == null)
+                return false;
+
+            var user = new CreateAccountDBModel()
+            {
+                Id = userId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                NSLink = model.NSLink,
+                IsEUMeasure = model.IsEUMeasure,
+            };
+            CreateAccount(user);
+            _ph.CreatePermanent(userId);
+            _nh.CreateStandardSettings(userId);
+            return true;
+        }
+
+        private async Task<string> CreateAuthUser(InputCreateAccountModel model)
+        {
+            var user = new IdentityUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return await _userManager.GetUserIdAsync(user);
+            }
+            return null;
         }
 
         public void UnregisterAccount(string id)
@@ -75,7 +115,7 @@ namespace APIHandler.Handlers
 
         private void CreateAccount(CreateAccountDBModel model)
         {
-            throw new NotImplementedException();
+            _aa.CreateAccountOnDB(model);
         }
 
         private void DeleteAccount(string id)

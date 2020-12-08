@@ -43,7 +43,7 @@ namespace APIDataAccess.Tests
             var input = "exists";
             var sql = Substitute.For<ISqlDataAccess>();
             sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), Arg.Any<object>(), "DDB").
-                Returns(new List<AccountDBModel>() { new AccountDBModel() { FirstName = null } });
+                Returns(new List<AccountDBModel>());
 
             var data = new AccountAccess(sql);
             var res = data.Get(input);
@@ -78,7 +78,7 @@ namespace APIDataAccess.Tests
             var input = "exists";
             var sql = Substitute.For<ISqlDataAccess>();
             sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), Arg.Any<object>(), "DDB").
-                Returns(new List<AccountDBModel>() { new AccountDBModel() { FirstName = null } });
+                Returns(new List<AccountDBModel>());
 
             var data = new AccountAccess(sql);
             var res = data.GetByPhoneNumber(input);

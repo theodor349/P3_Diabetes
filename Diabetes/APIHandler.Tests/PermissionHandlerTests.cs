@@ -32,7 +32,7 @@ namespace APIHandler.Tests {
                 Attributes = 1
             };
 
-            PermissionDBModel[] perms = { perm1 };
+            var perms = new List<PermissionDBModel>() { perm1 };
             var res = handler.GetPermissionAttributes(perms);
 
             Assert.IsTrue(res.Count > 0);
@@ -65,7 +65,7 @@ namespace APIHandler.Tests {
                 Attributes = 12
             };
 
-            PermissionDBModel[] perms = { perm1, perm2 };
+            List<PermissionDBModel> perms = new List<PermissionDBModel>(){ perm1, perm2 };
             var res = handler.GetPermissionAttributes(perms);
 
             Assert.AreEqual(13, res["2"]);
@@ -84,7 +84,7 @@ namespace APIHandler.Tests {
             PermissionDBModel perm = new PermissionDBModel();
             perm.TargetID = "2";
 
-            PermissionDBModel[] perms = { perm };
+            List<PermissionDBModel> perms = new List<PermissionDBModel>() { perm };
             Dictionary<string, int> res = handler.GetPermissionAttributes(perms);
 
             Assert.AreEqual(res.Count, 0);
@@ -107,8 +107,8 @@ namespace APIHandler.Tests {
             var p = new PermissionDBModel
             {
                 TargetID = "2",
-                StartDate = startDate, 
-                ExpireDate = expireDate, 
+                StartDate = startDate,
+                ExpireDate = expireDate,
                 Accepted = true,
                 Attributes = 1
             };
@@ -123,9 +123,9 @@ namespace APIHandler.Tests {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
 
-            var startDate =     new DateTime(2020, 10, 20, 10, 0, 0);   // 10:00
-            var expireDate =    new DateTime(2020, 10, 20, 10, 15, 0);  // 10:15
-            var testDate =      new DateTime(2020, 10, 20, 10, 20, 0);  // 10:10
+            var startDate = new DateTime(2020, 10, 20, 10, 0, 0);   // 10:00
+            var expireDate = new DateTime(2020, 10, 20, 10, 15, 0);  // 10:15
+            var testDate = new DateTime(2020, 10, 20, 10, 20, 0);  // 10:10
             var expected = false;
 
             var p = new PermissionDBModel
@@ -148,9 +148,9 @@ namespace APIHandler.Tests {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
 
-            var startDate =     new DateTime(2020, 10, 20, 10, 0, 0);   // 20/10
-            var expireDate =    new DateTime(2020, 10, 22, 10, 0, 0);   // 22/10
-            var testDate =      new DateTime(2020, 10, 21, 10, 0, 0);   // 21/10
+            var startDate = new DateTime(2020, 10, 20, 10, 0, 0);   // 20/10
+            var expireDate = new DateTime(2020, 10, 22, 10, 0, 0);   // 22/10
+            var testDate = new DateTime(2020, 10, 21, 10, 0, 0);   // 21/10
             var expected = true;
 
             var p = new PermissionDBModel
@@ -172,9 +172,9 @@ namespace APIHandler.Tests {
             var sql = Substitute.For<ISqlDataAccess>();
             var access = new PermissionAccess(sql);
 
-            var startDate =     new DateTime(2020, 10, 20, 10, 0, 0);   // 20/10
-            var expireDate =    new DateTime(2020, 10, 22, 10, 0, 0);   // 22/10
-            var testDate =      new DateTime(2020, 10, 23, 10, 0, 0);   // 23/10
+            var startDate = new DateTime(2020, 10, 20, 10, 0, 0);   // 20/10
+            var expireDate = new DateTime(2020, 10, 22, 10, 0, 0);   // 22/10
+            var testDate = new DateTime(2020, 10, 23, 10, 0, 0);   // 23/10
             var expected = false;
 
             var p = new PermissionDBModel
@@ -193,12 +193,12 @@ namespace APIHandler.Tests {
 
         [DataRow(18, 12, false)]
         [DataRow(17, 12, true)] // End
-        [DataRow(12, 12, true)]  
+        [DataRow(12, 12, true)]
         [DataRow(7, 12, true)]  // Start
-        [DataRow(6, 12, false)] 
-        [DataRow(23, 11, false)] 
+        [DataRow(6, 12, false)]
+        [DataRow(23, 11, false)]
         [DataRow(22, 11, true)] // End
-        [DataRow(16, 11, true)]  
+        [DataRow(16, 11, true)]
         [DataRow(9, 11, true)]  // Start
         [DataRow(5, 11, false)]
         [TestMethod]
@@ -209,11 +209,11 @@ namespace APIHandler.Tests {
 
             var startDate_ = new DateTime(2020, 11, 9, 1, 0, 0);
             var expireDate = new DateTime(2020, 12, 17, 23, 0, 0);
-            var testDate__ = new DateTime(2020, month, day, 10, 0, 0); 
+            var testDate__ = new DateTime(2020, month, day, 10, 0, 0);
             int weeksActive = 2;
             int weeksDeactive = 2;
             int days = 127;
-            
+
             var p = new PermissionDBModel
             {
                 StartDate = startDate_,

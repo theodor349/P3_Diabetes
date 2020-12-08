@@ -15,5 +15,6 @@ namespace APIDataAccess.DataAccess
         int AcceptPermissionRequest(int id);
         int DenyPermissionRequest(int id);
         int Update(UpdatePermissionModel updatedPermission);
+        int CreatePermanent(string userId);
     }
 }

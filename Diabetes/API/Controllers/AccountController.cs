@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Models;
 using APIDataAccess.Models.Account;
 using APIHandler.Handlers;
+using APIHandler.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -43,9 +45,9 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetName")]
-        public AccountNameModel GetName(string id)
+        public AccountNameModel GetName(StringValue id)
         {
-            return _accountHandler.GetName(id);
+            return _accountHandler.GetName(id.Value);
         }
 
         [HttpGet]
@@ -56,27 +58,12 @@ namespace API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(CreateAccountDBModel model)
+        public async Task<IActionResult> Register(InputCreateAccountModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
-                {
-                    PhoneNumber = model.PhoneNumber,
-                    UserName = model.Email,
-                    Email = model.Email,
-                };
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                if(await _accountHandler.RegisterAccount(model))
                     return Ok();
-                }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
             }
             return BadRequest();
         }
@@ -93,39 +80,39 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult UnRegister(string id)
+        public ActionResult UnRegister(StringValue id)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("ByPhoneNumber")]
-        public AccountDBModel GetByPhoneNumber(string phoneNumber)
+        public AccountDBModel GetByPhoneNumber(StringValue phoneNumber)
         {
-            return _accountHandler.GetByPhoneNumber(phoneNumber);
+            return _accountHandler.GetByPhoneNumber(phoneNumber.Value);
         }
 
         [HttpGet]
         [Route("EmailExists")]
-        public bool EmailExists(string email)
+        public bool EmailExists(StringValue email)
         {
-            return _accountHandler.EmailExists(email);
+            return _accountHandler.EmailExists(email.Value);
         }
 
         [HttpGet]
         [Route("PhoneNumberExists")]
-        public bool PhoneNumberExists(string phoneNumber)
+        public bool PhoneNumberExists(StringValue phoneNumber)
         {
-            return _accountHandler.PhoneNumberExists(phoneNumber);
+            return _accountHandler.PhoneNumberExists(phoneNumber.Value);
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("UpdateNightScoutLink")]
-        public ActionResult UpdateNightScoutLink(string url)
+        public ActionResult UpdateNightScoutLink(StringValue url)
         {
-            if (_relayHandler.ConnectionOk(url))
+            if (_relayHandler.ConnectionOk(url.Value))
             {
-                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url});
+                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url.Value});
                 return Ok();
             }
             else
