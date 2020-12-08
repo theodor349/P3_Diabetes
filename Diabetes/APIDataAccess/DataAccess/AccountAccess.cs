@@ -91,6 +91,8 @@ namespace APIDataAccess.DataAccess
         }
 
         public float GetMaxReservoir(string id) {
+            //to do: finish this
+            return 100;
             return _sql.LoadData<float, dynamic>(SpCommands.spAccount_GetMaxReservoir.ToString(), new { Id = id }, "DDB").FirstOrDefault();
         }
     }
