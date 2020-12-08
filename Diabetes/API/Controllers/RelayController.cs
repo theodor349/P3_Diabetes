@@ -22,6 +22,10 @@ namespace API.Controllers
             this.relayHandler = relayHandler;
         }
 
+        public List<PumpDataModel> GetNightScoutData() {
+            throw new NotImplementedException();
+        }
+
         [HttpGet]
         public PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir)
         {
