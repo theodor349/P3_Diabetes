@@ -24,7 +24,5 @@ namespace APIDataAccess.Models.Relay
             FortyFiveDown,
             Null,
         }
-
-        
     }
 }
