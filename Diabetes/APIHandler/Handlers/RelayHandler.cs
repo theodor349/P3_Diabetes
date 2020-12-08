@@ -24,7 +24,7 @@ namespace APIHandler.Handlers
         }
         public PumpDataModel.ArrowDirection GetStatus(string link)
         {
-            return  relayAccess.GetStatus(link);
+            return relayAccess.GetStatus(link);
         }
         public int GetInsulinStatus(string link, float maxReservoir)
         {
