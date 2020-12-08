@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using APIHandler.Handlers;
 using APIDataAccess.Models.Permission;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -20,6 +21,8 @@ namespace API.Controllers
         private readonly IPermissionHandler permissionHandler;
         private readonly IAccountHandler accountHandler;
 
+        private string? UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+
         public RelayController(IRelayHandler relayHandler, IPermissionHandler permissionHandler, IAccountHandler accountHandler)
         {
             this.relayHandler = relayHandler;
@@ -27,9 +30,9 @@ namespace API.Controllers
             this.accountHandler = accountHandler;
         }
 
-        public List<PumpDataModel> GetNightscoutData(string watcherID) {
+        public List<PumpDataModel> GetNightscoutData() {
             List<PumpDataModel> results = new List<PumpDataModel>();
-            List<PermissionDBModel> permissions = permissionHandler.GetByWatcherId(watcherID);
+            List<PermissionDBModel> permissions = permissionHandler.GetByWatcherId(UserId);
             Dictionary<string, int> permissionAttributes = permissionHandler.GetPermissionAttributes(permissions);
 
             foreach(KeyValuePair<string, int> entry in permissionAttributes) {
