@@ -131,5 +131,9 @@ namespace APIHandler.Handlers
         public string GetNightscoutLink(string id) {
             return _aa.GetNightscoutLink(id);
         }
+
+        public float GetMaxReservoir(string id) {
+            return _aa.GetMaxReservoir(id);
+        }
     }
 }

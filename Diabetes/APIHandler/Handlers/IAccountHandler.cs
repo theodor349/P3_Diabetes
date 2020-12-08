@@ -18,5 +18,6 @@ namespace APIHandler.Handlers
         void UpdateUnitOfMeasurement(UpdateUnitOfMesureModel model);
         AccountNameModel GetName(string id);
         string GetNightscoutLink(string id);
+        float GetMaxReservoir(string id);
     }
 }

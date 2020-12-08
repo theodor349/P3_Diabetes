@@ -20,6 +20,8 @@ namespace APIDataAccess.DataAccess
         spAccount_UpdateUnitOfMeasure,
         spAccount_GetByEmail,
         spAccount_GetName,
+        spAccount_GetNightscoutLink,
+        spAccount_GetMaxReservoir,
 
         spPermission_Get,
         spPermission_GetByTargetId,

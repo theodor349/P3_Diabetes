@@ -87,7 +87,11 @@ namespace APIDataAccess.DataAccess
         }
 
         public string GetNightscoutLink(string id) {
-            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { Id = id }, "DDB").FirstOrDefault();
+            return _sql.LoadData<string, dynamic>(SpCommands.spAccount_GetNightscoutLink.ToString(), new { Id = id }, "DDB").FirstOrDefault();
+        }
+
+        public float GetMaxReservoir(string id) {
+            return _sql.LoadData<float, dynamic>(SpCommands.spAccount_GetMaxReservoir.ToString(), new { Id = id }, "DDB").FirstOrDefault();
         }
     }
 }

@@ -33,8 +33,10 @@ namespace API.Controllers
             Dictionary<string, int> permissionAttributes = permissionHandler.GetPermissionAttributes(permissions);
 
             foreach(KeyValuePair<string, int> entry in permissionAttributes) {
+
                 string NSLink = accountHandler.GetNightscoutLink(entry.Key);
-                results.Add(relayHandler.GetAttributeData(entry.Value, NSLink, 100)); //todo: get a better solution for getting max reservoir in
+                float maxReservoir = accountHandler.GetMaxReservoir(entry.Key);
+                results.Add(relayHandler.GetAttributeData(entry.Value, NSLink, maxReservoir));
             }
             return results;
         }
