@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using APIDataAccess.Models.NotificationSetting;
 using APIHandler.Handlers;
@@ -16,6 +17,7 @@ namespace API.Controllers
     public class NotificationSettingController : ControllerBase
     {
         private readonly INotificationSettingHandler _nsh;
+        private string? UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         public NotificationSettingController(INotificationSettingHandler notificationSettingHandler)
         {
