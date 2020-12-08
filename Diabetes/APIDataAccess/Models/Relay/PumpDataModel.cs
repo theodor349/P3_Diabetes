@@ -12,7 +12,6 @@ namespace APIDataAccess.Models.Relay
         public float BatteryStatus { get; set; }
         public DateTime LastReceived { get; set; }
         public ArrowDirection Status { get; set; }
-        public AttributeFlags Flags { get; set; }
 
         public enum ArrowDirection
         {
@@ -26,14 +25,6 @@ namespace APIDataAccess.Models.Relay
             Null,
         }
 
-        [Flags]
-        public enum AttributeFlags
-        {
-            BloodGlucose = 1,
-            Insulin = 2,
-            Battery = 4,
-        }
+        
     }
-
-    
 }

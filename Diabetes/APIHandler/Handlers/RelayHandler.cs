@@ -36,25 +36,32 @@ namespace APIHandler.Handlers
         }
 
         public PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir) {
-            PumpDataModel.AttributeFlags attributeFlags = (PumpDataModel.AttributeFlags)attribute;
+            AttributeFlags attributeFlags = (AttributeFlags)attribute;
             PumpDataModel pumpDataModel = new PumpDataModel();
 
-            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.BloodGlucose)) {
+            if (attributeFlags.HasFlag(AttributeFlags.BloodGlucose)) {
                 pumpDataModel.BloodGlucose = GetBloodGlucose(NSLink);
                 pumpDataModel.Status = GetStatus(NSLink);
             }
 
-            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Battery)) {
+            if (attributeFlags.HasFlag(AttributeFlags.Battery)) {
                 pumpDataModel.BatteryStatus = GetBatteryStatus(NSLink);
             }
 
-            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Insulin)) {
+            if (attributeFlags.HasFlag(AttributeFlags.Insulin)) {
                 pumpDataModel.InsulinStatus = GetInsulinStatus(NSLink, maxReservoir);
             }
 
             pumpDataModel.LastReceived = GetLastReceived(NSLink);
 
             return pumpDataModel;
+        }
+
+        [Flags]
+        public enum AttributeFlags {
+            BloodGlucose = 1,
+            Insulin = 2,
+            Battery = 4,
         }
     }
 }
