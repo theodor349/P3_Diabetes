@@ -68,6 +68,7 @@ namespace PWA.Pages
             }
             BatteryNotification(old, curr);
             InsulinNotification(old, curr);
+            ConnectionNotification(old, curr);
 
             subjects[curr.ID] = curr;
         }
@@ -107,6 +108,26 @@ namespace PWA.Pages
             };
 
             HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f);
+        }
+
+        private void ConnectionNotification(Subject old, Subject curr)
+        {
+            var n = new NotificationData()
+            {
+                Title = "Connection is old",
+                Note = "Data from " + curr.GetName() + "'s pump is old",
+                Type = NotificationType.Message,
+                IconClassName = "fa fa-wifi",
+            };
+            var an = new ActiveNotification()
+            {
+                Subject = curr,
+                Data = n,
+                Active = true,
+                Id = "Connection",
+            };
+
+            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.Minutes > 30);
         }
 
         private void InsulinNotification(Subject old, Subject curr)
