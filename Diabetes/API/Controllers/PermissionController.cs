@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Models;
 using APIDataAccess.Models.Permission;
 using APIHandler.Handlers;
 using Microsoft.AspNetCore.Authorization;
@@ -15,35 +17,36 @@ namespace API.Controllers
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionHandler _ph;
+        private string? UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         public PermissionController(IPermissionHandler permissionHandler) {
             _ph = permissionHandler;
         }
 
         [HttpGet]
-        public PermissionDBModel Get(int id)
+        public PermissionDBModel Get(IntValue id)
         {
-            return _ph.Get(id);
+            return _ph.Get(id.Value);
         }
 
         [HttpGet]
         [Route("ByTarget")]
-        public List<PermissionDBModel> GetByTargetId(string targetId)
+        public List<PermissionDBModel> GetByTargetId(StringValue targetId)
         {
-            return _ph.GetByTargetId(targetId);
+            return _ph.GetByTargetId(targetId.Value);
         }
 
         [HttpGet]
         [Route("ByWatcher")]
-        public List<PermissionDBModel> GetByWatcherId(string watcherId)
+        public List<PermissionDBModel> GetByWatcherId(StringValue watcherId)
         {
-            return _ph.GetByWatcherId(watcherId);
+            return _ph.GetByWatcherId(watcherId.Value);
         }
 
         [HttpGet]
         [Route("GetPendingPermissions")]
-        public List<RequestPermissionDBModel> GetPendingPermissions(string userId) {
-            return _ph.GetPendingPermissions(userId);
+        public List<PermissionDBModel> GetPendingPermissions() {
+            return _ph.GetPendingPermissions(UserId);
         }
 
         [HttpPut]
@@ -56,9 +59,9 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Delete([System.Web.Http.FromUri] int id)
+        public ActionResult Delete(IntValue id)
         {
-            if (_ph.Delete(id) == 1)
+            if (_ph.Delete(id.Value) == 1)
                 return Ok();
             else
                 return NotFound();
@@ -76,9 +79,12 @@ namespace API.Controllers
 
         [HttpPut]
         [Route("AcceptPermissionRequest")]
-        public ActionResult AcceptPermissionRequest(int id)
+        public ActionResult AcceptPermissionRequest(IntValue id)
         {
-            if (_ph.AcceptPermissionRequest(id) == 1)
+            if (!(_ph.Get(id.Value).TargetID == UserId))
+                return Forbid();
+
+            if (_ph.AcceptPermissionRequest(id.Value) == 1)
                 return Ok();
             else
                 return NotFound();
@@ -86,8 +92,11 @@ namespace API.Controllers
 
         [HttpPut]
         [Route("DenyPermissionReqeust")]
-        public ActionResult DenyPermissionRequest(int id)
+        public ActionResult DenyPermissionRequest(IntValue id)
         {
+            var p = _ph.Get(id.Value);
+            if (!(p.TargetID == UserId || p.WatcherID == UserId))
+                return Forbid();
             return Delete(id);
         }
     }

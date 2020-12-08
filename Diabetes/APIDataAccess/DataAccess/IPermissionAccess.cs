@@ -11,7 +11,7 @@ namespace APIDataAccess.DataAccess
         PermissionDBModel Get(int id);
         List<PermissionDBModel> GetByTargetId(string targetId);
         List<PermissionDBModel> GetByWatcherId(string watcherId);
-        List<RequestPermissionDBModel> GetPendingPermissions(string userId);
+        List<PermissionDBModel> GetPendingPermissions(string userId);
         int AcceptPermissionRequest(int id);
         int DenyPermissionRequest(int id);
         int Update(UpdatePermissionModel updatedPermission);

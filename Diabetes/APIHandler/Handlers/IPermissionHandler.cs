@@ -13,7 +13,7 @@ namespace APIHandler.Handlers
         PermissionDBModel Get(int id);
         List<PermissionDBModel> GetByTargetId(string targetId);
         List<PermissionDBModel> GetByWatcherId(string watcherId);
-        List<RequestPermissionDBModel> GetPendingPermissions(string userId);
+        List<PermissionDBModel> GetPendingPermissions(string userId);
         Dictionary<string, int> GetPermissionAttributes(List<PermissionDBModel> permissions);
         int RequestPermission(RequestPermissionDBModel request);
         int Update(UpdatePermissionModel updatedPermission);

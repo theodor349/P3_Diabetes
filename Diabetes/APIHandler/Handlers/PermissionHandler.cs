@@ -31,7 +31,7 @@ namespace APIHandler.Handlers
             return _pa.GetByWatcherId(watcherId);
         }
 
-        public List<RequestPermissionDBModel> GetPendingPermissions(string userId)
+        public List<PermissionDBModel> GetPendingPermissions(string userId)
         {
             return _pa.GetPendingPermissions(userId);
         }

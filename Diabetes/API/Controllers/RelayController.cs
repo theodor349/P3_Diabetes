@@ -39,8 +39,11 @@ namespace API.Controllers
             foreach(KeyValuePair<string, int> entry in permissionAttributes) {
 
                 string NSLink = accountHandler.GetNightscoutLink(entry.Key);
-                float maxReservoir = accountHandler.GetMaxReservoir(entry.Key);
-                results.Add(relayHandler.GetAttributeData(entry.Value, NSLink, maxReservoir));
+                if (!string.IsNullOrWhiteSpace(NSLink))
+                {
+                    float maxReservoir = accountHandler.GetMaxReservoir(entry.Key);
+                    results.Add(relayHandler.GetAttributeData(entry.Value, NSLink, maxReservoir));
+                }
             }
             return results;
         }

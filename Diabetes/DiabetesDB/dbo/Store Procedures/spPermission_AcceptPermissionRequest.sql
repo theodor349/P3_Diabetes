@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spPermission_AcceptPermissionRequest]
-	@Id int,
-	@Accepted bit
+	@Id int
 AS
 BEGIN
 	UPDATE Permission
