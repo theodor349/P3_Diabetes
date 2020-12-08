@@ -27,6 +27,7 @@ namespace APIDataAccess.DataAccess
         spPermission_UpdatePermissionModel,
         spPermission_Delete,
         spPermission_Create,
+        spPermission_CreatePermanent,
         spPermission_DeleteByUserId,
         spPermission_GetPendingPermissions,
         spPermission_AcceptPermissionRequest,

@@ -1,4 +1,6 @@
 ﻿using APIDataAccess.Models.Account;
+using APIHandler.Models;
+using System.Threading.Tasks;
 
 namespace APIHandler.Handlers
 {
@@ -9,7 +11,7 @@ namespace APIHandler.Handlers
         AccountDBModel GetByPhoneNumber(string phoneNumber);
         bool GetUnitOfMeasurement(string id);
         bool PhoneNumberExists(string phone);
-        void RegisterAccount(CreateAccountDBModel model);
+        Task<bool> RegisterAccount(InputCreateAccountModel model);
         void UnregisterAccount(string id);
         void UpdateAccount(UpdateAccountDBModel model);
         void UpdateNightScoutLink(UpdateNightScoutLinkModel model);

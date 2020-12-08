@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PWA.Network;
+using Microsoft.AspNetCore.Components.WebAssembly.Http;
 
 namespace PWA
 {
@@ -18,7 +19,7 @@ namespace PWA
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            var client = new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
+            var client = new HttpClient { BaseAddress = new Uri("https://localhost:5003") };
             builder.Services.AddScoped(sp => client);
             INetworkHelper network = new NetworkHelper(client, "https://localhost:5003");
             builder.Services.AddScoped(sp => network);

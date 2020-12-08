@@ -23,20 +23,12 @@ namespace APIDataAccess.DataAccess
         public AccountDBModel Get(string id)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_Get.ToString(), new { id }, "DDB").FirstOrDefault();
-            if (model.FirstName == null)
-            {
-                return null;
-            }
             return model;
         }
 
         public AccountDBModel GetByPhoneNumber(string phoneNumber)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { PhoneNumber = phoneNumber }, "DDB").FirstOrDefault();
-            if (model.FirstName == null)
-            {
-                return null;
-            }
             return model;
         }
 
@@ -63,7 +55,7 @@ namespace APIDataAccess.DataAccess
         public bool PhoneNumberExists(string phoneNumber)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByPhoneNumber.ToString(), new { phoneNumber }, "DDB").FirstOrDefault();
-            if (model.FirstName == null)
+            if (model == null)
                 return false;
             else
                 return true;
@@ -72,7 +64,7 @@ namespace APIDataAccess.DataAccess
         public bool EmailExists(string email)
         {
             var model = _sql.LoadData<AccountDBModel, dynamic>(SpCommands.spAccount_GetByEmail.ToString(), new { Email = email }, "DDB").FirstOrDefault();
-            if (model.FirstName == null)
+            if (model == null)
                 return false;
             else
                 return true;
@@ -80,11 +72,8 @@ namespace APIDataAccess.DataAccess
 
         public bool GetUnitOfMeasure(string id)
         {
-            AccountDBModel model = Get(id);
-            if (model.IsEUMeasure)
-                return true;
-            else
-                return false;
+            var model = Get(id);
+            return model.IsEUMeasure;
         }
 
         public void UpdateUnitOfMeasure(UpdateUnitOfMesureModel model)

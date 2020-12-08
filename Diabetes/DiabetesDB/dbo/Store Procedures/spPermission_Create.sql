@@ -9,6 +9,6 @@
 	@Attributes int
 AS
 BEGIN
-	Insert INTO Permission ([WatcherId], [TargetId], [StartDate], [ExpireDate], [Days], [WeeksActive], [WeeksDeactive], [Attributes])
-	VALUES (@WatcherId, @TargetId, @StartDate, @ExpireDate, @Days, @WeeksActive, @WeeksDeactive, @Attributes);	
+	Insert INTO Permission ([WatcherId], [TargetId], [StartDate], [ExpireDate], [Days], [WeeksActive], [WeeksDeactive], [Attributes], Accepted)
+	VALUES (@WatcherId, @TargetId, @StartDate, @ExpireDate, @Days, @WeeksActive, @WeeksDeactive, @Attributes, 0);
 END
