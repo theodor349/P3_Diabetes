@@ -1,8 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[spPermission_GetByWatcherId]
-	@id nvarchar(450)
+	@Id nvarchar(450)
 AS
 BEGIN
 	SELECT * 
 	FROM Permission
-	WHERE [WatcherId] = @id;
+	WHERE [WatcherId] = @Id;
 END

@@ -16,12 +16,12 @@ namespace APIDataAccess.DataAccess
         }
         public PermissionDBModel Get(int id)
         {
-            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), new { id }, "DDB").FirstOrDefault();
+            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_Get.ToString(), new { Id = id }, "DDB").FirstOrDefault();
         }
 
         public List<PermissionDBModel> GetByWatcherId(string watcherId)
         {
-            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), new { watcherId }, "DDB");
+            return _sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetByWatcherId.ToString(), new { Id = watcherId }, "DDB");
         }
 
         public List<PermissionDBModel> GetByTargetId(string targetId)
