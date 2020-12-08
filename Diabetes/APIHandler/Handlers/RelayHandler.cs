@@ -34,5 +34,27 @@ namespace APIHandler.Handlers
         {
             throw new NotImplementedException();
         }
+
+        public PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir) {
+            PumpDataModel.AttributeFlags attributeFlags = (PumpDataModel.AttributeFlags)attribute;
+            PumpDataModel pumpDataModel = new PumpDataModel();
+
+            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.BloodGlucose)) {
+                pumpDataModel.BloodGlucose = GetBloodGlucose(NSLink);
+                pumpDataModel.Status = GetStatus(NSLink);
+            }
+
+            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Battery)) {
+                pumpDataModel.BatteryStatus = GetBatteryStatus(NSLink);
+            }
+
+            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Insulin)) {
+                pumpDataModel.InsulinStatus = GetInsulinStatus(NSLink, maxReservoir);
+            }
+
+            pumpDataModel.LastReceived = GetLastReceived(NSLink);
+
+            return pumpDataModel;
+        }
     }
 }

@@ -87,5 +87,9 @@ namespace APIHandler.Handlers
         {
             return _aa.GetName(id);
         }
+
+        public string GetNightscoutLink(string id) {
+            return _aa.GetNightscoutLink(id);
+        }
     }
 }

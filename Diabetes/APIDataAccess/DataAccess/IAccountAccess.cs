@@ -16,5 +16,6 @@ namespace APIDataAccess.DataAccess
         void UpdateNighScoutLink(UpdateNightScoutLinkModel model);
         void UpdateUnitOfMeasure(UpdateUnitOfMesureModel model);
         AccountNameModel GetName(string id);
+        string GetNightscoutLink(string id);
     }
 }

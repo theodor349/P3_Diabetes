@@ -15,5 +15,6 @@ namespace APIHandler.Handlers
         void UpdateNightScoutLink(UpdateNightScoutLinkModel model);
         void UpdateUnitOfMeasurement(UpdateUnitOfMesureModel model);
         AccountNameModel GetName(string id);
+        string GetNightscoutLink(string id);
     }
 }

@@ -96,5 +96,9 @@ namespace APIDataAccess.DataAccess
         {
             return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { Id = id }, "DDB").FirstOrDefault();
         }
+
+        public string GetNightscoutLink(string id) {
+            return _sql.LoadData<AccountNameModel, dynamic>(SpCommands.spAccount_GetName.ToString(), new { Id = id }, "DDB").FirstOrDefault();
+        }
     }
 }

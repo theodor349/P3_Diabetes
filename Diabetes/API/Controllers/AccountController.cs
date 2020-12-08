@@ -48,6 +48,12 @@ namespace API.Controllers
             return _accountHandler.GetName(id);
         }
 
+        [HttpGet]
+        [Route("GetNightscoutLink")]
+        public string GetNightscoutLink(string id) {
+            return _accountHandler.GetNightscoutLink(id);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(CreateAccountDBModel model)

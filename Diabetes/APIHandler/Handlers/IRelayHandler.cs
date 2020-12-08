@@ -11,5 +11,6 @@ namespace APIHandler.Handlers
         DateTime GetLastReceived(string link);
         PumpDataModel.ArrowDirection GetStatus(string NSLink);
         bool ConnectionOk(string NSLink);
+        PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir);
     }
 }

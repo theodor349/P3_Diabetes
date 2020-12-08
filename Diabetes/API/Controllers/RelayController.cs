@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using APIHandler.Handlers;
+using APIDataAccess.Models.Permission;
 
 namespace API.Controllers
 {
@@ -16,41 +17,26 @@ namespace API.Controllers
     public class RelayController : ControllerBase
     {
         private readonly IRelayHandler relayHandler;
+        private readonly IPermissionHandler permissionHandler;
+        private readonly IAccountHandler accountHandler;
 
-        public RelayController(IRelayHandler relayHandler)
+        public RelayController(IRelayHandler relayHandler, IPermissionHandler permissionHandler, IAccountHandler accountHandler)
         {
             this.relayHandler = relayHandler;
+            this.permissionHandler = permissionHandler;
+            this.accountHandler = accountHandler;
         }
 
-        public List<PumpDataModel> GetNightScoutData() {
-            throw new NotImplementedException();
-        }
+        public List<PumpDataModel> GetNightscoutData(string watcherID) {
+            List<PumpDataModel> results = new List<PumpDataModel>();
+            List<PermissionDBModel> permissions = permissionHandler.GetByWatcherId(watcherID);
+            Dictionary<string, int> permissionAttributes = permissionHandler.GetPermissionAttributes(permissions);
 
-        [HttpGet]
-        public PumpDataModel GetAttributeData(int attribute, string NSLink, float maxReservoir)
-        {
-            PumpDataModel.AttributeFlags attributeFlags = (PumpDataModel.AttributeFlags)attribute;
-            PumpDataModel pumpDataModel = new PumpDataModel();
-
-            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.BloodGlucose))
-            {
-                pumpDataModel.BloodGlucose = relayHandler.GetBloodGlucose(NSLink);
-                pumpDataModel.Status = relayHandler.GetStatus(NSLink);
+            foreach(KeyValuePair<string, int> entry in permissionAttributes) {
+                string NSLink = accountHandler.GetNightscoutLink(entry.Key);
+                results.Add(relayHandler.GetAttributeData(entry.Value, NSLink, 100)); //todo: get a better solution for getting max reservoir in
             }
-
-            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Battery))
-            {
-                pumpDataModel.BatteryStatus = relayHandler.GetBatteryStatus(NSLink);
-            }
-
-            if (attributeFlags.HasFlag(PumpDataModel.AttributeFlags.Insulin))
-            {
-                pumpDataModel.InsulinStatus = relayHandler.GetInsulinStatus(NSLink, maxReservoir);
-            }
-
-            pumpDataModel.LastReceived = relayHandler.GetLastReceived(NSLink);
-
-            return pumpDataModel;
+            return results;
         }
     }
 }
