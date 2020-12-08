@@ -26,21 +26,25 @@ namespace API.Controllers
         [HttpGet]
         public PermissionDBModel Get(IntValue id)
         {
-            return _ph.Get(id.Value);
+            var p = _ph.Get(id.Value);
+            if (!(p.TargetID == UserId || p.WatcherID == UserId))
+                return null;
+
+            return p;
         }
 
         [HttpGet]
         [Route("ByTarget")]
-        public List<PermissionDBModel> GetByTargetId(StringValue targetId)
+        public List<PermissionDBModel> GetByTargetId()
         {
-            return _ph.GetByTargetId(targetId.Value);
+            return _ph.GetByTargetId(UserId);
         }
 
         [HttpGet]
         [Route("ByWatcher")]
-        public List<PermissionDBModel> GetByWatcherId(StringValue watcherId)
+        public List<PermissionDBModel> GetByWatcherId()
         {
-            return _ph.GetByWatcherId(watcherId.Value);
+            return _ph.GetByWatcherId(UserId);
         }
 
         [HttpGet]
@@ -52,6 +56,11 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update(UpdatePermissionModel model)
         {
+            var p = _ph.Get(model.Id);
+            if (!(p.TargetID == UserId))
+                return null;
+
+
             if (_ph.Update(model) == 1)
                 return Ok();
             else
@@ -61,6 +70,10 @@ namespace API.Controllers
         [HttpDelete]
         public ActionResult Delete(IntValue id)
         {
+            var p = _ph.Get(id.Value);
+            if (!(p.TargetID == UserId || p.WatcherID == UserId))
+                return Forbid();
+
             if (_ph.Delete(id.Value) == 1)
                 return Ok();
             else

@@ -52,14 +52,17 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetNightscoutLink")]
-        public string GetNightscoutLink(string id) {
-            return _accountHandler.GetNightscoutLink(id);
+        public string GetNightscoutLink() {
+            return _accountHandler.GetNightscoutLink(UserId);
         }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(InputCreateAccountModel model)
         {
+            if (_accountHandler.EmailExists(model.Email))
+                return BadRequest();
+
             if (ModelState.IsValid)
             {
                 if(await _accountHandler.RegisterAccount(model))
@@ -71,6 +74,7 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update(UpdateAccountDBModel updatedUser)
         {
+            updatedUser.Id = UserId;
             if (IsValidateModel(updatedUser))
             {
                 _accountHandler.UpdateAccount(updatedUser);
