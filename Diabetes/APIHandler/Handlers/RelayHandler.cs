@@ -32,7 +32,7 @@ namespace APIHandler.Handlers
         }
         public bool ConnectionOk(string NSLink)
         {
-            throw new NotImplementedException();
+            return relayAccess.ConnectionOk(NSLink);
         }
     }
 }
