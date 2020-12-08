@@ -99,7 +99,7 @@ namespace API.Controllers
             return _accountHandler.PhoneNumberExists(phoneNumber);
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("UpdateNightScoutLink")]
         public ActionResult UpdateNightScoutLink(string url)
         {
