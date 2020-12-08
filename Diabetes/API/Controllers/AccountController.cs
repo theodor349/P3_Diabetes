@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Models;
 using APIDataAccess.Models.Account;
 using APIHandler.Handlers;
 using APIHandler.Models;
@@ -44,9 +45,9 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("GetName")]
-        public AccountNameModel GetName(string id)
+        public AccountNameModel GetName(StringValue id)
         {
-            return _accountHandler.GetName(id);
+            return _accountHandler.GetName(id.Value);
         }
 
         [HttpPost]
@@ -73,39 +74,39 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult UnRegister(string id)
+        public ActionResult UnRegister(StringValue id)
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
         [Route("ByPhoneNumber")]
-        public AccountDBModel GetByPhoneNumber(string phoneNumber)
+        public AccountDBModel GetByPhoneNumber(StringValue phoneNumber)
         {
-            return _accountHandler.GetByPhoneNumber(phoneNumber);
+            return _accountHandler.GetByPhoneNumber(phoneNumber.Value);
         }
 
         [HttpGet]
         [Route("EmailExists")]
-        public bool EmailExists(string email)
+        public bool EmailExists(StringValue email)
         {
-            return _accountHandler.EmailExists(email);
+            return _accountHandler.EmailExists(email.Value);
         }
 
         [HttpGet]
         [Route("PhoneNumberExists")]
-        public bool PhoneNumberExists(string phoneNumber)
+        public bool PhoneNumberExists(StringValue phoneNumber)
         {
-            return _accountHandler.PhoneNumberExists(phoneNumber);
+            return _accountHandler.PhoneNumberExists(phoneNumber.Value);
         }
 
         [HttpPut]
         [Route("UpdateNightScoutLink")]
-        public ActionResult UpdateNightScoutLink(string url)
+        public ActionResult UpdateNightScoutLink(StringValue url)
         {
-            if (_relayHandler.ConnectionOk(url))
+            if (_relayHandler.ConnectionOk(url.Value))
             {
-                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url});
+                _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url.Value});
                 return Ok();
             }
             else
