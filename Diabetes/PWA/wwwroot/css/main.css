@@ -26,15 +26,12 @@ a {
 }
 
 .notificationBadge {
-}
-
-.notificationBadge {
     border-radius: 50%;
-    background-color: #CD2100;
+    background-color: #FF4A47;
     width: 15px;
     height: 15px;
     text-align: center;
-    line-height: 15px;
+    line-height: 16px;
     display: inline-block;
     padding: 0;
     color: #eee;
@@ -44,11 +41,11 @@ a {
 
 header.profileName {
     /*margin-bottom: 10px;*/
-    background: #D85948;
+    background: #D4CDF4;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding-bottom: 15px;
-    color: #eee;
+    color: #333;
 }
 
 header h1 {
@@ -112,7 +109,7 @@ header h1 {
     }
 
     .currentNotifications > div {
-        height: 437px;
+        height: 441px;
     }
 
         .currentNotifications .dark {
@@ -155,7 +152,7 @@ header h1 {
         }
 
     .currentNotifications .warning {
-        background-color: #CD2100;
+        background-color: #FF4A47;
     }
 
     .currentNotifications .message {
@@ -189,7 +186,7 @@ header h1 {
         .overviewHeader div.focus {
             background: #333;
             box-shadow: 0px 0px 10px #222 inset;
-            color: #D85948;
+            color: #8B85C1;
             height: 40px;
             box-sizing: border-box;
         }
@@ -344,7 +341,7 @@ header h1 {
 }
 
     .detailSettings div {
-        padding: 10px;
+        padding: 5px 10px;
         background: #454545;
         height: 50px;
         border-top-left-radius: 5px;
@@ -363,11 +360,11 @@ header h1 {
 .notes {
     background: #555;
     overflow-y: scroll;
-    height: 176px;
+    height: 183px;
     box-sizing: border-box;
     text-align: left;
-    border-top: 8px solid #555;
-    border-bottom: 8px solid #555;
+    border-top: 4px solid #555;
+    border-bottom: 4px solid #555;
     color: #ddd;
 }
 
@@ -442,7 +439,7 @@ header h1 {
         }
 
     .currentNotificationsDetails .warning {
-        background: #CD2100;
+        background: #FF4A47;
     }
 
     .currentNotificationsDetails .message {
@@ -481,17 +478,18 @@ header h1 {
     }
 
 .notificationBtn {
-    background: #777;
-    padding: 10px;
+    background: #8B85C1;
+    padding: 10px 20px;
     margin: 10px auto;
-    color: #ccc;
+    color: #eee;
     font-size: 1em;
     border: none;
     cursor: pointer;
+    font-variant: all-small-caps;
 }
 
 form .notificationBtn {
-    margin: 30px auto 10px;
+    margin: 30px auto 11px;
 }
 
 .noData {
@@ -566,7 +564,7 @@ form .notificationBtn {
         .navMenu div.focus {
             background: #333;
             box-shadow: 0px 0px 15px #151515 inset;
-            color: #D85948;
+            color: #8B85C1;
         }
 
         .navMenu div:first-child {
@@ -678,10 +676,11 @@ textarea {
 
 .registerBtn {
     cursor: pointer;
-    background: #444;
+    background: #D4CDF4;
     margin-top: 47px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    color: #333;
 }
 
 .loginBox {
@@ -710,7 +709,7 @@ textarea {
 
 
 .addPermissionBox {
-    height: 510px;
+    height: 482px;
     overflow: auto;
 }
 
@@ -721,6 +720,10 @@ textarea {
 
     .addPermissionBox h1 {
         text-align: center;
+    }
+
+    .addPermissionBox form {
+        height: 502px;
     }
 
 
@@ -762,27 +765,27 @@ input.small {
 
     .twoBtns div {
         cursor: pointer;
-        background: #D68C49;
+        background: #FFA033;
         text-align: center;
         height: 34px;
-        line-height: 30px;
+        line-height: 34px;
         width: 50%;
+        color: #eee;
     }
 
         .twoBtns div.active {
-            background: #D85948;
-            font-weight: bold;
+            background: #FF4A47;
         }
 
 .addPermissionBtn {
-    background: #777;
-    padding: 6px;
-    color: #ccc;
+    background: #8B85C1;
+    padding: 6px 0;
+    color: #eee;
     font-size: 1em;
     border: none;
     cursor: pointer;
     text-align: center;
-    width: 276px;
+    width: 272px;
 }
 
 
@@ -798,10 +801,10 @@ input.small {
 .addNsLinkBtn {
     margin: 0 auto;
     color: #eee;
-    background: #D85948;
+    background: #FF4A47;
     font-weight: bold;
     height: 34px;
-    line-height: 30px;
+    line-height: 35px;
     width: 50%;
     cursor: pointer;
 }
@@ -875,12 +878,12 @@ p.text {
 }
 
     .twoBtns.small div {
-        background: #D68C49;
+        background: #FF4A47;
         text-align: center;
     }
 
         .twoBtns.small div.active {
-            background: #D85948;
+            background: #FFA033;
             font-weight: bold;
         }
 
@@ -893,13 +896,9 @@ p.text {
         }
 
 .request {
-    border-bottom: solid 5px #444;
+    
 }
 
 .manageWatcherTitle.dark{
     background-color: #333;
-}
-
-::scrollbar {
-    width: 2px;
 }
