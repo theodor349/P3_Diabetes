@@ -35,11 +35,11 @@ namespace API.Tests
         {
             var notificationSettingHandler = Substitute.For<INotificationSettingHandler>();
             NotificationSettingController notificationSettingController = new NotificationSettingController(notificationSettingHandler);
-            UpdateNotificationSettingModel updateNotificationSettingModel = new UpdateNotificationSettingModel("test");
+            UpdateNotificationSettingModel updateNotificationSettingModel = new UpdateNotificationSettingModel("testNote");
 
             notificationSettingController.Update(updateNotificationSettingModel);
 
-            notificationSettingHandler.Received(1).Update(Arg.Any<UpdateNotificationSettingModel>());
+            notificationSettingHandler.Received(1).Update(Arg.Is<UpdateNotificationSettingModel>(x => x.Note.Equals("testNote")));
         }
 
         [TestMethod]

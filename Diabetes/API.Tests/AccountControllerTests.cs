@@ -72,6 +72,17 @@ namespace API.Tests
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel("test1", "test2", "test3", "test4");
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
+
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
 
             accountController.Update(updateAccountDBModel);
 
@@ -92,10 +103,21 @@ namespace API.Tests
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel();
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
+
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
 
             accountController.Update(updateAccountDBModel);
 
-            accountHandler.Received(0).UpdateAccount(Arg.Any<UpdateAccountDBModel>());
+            accountHandler.Received(0).UpdateAccount(Arg.Is<UpdateAccountDBModel>(x => (x.Id.Equals("testId"))));
         }
 
         #endregion
