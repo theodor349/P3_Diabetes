@@ -1,15 +1,16 @@
 ﻿@if (Delta > 0.5)
 {
-    <p>&#9757;</p>
+    <i class="fi-xwluxl-arrow-corner-wide"> </i>
 }
 else if (Delta < -0.5)
 {
-    <p>&#9759;</p>
+    <i class="fi-xwlrxl-arrow-corner-wide"> </i>
 }
 else
 {
-    <p class="fa fa-long-arrow-right"></p>
-}
+    <i class="fi-xnlrxl-arrow"> </i>
+}  
+
 
 @code {
     [Parameter] public float Delta { get; set; }

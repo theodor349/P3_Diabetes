@@ -5,8 +5,8 @@
 
 
 
-    <div class="notificationOptions" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Snooze)">
-        <div class="notificationBtn">
+    <div class="notificationOptions">
+        <div class="notificationBtn" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Snooze)">
             Snooze
         </div>
         @if (notificationData.Data.Type == NotificationType.Message)

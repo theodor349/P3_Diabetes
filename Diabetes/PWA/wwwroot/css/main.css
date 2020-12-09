@@ -19,6 +19,12 @@ a {
     color: #ccc;
 }
 
+.bodyContainer h2 {
+    font-size: 1.5em;
+    line-height: 1.3;
+    margin-top: 25px;
+}
+
 .notificationBadge {
 }
 
@@ -145,7 +151,7 @@ header h1 {
         }
 
         .currentNotifications div div:last-child {
-            border-bottom: 1px solid #555;
+            
         }
 
     .currentNotifications .warning {
@@ -164,6 +170,7 @@ header h1 {
     border-bottom: 2px solid #222;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    cursor: pointer;
 }
 
     .overviewHeader > div {
@@ -206,6 +213,7 @@ header h1 {
     box-sizing: border-box;
     text-align: left;
     padding: 5px 0 0px;
+    cursor: pointer;
 }
 
 .overviewContainer > div > div.high {
@@ -257,9 +265,9 @@ header h1 {
 
     .navProfile p {
         display: block;
-        margin: 0;
-        padding: 10px;
-        padding-left: 65px;
+        margin: 15px;
+        margin-left: 65px;
+        cursor: pointer;
     }
 
         .navProfile p i {
@@ -292,6 +300,10 @@ header h1 {
 }
 
     .detailedMainView p {
+        margin: 0;
+    }
+
+    .detailedMainView i {
         margin: 0;
     }
 
@@ -337,6 +349,7 @@ header h1 {
         height: 50px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        cursor: pointer;
     }
 
     .detailSettings a:visited {
@@ -442,7 +455,7 @@ header h1 {
 }
 
     .notificationBox.largeMargin {
-        padding: 120px 20px;
+        padding: 70px 20px;
     }
 
 .bodyContainer .notificationBox h1:first-child {
@@ -453,6 +466,10 @@ header h1 {
 
 .notificationOptions {
     display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+    width: 250px;
 }
 
     .notificationOptions a {
@@ -471,6 +488,10 @@ header h1 {
     font-size: 1em;
     border: none;
     cursor: pointer;
+}
+
+form .notificationBtn {
+    margin: 30px auto 10px;
 }
 
 .noData {
@@ -533,6 +554,7 @@ header h1 {
     padding: 0;
     border-top: 2px solid #222;
     background-color: #333;
+    cursor: pointer;
 }
 
     .navMenu div {
@@ -657,6 +679,9 @@ textarea {
 .registerBtn {
     cursor: pointer;
     background: #444;
+    margin-top: 47px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .loginBox {
@@ -803,6 +828,7 @@ input.small {
     padding-left: 20px;
     background: #333;
     padding: 10px 0px 1px 20px;
+    cursor: pointer;
 }
 
 .watcherName {
@@ -872,4 +898,8 @@ p.text {
 
 .manageWatcherTitle.dark{
     background-color: #333;
+}
+
+::scrollbar {
+    width: 2px;
 }
