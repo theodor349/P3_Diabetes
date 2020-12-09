@@ -90,6 +90,7 @@
     <Build Include="dbo\Store Procedures\spPermission_GetPendingPermissions.sql" />
     <Build Include="dbo\Store Procedures\spPermission_DenyPermissionRequest.sql" />
     <Build Include="dbo\Store Procedures\spAccount_GetNightscoutLink.sql" />
+    <Build Include="dbo\Store Procedures\spNotificationSetting_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DiabetesDB.refactorlog" />

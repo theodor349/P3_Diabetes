@@ -58,5 +58,10 @@ namespace APIHandler.Handlers
         {
             return (T)Enum.Parse(typeof(T), enumName);
         }
+
+        public NotificationSettingModel Get(int id)
+        {
+            return _nsa.Get(id);
+        }
     }
 }

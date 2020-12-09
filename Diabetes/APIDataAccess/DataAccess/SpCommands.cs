@@ -7,6 +7,7 @@ namespace APIDataAccess.DataAccess
     public enum SpCommands
     {
         spNotificationSetting_GetByUser,
+        spNotificationSetting_GetById,
         spNotificationSetting_Update,
         spNotificationSetting_DeleteByUserId,
         spNotificationSetting_Create,

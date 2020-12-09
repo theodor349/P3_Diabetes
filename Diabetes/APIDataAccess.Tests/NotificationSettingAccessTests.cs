@@ -75,13 +75,41 @@ namespace APIDataAccess.Tests
 
             var sql = Substitute.For<ISqlDataAccess>();
 
-            sql.LoadData<NotificationSettingModel, dynamic>("spNotificationSetting_GetByUser", Arg.Any<object>(), "DDB").
+            sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetByUser.ToString(), Arg.Any<object>(), "DDB").
                 Returns(new List<NotificationSettingModel>());
 
             var data = new NotificationSettingAccess(sql);
             var res = data.Get("").Count;
 
             Assert.AreEqual(expected, res);
+        }
+
+        [TestMethod]
+        public void GetInt_Exists()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+
+            sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetById.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<NotificationSettingModel>() { new NotificationSettingModel() });
+
+            var data = new NotificationSettingAccess(sql);
+            var res = data.Get(1);
+
+            Assert.AreNotEqual(null, res);
+        }
+
+        [TestMethod]
+        public void GetInt_NotExists()
+        {
+            var sql = Substitute.For<ISqlDataAccess>();
+
+            sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetById.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<NotificationSettingModel>());
+
+            var data = new NotificationSettingAccess(sql);
+            var res = data.Get(1);
+
+            Assert.AreEqual(null, res);
         }
         #endregion 
 

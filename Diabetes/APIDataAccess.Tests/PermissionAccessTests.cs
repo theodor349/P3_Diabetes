@@ -122,7 +122,6 @@ namespace APIDataAccess.Tests
                 WeeksActive = 2,
                 WeeksDeactive = 1,
                 Attributes = 4,
-                Accepted = true,
             };
 
             var data = new PermissionAccess(sql);
@@ -136,8 +135,7 @@ namespace APIDataAccess.Tests
                 x.ExpireDate == testTime &&
                 x.WeeksActive == 2 &&
                 x.WeeksDeactive == 1 &&
-                x.Attributes == 4 &&
-                x.Accepted == true
+                x.Attributes == 4
 
             ), "DDB");
         }
@@ -222,27 +220,27 @@ namespace APIDataAccess.Tests
         public void GetPendingPermissions_Exists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), Arg.Any<object>(), "DDB").
-                Returns(new List<RequestPermissionDBModel>() { new RequestPermissionDBModel() });
+            sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
             var data = new PermissionAccess(sql);
 
             var res = data.GetPendingPermissions("2");
 
-            Assert.IsTrue(res != null);
+            Assert.IsTrue(res.Count > 0);
         }
 
         [TestMethod]
         public void GetPendingPermissions_NotExists()
         {
             var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<RequestPermissionDBModel, dynamic>(SpCommands.spPermission_GetPermissionAttributes.ToString(), Arg.Any<object>(), "DDB").
-                Returns(new List<RequestPermissionDBModel>());
+            sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetPendingPermissions.ToString(), Arg.Any<object>(), "DDB").
+                Returns(new List<PermissionDBModel>());
 
             var data = new PermissionAccess(sql);
 
             var res = data.GetPendingPermissions("2");
 
-            Assert.AreEqual(null, res);
+            Assert.AreEqual(0, res.Count);
         }
 
         #endregion

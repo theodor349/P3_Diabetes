@@ -72,6 +72,17 @@ namespace API.Tests
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel("test1", "test2", "test3", "test4");
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
+
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
 
             accountController.Update(updateAccountDBModel);
 
@@ -92,10 +103,21 @@ namespace API.Tests
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel();
+            var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+            new Claim(ClaimTypes.Name, "example name"),
+            new Claim(ClaimTypes.NameIdentifier, "1"),
+            new Claim("custom-claim", "example claim value"),
+            }, "mock"));
+
+            accountController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = new DefaultHttpContext() { User = user }
+            };
 
             accountController.Update(updateAccountDBModel);
 
-            accountHandler.Received(0).UpdateAccount(Arg.Any<UpdateAccountDBModel>());
+            accountHandler.Received(0).UpdateAccount(Arg.Is<UpdateAccountDBModel>(x => (x.Id.Equals("testId"))));
         }
 
         #endregion
@@ -136,7 +158,7 @@ namespace API.Tests
 
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
-            accountController.GetByPhoneNumber("phoneNumber");
+            accountController.GetByPhoneNumber(new Models.StringValue() { Value = "phoneNumber"});
 
             accountHandler.Received(1).GetByPhoneNumber(Arg.Any<string>());
         }
@@ -163,7 +185,7 @@ namespace API.Tests
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             bool expected = output;
-            bool res = accountController.EmailExists("Email");
+            bool res = accountController.EmailExists(new Models.StringValue() { Value = "Email" });
 
             accountHandler.Received(1).EmailExists(Arg.Any<string>());
             Assert.AreEqual(expected, res);
@@ -199,7 +221,7 @@ namespace API.Tests
 
             relayHandler.ConnectionOk("url").Returns(true);
 
-            var res = accountController.UpdateNightScoutLink("url");
+            var res = accountController.UpdateNightScoutLink(new Models.StringValue() { Value = "url" });
 
             Assert.AreEqual(typeof(OkResult), res.GetType());
         }
@@ -230,7 +252,7 @@ namespace API.Tests
 
             relayHandler.ConnectionOk("url").Returns(false);
 
-            var res = accountController.UpdateNightScoutLink("url");
+            var res = accountController.UpdateNightScoutLink(new Models.StringValue() { Value = "url" });
 
             Assert.AreEqual(typeof(BadRequestResult), res.GetType());
         }

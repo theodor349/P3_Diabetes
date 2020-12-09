@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using APIDataAccess.Internal.DataAccess;
+using System.Linq;
 
 namespace APIDataAccess.DataAccess
 {
@@ -35,6 +36,12 @@ namespace APIDataAccess.DataAccess
         public void DeleteByUserId(string userId)
         {
             _sql.DeleteData(SpCommands.spNotificationSetting_DeleteByUserId.ToString(), new { Id = userId }, "DDB");
+        }
+
+        public NotificationSettingModel Get(int id)
+        {
+            var data = _sql.LoadData<NotificationSettingModel, dynamic>(SpCommands.spNotificationSetting_GetById.ToString(), new { Id = id }, "DDB").FirstOrDefault();
+            return data;
         }
     }
 }

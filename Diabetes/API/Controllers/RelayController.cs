@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using APIHandler.Handlers;
 using APIDataAccess.Models.Permission;
 using System.Security.Claims;
+using API.Models;
 
 namespace API.Controllers
 {
@@ -20,19 +21,21 @@ namespace API.Controllers
         private readonly IRelayHandler relayHandler;
         private readonly IPermissionHandler permissionHandler;
         private readonly IAccountHandler accountHandler;
+        private readonly INotificationSettingHandler _notificationSettingHandler;
 
         private string? UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        public RelayController(IRelayHandler relayHandler, IPermissionHandler permissionHandler, IAccountHandler accountHandler)
+        public RelayController(IRelayHandler relayHandler, IPermissionHandler permissionHandler, IAccountHandler accountHandler, INotificationSettingHandler notificationSettingHandler)
         {
             this.relayHandler = relayHandler;
             this.permissionHandler = permissionHandler;
             this.accountHandler = accountHandler;
+            _notificationSettingHandler = notificationSettingHandler;
         }
 
         [HttpGet]
-        public List<PumpDataModel> GetNightscoutData() {
-            List<PumpDataModel> results = new List<PumpDataModel>();
+        public SubjectList GetNightscoutData() {
+            List<FrontEndSubject> results = new List<FrontEndSubject>();
             List<PermissionDBModel> permissions = permissionHandler.GetByWatcherId(UserId);
             Dictionary<string, int> permissionAttributes = permissionHandler.GetPermissionAttributes(permissions);
 
@@ -42,10 +45,32 @@ namespace API.Controllers
                 if (!string.IsNullOrWhiteSpace(NSLink))
                 {
                     float maxReservoir = accountHandler.GetMaxReservoir(entry.Key);
-                    results.Add(relayHandler.GetAttributeData(entry.Value, NSLink, maxReservoir));
+                    var pumpData = relayHandler.GetAttributeData(entry.Value, NSLink, maxReservoir);
+                    var name = accountHandler.GetName(entry.Key);
+                    var notificationSettings = new List<NotificationData>();
+                    foreach (var n in _notificationSettingHandler.Get(entry.Key))
+                    {
+                        notificationSettings.Add(new NotificationData()
+                        {
+                            Note = n.Note,
+                            Threshold = n.Threshold,
+                            ThresholdType = (FrontendThresholdType)n.ThresholdType,
+                            Title = n.ThresholdType == APIDataAccess.Models.NotificationSetting.ThresholdType.High ? "High blood sugar" : "Low blood sugar",
+                            Type = (FrontendNotificationType)n.NotificationType,
+                            IconClassName = "",
+                        });
+                    }
+                    results.Add(new FrontEndSubject()
+                    {
+                        ID = entry.Key,
+                        FirstName = name.FirstName,
+                        LastName = name.LastName,
+                        PumpData = pumpData,
+                        NotificationDatas = notificationSettings
+                    }); ;
                 }
             }
-            return results;
+            return new SubjectList() { Subjects = results };
         }
     }
 }
