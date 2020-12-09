@@ -27,7 +27,7 @@ namespace API.Controllers
         public PermissionDBModel Get(IntValue id)
         {
             var p = _ph.Get(id.Value);
-            if (!(p.TargetID == UserId || p.WatcherID == UserId))
+            if (p == null || !(p.TargetID == UserId || p.WatcherID == UserId))
                 return null;
 
             return p;
@@ -57,7 +57,7 @@ namespace API.Controllers
         public ActionResult Update(UpdatePermissionModel model)
         {
             var p = _ph.Get(model.Id);
-            if (!(p.TargetID == UserId))
+            if (p == null || !(p.TargetID == UserId))
                 return null;
 
 
@@ -71,7 +71,7 @@ namespace API.Controllers
         public ActionResult Delete(IntValue id)
         {
             var p = _ph.Get(id.Value);
-            if (!(p.TargetID == UserId || p.WatcherID == UserId))
+            if (p == null || !(p.TargetID == UserId || p.WatcherID == UserId))
                 return Forbid();
 
             if (_ph.Delete(id.Value) == 1)
@@ -94,7 +94,8 @@ namespace API.Controllers
         [Route("AcceptPermissionRequest")]
         public ActionResult AcceptPermissionRequest(IntValue id)
         {
-            if (!(_ph.Get(id.Value).TargetID == UserId))
+            var p = _ph.Get(id.Value);
+            if (p == null || !(p.TargetID == UserId))
                 return Forbid();
 
             if (_ph.AcceptPermissionRequest(id.Value) == 1)
@@ -108,7 +109,7 @@ namespace API.Controllers
         public ActionResult DenyPermissionRequest(IntValue id)
         {
             var p = _ph.Get(id.Value);
-            if (!(p.TargetID == UserId || p.WatcherID == UserId))
+            if (p == null || !(p.TargetID == UserId || p.WatcherID == UserId))
                 return Forbid();
             return Delete(id);
         }

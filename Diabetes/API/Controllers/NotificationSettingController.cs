@@ -33,6 +33,10 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update(UpdateNotificationSettingModel notificationSettingModel)
         {
+            NotificationSettingModel m = _nsh.Get(notificationSettingModel.Id);
+            if (m == null || m.OwnerID != UserId)
+                return Forbid();
+
             if (IsValidateModel(notificationSettingModel))
             {
                 _nsh.Update(notificationSettingModel);

@@ -11,7 +11,7 @@ namespace APIDataAccess.Models.NotificationSetting
     {
         public int ID { get; set; }
         public string OwnerID { get; set; }
-        public int ThresHold { get; set; }
+        public int Threshold { get; set; }
         public ThresholdType ThresholdType { get; set; }
         public NotificationType NotificationType { get; set; }
         public string Note { get; set; }
