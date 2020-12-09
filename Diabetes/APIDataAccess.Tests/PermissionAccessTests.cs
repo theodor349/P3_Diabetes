@@ -122,7 +122,6 @@ namespace APIDataAccess.Tests
                 WeeksActive = 2,
                 WeeksDeactive = 1,
                 Attributes = 4,
-                Accepted = true,
             };
 
             var data = new PermissionAccess(sql);
@@ -136,8 +135,7 @@ namespace APIDataAccess.Tests
                 x.ExpireDate == testTime &&
                 x.WeeksActive == 2 &&
                 x.WeeksDeactive == 1 &&
-                x.Attributes == 4 &&
-                x.Accepted == true
+                x.Attributes == 4
 
             ), "DDB");
         }

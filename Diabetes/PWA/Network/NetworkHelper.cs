@@ -91,70 +91,25 @@ namespace PWA.Network
 
         public async Task<SubjectList> GetSubjectsData()
         {
-            var res = new SubjectList()
+            using (HttpResponseMessage response = await _client.GetAsync("api/Relay"))
             {
-                Subjects = new List<Subject>()
-            };
-
-            var ids = await SubjectIds();
-            foreach (var id in ids)
-            {
-                var name = await GetName(id);
-                var data = await GetPumpData(id);
-                var notificationSettings = await GetNotificationSettings(id);
-                res.Subjects.Add(new Subject()
+                if (response.IsSuccessStatusCode)
                 {
-                    ID = id,
-                    FirstName = name.FirstName,
-                    LastName = name.LastName,
-                    PumpData = data,
-                    NotificationDatas = notificationSettings,
-                });
-            }
-            return res;
-        }
-
-        private async Task<List<NotificationData>> GetNotificationSettings(string id)
-        {
-            using (HttpResponseMessage response = await _client.GetAsync("api/Relay/" + id))
-            {
-                if (response.IsSuccessStatusCode)
-                    return (await response.Content.ReadAsAsync<NotificationSettings>()).Notifications;
+                    var res = await response.Content.ReadAsAsync<SubjectList>();
+                    foreach (var s in res.Subjects)
+                    {
+                        foreach (var n in s.NotificationDatas)
+                        {
+                            if (n.ThresholdType == ThresholdType.Low)
+                                n.IconClassName = "far fa-water-lower";
+                            else
+                                n.IconClassName = "fad fa-water-rise";
+                        }
+                    }
+                    return res;
+                }
                 else
-                    return null;
-            }
-        }
-
-        private async Task<PumpData> GetPumpData(string id)
-        {
-            using (HttpResponseMessage response = await _client.GetAsync("api/Relay/" + id))
-            {
-                if (response.IsSuccessStatusCode)
-                    return await response.Content.ReadAsAsync<PumpData>();
-                else
-                    return null;
-            }
-        }
-
-        private async Task<Name> GetName(string id)
-        {
-            using (HttpResponseMessage response = await _client.GetAsync("api/Account/GetName/" + id))
-            {
-                if (response.IsSuccessStatusCode)
-                    return await response.Content.ReadAsAsync<Name>();
-                else
-                    return null;
-            }
-        }
-
-        private async Task<List<string>> SubjectIds()
-        {
-            using (HttpResponseMessage response = await _client.GetAsync("api/Account"))
-            {
-                if (response.IsSuccessStatusCode)
-                    return await response.Content.ReadAsAsync<List<string>>();
-                else
-                    return null;
+                    return new SubjectList() { Subjects = new List<Subject>() };
             }
         }
 

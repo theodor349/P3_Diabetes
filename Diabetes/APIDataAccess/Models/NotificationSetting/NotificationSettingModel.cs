@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace APIDataAccess.Models.NotificationSetting
 {
-    public enum ThresholdType { High, Low }
+    public enum ThresholdType { Low, High }
     public enum NotificationType { Message, Warning }
     public class NotificationSettingModel
     {

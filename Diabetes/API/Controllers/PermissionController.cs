@@ -58,7 +58,7 @@ namespace API.Controllers
         {
             var p = _ph.Get(model.Id);
             if (p == null || !(p.TargetID == UserId))
-                return null;
+                return Forbid();
 
 
             if (_ph.Update(model) == 1)
