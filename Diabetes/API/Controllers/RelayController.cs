@@ -54,9 +54,9 @@ namespace API.Controllers
                         {
                             Note = n.Note,
                             Threshold = n.Threshold,
-                            ThresholdType = (ThresholdType)n.ThresholdType,
+                            ThresholdType = (FrontendThresholdType)n.ThresholdType,
                             Title = n.ThresholdType == APIDataAccess.Models.NotificationSetting.ThresholdType.High ? "High blood sugar" : "Low blood sugar",
-                            Type = (NotificationType)n.NotificationType,
+                            Type = (FrontendNotificationType)n.NotificationType,
                             IconClassName = "",
                         });
                     }
