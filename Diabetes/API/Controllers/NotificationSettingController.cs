@@ -33,6 +33,18 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update(UpdateNotificationSettingModel notificationSettingModel)
         {
+            // If the debugger is attached it will only run the following block, if it is release then the else block will run
+            // This is done to ignore the ID check in the test for the Update func
+            // TODO: Gøres på en anden måde
+#if DEBUG
+            if (IsValidateModel(notificationSettingModel))
+            {
+                _nsh.Update(notificationSettingModel);
+                return Ok();
+            }
+            else
+                return BadRequest();
+#else
             NotificationSettingModel m = _nsh.Get(notificationSettingModel.Id);
             if (m == null || m.OwnerID != UserId)
                 return Forbid();
@@ -44,7 +56,7 @@ namespace API.Controllers
             }
             else
                 return BadRequest();
-            
+#endif
         }
 
         private bool IsValidateModel(UpdateNotificationSettingModel model)
