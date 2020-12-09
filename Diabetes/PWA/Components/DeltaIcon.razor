@@ -1,4 +1,6 @@
-﻿@if (Delta > 0.5)
+﻿@inject IJSRuntime JS
+
+@if (Delta > 0.5)
 {
     <i class="fi-xwluxl-arrow-corner-wide"> </i>
 }
@@ -9,9 +11,16 @@ else if (Delta < -0.5)
 else
 {
     <i class="fi-xnlrxl-arrow"> </i>
-}  
+}
 
 
 @code {
     [Parameter] public float Delta { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("updateIcons");
+        }
+    }
 }
