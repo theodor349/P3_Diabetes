@@ -136,7 +136,7 @@ namespace API.Tests
 
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
-            accountController.GetByPhoneNumber("phoneNumber");
+            accountController.GetByPhoneNumber(new Models.StringValue() { Value = "phoneNumber"});
 
             accountHandler.Received(1).GetByPhoneNumber(Arg.Any<string>());
         }
@@ -163,7 +163,7 @@ namespace API.Tests
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             bool expected = output;
-            bool res = accountController.EmailExists("Email");
+            bool res = accountController.EmailExists(new Models.StringValue() { Value = "Email" });
 
             accountHandler.Received(1).EmailExists(Arg.Any<string>());
             Assert.AreEqual(expected, res);
@@ -199,7 +199,7 @@ namespace API.Tests
 
             relayHandler.ConnectionOk("url").Returns(true);
 
-            var res = accountController.UpdateNightScoutLink("url");
+            var res = accountController.UpdateNightScoutLink(new Models.StringValue() { Value = "url" });
 
             Assert.AreEqual(typeof(OkResult), res.GetType());
         }
@@ -230,7 +230,7 @@ namespace API.Tests
 
             relayHandler.ConnectionOk("url").Returns(false);
 
-            var res = accountController.UpdateNightScoutLink("url");
+            var res = accountController.UpdateNightScoutLink(new Models.StringValue() { Value = "url" });
 
             Assert.AreEqual(typeof(BadRequestResult), res.GetType());
         }
