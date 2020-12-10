@@ -116,7 +116,8 @@ namespace PWA.Network
         public async Task<LoginUser> Login(LoginCredential credential)
         {
             await Authenticate(credential);
-            return await GetUserData();
+            var data = await GetUserData();
+            return data;
         }
 
         private async Task<LoginUser> GetUserData()
