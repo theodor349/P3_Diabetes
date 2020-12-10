@@ -21,7 +21,7 @@ namespace PWA
 
             var client = new HttpClient { BaseAddress = new Uri("https://localhost:5003") };
             builder.Services.AddScoped(sp => client);
-            INetworkHelper network = new NetworkHelper(client, "https://localhost:5003");
+            INetworkHelper network = new NetworkHelperLocal(client, "https://localhost:5003");
             builder.Services.AddScoped(sp => network);
 
             await builder.Build().RunAsync();
