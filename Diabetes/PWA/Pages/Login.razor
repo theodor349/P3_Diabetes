@@ -15,7 +15,7 @@
     </EditForm>
     <div class="notificationBtn forgotPasswordBtn">Forgot password</div>
     <br>
-    <div class="notificationBtn registerBtn" @onclick="SignUp">Sign up</div>
+    <div class="notificationBtn registerBtn">Sign up</div>
 </div>
 
 @code {
@@ -36,11 +36,6 @@
     private async Task<LoginUser> GetLoginChredentials()
     {
         return await Network.Login(credentials);
-    }
-
-    private async Task SignUp()
-    {
-
     }
 
     protected override async Task OnInitializedAsync()
