@@ -78,9 +78,10 @@ namespace API.Controllers
         [Route("GetPendingPermissions")]
         public PermissionRequestsModel GetPendingPermissions()
         {
+            var requests = _ph.GetPendingPermissions(UserId);
             var data = new PermissionRequestsModel()
             {
-                Requests = _ph.GetByWatcherId(UserId).ConvertAll(x =>
+                Requests = requests.ConvertAll(x =>
                 {
                     var name = _accountHandler.GetName(x.TargetID);
                     var r = new PermissionRequestModel()
