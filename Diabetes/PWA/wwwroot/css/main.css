@@ -777,11 +777,14 @@ input.small {
     display: flex;
     margin-bottom: 14px;
     margin-top: 20px;
+    background: #1F1F1F;
+    border-radius: 12px;
 }
 
     .twoBtns div {
         cursor: pointer;
-        background: #FFA033;
+        background: transparent;
+        border-radius: 12px;
         text-align: center;
         height: 34px;
         line-height: 34px;
@@ -790,7 +793,8 @@ input.small {
     }
 
         .twoBtns div.active {
-            background: #FF4A47;
+            border-radius: 12px;
+            background: #8B85C1;
         }
 
 .addPermissionBtn {
