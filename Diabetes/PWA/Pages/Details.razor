@@ -1,4 +1,6 @@
-﻿@if (subject != null)
+﻿@inject IJSRuntime JS
+
+@if (subject != null)
 {
     <header class="profileName">
         <h1>@subject.FirstName @subject.LastName</h1>
@@ -9,19 +11,19 @@
         @if (isNote)
         {
             <div class="active">
-                <i class="fa fa-pencil-square-o"></i>
+                <i class="fi-xnsuxl-clipboard-list-solid"></i>
             </div>
             <div @onclick="SetViewToNotifications">
-                <i class="fa fa-bell"></i>
+                <i class="fi-xnsuxl-bell-solid"></i>
             </div>
         }
         else
         {
             <div @onclick="SetViewToNotes">
-                <i class="fa fa-pencil-square-o"></i>
+                <i class="fi-xnsuxl-clipboard-list-solid"></i>
             </div>
             <div class="active">
-                <i class="fa fa-bell"></i>
+                <i class="fi-xnsuxl-bell-solid"></i>
             </div>
         }
     </div>
@@ -51,13 +53,20 @@ else
     [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
     private bool isNote = true;
 
-    public void SetViewToNotes()
+    public async Task SetViewToNotes()
     {
         isNote = true;
+        await JS.InvokeVoidAsync("updateIcons");
     }
 
-    public void SetViewToNotifications()
+    public async Task SetViewToNotifications()
     {
         isNote = false;
+        await JS.InvokeVoidAsync("updateIcons");
+    }
+
+     protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+            await JS.InvokeVoidAsync("updateIcons");
     }
 }

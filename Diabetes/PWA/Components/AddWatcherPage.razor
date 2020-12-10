@@ -181,22 +181,51 @@
 
     protected override void OnInitialized()
     {
+        var startDay = DateTime.Now;
+        startDay = startDay.AddHours(startDay.Hour).AddMinutes(startDay.Minute).AddMilliseconds(startDay.Millisecond);
         request = new PermissionRequest()
         {
-            StartDate = DateTime.Now,
-            ExspireDate = DateTime.Now.AddDays(1)
+            StartDate = startDay,
+            ExspireDate = startDay.AddDays(1)
         };
     }
 
     private async Task HandleValidSubmit()
     {
-        Console.WriteLine(dayStart.ToString());
+        SendRequest();
+
         await Submitted.InvokeAsync(true);
     }
 
-    private async Task SendRequest(PermissionRequestModel request)
+    private async Task SendRequest()
     {
-        await Network.SendRequest(new RequestPermissionAPIModel());
+        var r = await CreateRequest();
+        await Network.SendRequest(r);
+    }
+
+    private async Task<RequestPermissionAPIModel> CreateRequest()
+    {
+        var watcher = await Network.GetByPhoneNumber(request.PhoneNumber);
+        var r = new RequestPermissionAPIModel()
+        {
+            StartDate = request.StartDate.AddHours(dayStart.Hours).AddMinutes(dayStart.Minutes),
+            ExpireDate = request.ExspireDate.AddDays(dayEnd.Hours).AddMinutes(dayEnd.Minutes),
+            Attributes = isLimitedData ? 7 : (request.Bloodglucose ? 1 : 0) + (request.Insulin ? 2 : 0) + (request.Battery ? 4 : 0),
+            WatcherID = watcher.Id,
+            TargetID = User.UserID,
+            Days = isDayAccess ?
+                (request.Monday ? 1 : 0) +
+                (request.Tuesday ? 2 : 0) +
+                (request.Wednesday ? 4 : 0) +
+                (request.Thursday ? 8 : 0) +
+                (request.Friday ? 16 : 0) +
+                (request.Saturday ? 32 : 0) +
+                (request.Sunday ? 64 : 0)
+                : 0,
+            WeeksActive = isWeekAccess ? request.WeeksActive : 0,
+            WeeksDeactive = isWeekAccess ? request.WeeksInactive : 0,
+        };
+        return r;
     }
 
     class PermissionRequest

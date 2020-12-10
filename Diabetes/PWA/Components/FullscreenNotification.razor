@@ -1,25 +1,31 @@
-﻿<div class="notificationBox largeMargin">
+﻿@inject IJSRuntime JS
+<div class="notificationBox largeMargin">
 
-    <h1><i class="@notificationData.Data.IconClassName"></i></h1>
-    <h2>@notificationData.Data.Note</h2>
+	<h1><i class="@notificationData.Data.IconClassName">hest</i></h1>
+	<h2>@notificationData.Data.Note</h2>
 
 
 
-    <div class="notificationOptions">
-        <div class="notificationBtn" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Snooze)">
-            Snooze
-        </div>
-        @if (notificationData.Data.Type == NotificationType.Message)
-        {
-            <div class="notificationBtn" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Dismiss)">
-                Dismiss
-            </div>
-        }
-    </div>
-
+	<div class="notificationOptions">
+		<div class="notificationBtn" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Snooze)">
+			Snooze
+		</div>
+		@if (notificationData.Data.Type == NotificationType.Message)
+		{
+			<div class="notificationBtn" @onclick="() => notificationButtonClicked.InvokeAsync(NotificationButtonType.Dismiss)">
+				Dismiss
+			</div>
+		}
+	</div>
 </div>
 
 @code {
-    [Parameter] public ActiveNotification notificationData { get; set; }
-    [Parameter] public EventCallback<NotificationButtonType> notificationButtonClicked { get; set; }
-}
+	[Parameter] public ActiveNotification notificationData { get; set; }
+	[Parameter] public EventCallback<NotificationButtonType> notificationButtonClicked { get; set; }
+	[Parameter] public bool Render { get; set; }
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+			await JS.InvokeVoidAsync("updateIcons");
+		}
+	}

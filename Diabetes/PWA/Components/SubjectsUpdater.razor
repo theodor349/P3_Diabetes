@@ -1,26 +1,29 @@
 ﻿@inject INetworkHelper Network
 
 @code {
-    [Parameter] public LoginUser user { get; set; }
-    [Parameter] public EventCallback<SubjectList> subjectsUpdated { get; set; }
+	[Parameter] public LoginUser user { get; set; }
+	[Parameter] public EventCallback<SubjectList> subjectsUpdated { get; set; }
+	
 
-    protected override async Task OnInitializedAsync()
-    {
-        await Update();
-    }
+	protected override async Task OnInitializedAsync()
+	{
+		await Update();
+	}
 
-    private async Task Update()
-    {
-        var subjects = await GetData(user.UserID);
-        await subjectsUpdated.InvokeAsync(subjects);
+	private async Task Update()
+	{
+		var subjects = await GetData(user.UserID);
+		await subjectsUpdated.InvokeAsync(subjects);
 
-        await Task.Delay(1000);
-        Update();
-    }
+		await Task.Delay(1000);
+		Update();
+	}
 
-    private async Task<SubjectList> GetData(string id)
-    {
-        var subjects = await Network.GetSubjectsData();
-        return subjects;
-    }
+	private async Task<SubjectList> GetData(string id)
+	{
+		var subjects = await Network.GetSubjectsData();
+		return subjects;
+	}
+
+
 }

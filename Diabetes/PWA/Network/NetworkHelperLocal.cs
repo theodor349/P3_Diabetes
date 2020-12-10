@@ -77,7 +77,6 @@ namespace PWA.Network
                                 Type = NotificationType.Message,
                                 Title = "High Blood Sugar",
                                 Note = "You need to make sure Tais Hors consumes some insulin",
-                                IconClassName = "fa fa-thermometer-quarter",
                                 Threshold = 10.0f,
                                 ThresholdType = ThresholdType.High,
                             },
@@ -86,7 +85,6 @@ namespace PWA.Network
                                 Type = NotificationType.Warning,
                                 Title = "Low Blood Sugar",
                                 Note = "You need to make sure Tais Hors consumes a juice",
-                                IconClassName = "fa fa-thermometer-quarter",
                                 Threshold = 4.0f,
                                 ThresholdType = ThresholdType.Low,
                             }
@@ -112,7 +110,6 @@ namespace PWA.Network
                                 Type = NotificationType.Message,
                                 Title = "High Blood Sugar",
                                 Note = "You need to make sure Theodor Risager consumes some insulin",
-                                IconClassName = "fa fa-thermometer-quarter",
                                 Threshold = 10.0f,
                                 ThresholdType = ThresholdType.High,
                             },
@@ -121,7 +118,6 @@ namespace PWA.Network
                                 Type = NotificationType.Warning,
                                 Title = "Low Blood Sugar",
                                 Note = "You need to make sure Theodor Risager consumes a juice",
-                                IconClassName = "fa fa-thermometer-quarter",
                                 Threshold = 4.0f,
                                 ThresholdType = ThresholdType.Low,
                             }
@@ -205,6 +201,11 @@ namespace PWA.Network
 
         public async Task EditPermission(Permission p)
         {
+        }
+
+        public Task<PublicAccountModel> GetByPhoneNumber(string phoneNumber)
+        {
+            throw new NotImplementedException();
         }
     }
 }

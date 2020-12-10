@@ -90,10 +90,16 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Route("ByPhoneNumber")]
-        public AccountDBModel GetByPhoneNumber(StringValue phoneNumber)
+        [Route("ByPhoneNumber/{phoneNumber}")]
+        public PublicAccountModel GetByPhoneNumber(string phoneNumber)
         {
-            return _accountHandler.GetByPhoneNumber(phoneNumber.Value);
+            var a = _accountHandler.GetByPhoneNumber(phoneNumber);
+            return new PublicAccountModel()
+            {
+                Id = a.Id,
+                FirstName = a.FirstName,
+                LastName = a.LastName,
+            };
         }
 
         [HttpGet]
