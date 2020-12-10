@@ -210,7 +210,7 @@
         {
             StartDate = request.StartDate.AddHours(dayStart.Hours).AddMinutes(dayStart.Minutes),
             ExpireDate = request.ExspireDate.AddDays(dayEnd.Hours).AddMinutes(dayEnd.Minutes),
-            Attributes = isLimitedData ? 7 : (request.Bloodglucose ? 1 : 0) + (request.Insulin ? 2 : 0) + (request.Battery ? 4 : 0),
+            Attributes = isLimitedData ? (request.Bloodglucose ? 1 : 0) + (request.Insulin ? 2 : 0) + (request.Battery ? 4 : 0) : 7,
             WatcherID = watcher.Id,
             TargetID = User.UserID,
             Days = isDayAccess ?

@@ -32,7 +32,7 @@ namespace PWA.Network
 
         public async Task AcceptRequest(int id)
         {
-            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Permission/AcceptPermissionRequest", id))
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Permission/AcceptPermissionRequest", new IntValue(id)))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -43,7 +43,7 @@ namespace PWA.Network
 
         public async Task DeclineRequest(int id)
         {
-            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Permission/DenyPermissionReqeust", id))
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Permission/DenyPermissionReqeust", new IntValue(id)))
             {
                 if (response.IsSuccessStatusCode)
                 {
@@ -250,5 +250,14 @@ namespace PWA.Network
         }
 
         public string Value { get; set; }
+    }
+
+    public class IntValue
+    {
+        public IntValue(int value)
+        {
+            Value = value;
+        }
+        public int Value { get; set; }
     }
 }
