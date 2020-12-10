@@ -158,7 +158,7 @@ namespace API.Tests
 
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
-            accountController.GetByPhoneNumber(new Models.StringValue() { Value = "phoneNumber"});
+            accountController.GetByPhoneNumber("phoneNumber");
 
             accountHandler.Received(1).GetByPhoneNumber(Arg.Any<string>());
         }

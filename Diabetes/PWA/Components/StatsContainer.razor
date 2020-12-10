@@ -19,10 +19,10 @@
         </div>
         <div>
             <div>
-                <p>@(data.Minutes)m</p>
+                <p>@(Minutes(data.LastReceived))m</p>
             </div>
             <div>
-                <DeltaIcon Delta="data.Delta"></DeltaIcon>
+                <DeltaIcon Status="data.Status"></DeltaIcon>
             </div>
         </div>
     </div>
@@ -32,6 +32,12 @@
 @code {
     [Parameter] public PumpData data { get; set; }
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
+
+    private int Minutes(DateTime lastRecieved)
+    {
+        var diff = DateTime.Now - lastRecieved;
+        return diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
+    }
 
     private string GetStatusMessage()
     {

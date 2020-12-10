@@ -1,10 +1,10 @@
 ﻿@inject IJSRuntime JS
 
-@if (Delta > 0.5)
+@if (Status == ArrowDirection.SingleUp)
 {
     <i class="fi-xwluxl-arrow-corner-wide"> </i>
 }
-else if (Delta < -0.5)
+else if (Status == ArrowDirection.SingleDown)
 {
     <i class="fi-xwlrxl-arrow-corner-wide"> </i>
 }
@@ -15,7 +15,7 @@ else
 
 
 @code {
-    [Parameter] public float Delta { get; set; }
+    [Parameter] public ArrowDirection Status { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

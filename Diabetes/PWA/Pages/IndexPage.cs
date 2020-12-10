@@ -127,7 +127,7 @@ namespace PWA.Pages
                 Id = "Connection",
             };
 
-            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.Minutes > 30);
+            HandleActiveNotificatio(an, old, curr, (x) => (DateTime.Now - x.PumpData.LastReceived).Minutes + (DateTime.Now - x.PumpData.LastReceived).Hours * 60 > 30);
         }
 
         private void InsulinNotification(Subject old, Subject curr)

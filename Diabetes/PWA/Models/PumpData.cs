@@ -9,8 +9,20 @@ namespace PWA.Models
     {
         public float BloodGlucose { get; set; }
         public float BatteryStatus { get; set; }
-        public float Delta { get; set; }
         public float InsulinStatus { get; set; }
-        public int Minutes { get; set; }
+        public DateTime LastReceived { get; set; }
+        public ArrowDirection Status { get; set; }
+    }
+
+    public enum ArrowDirection
+    {
+        SingleUp,
+        DoubleUp,
+        SingleDown,
+        DoubleDown,
+        Flat,
+        FortyFiveUp,
+        FortyFiveDown,
+        Null,
     }
 }

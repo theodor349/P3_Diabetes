@@ -6,7 +6,7 @@
             <div>
                 <div class="bloodGlucose"> 
                     <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", Subject.PumpData.BloodGlucose)</p> 
-                    <DeltaIcon Delta="Subject.PumpData.Delta"></DeltaIcon>
+                    <DeltaIcon Status="Subject.PumpData.Status"></DeltaIcon>
                 </div>
                 <div>
                     <BatteryIcon BatteryStatus="Subject.PumpData.BatteryStatus"></BatteryIcon>
