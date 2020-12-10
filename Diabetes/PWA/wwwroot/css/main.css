@@ -741,6 +741,9 @@ textarea {
     .addPermissionBox form {
         height: 502px;
     }
+    .addPermissionBox label {
+        display: block;
+    }
 
 
 .checkbox {

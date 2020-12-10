@@ -1,6 +1,6 @@
 ﻿    @inject INetworkHelper Network;
 
-@if (page == 0 || page == 2)
+@if (page == 0 || page == 1 || page == 2)
 {
     <header class="profileName">
         <h1>@User.GetName()</h1>
@@ -49,7 +49,7 @@
     }
     else if (page == 1)
     {
-
+        <Account user="User"></Account>
     }
     else if (page == 2)
     {
