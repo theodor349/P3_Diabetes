@@ -91,6 +91,24 @@ namespace PWA.Network
                 if (response.IsSuccessStatusCode)
                     res.AddRange((await response.Content.ReadAsAsync<Permissions>()).PermissionList);
             }
+            res = RemoveDuble(res, x => x.Id);
+            return res;
+        }
+
+        private List<T> RemoveDuble<T>(List<T> items, Func<T, int> idFunc)
+        {
+            var dic = new List<int>();
+            var res = new List<T>();
+            foreach (var item in items)
+            {
+                int id = idFunc(item);
+                if (!dic.Contains(id))
+                {
+                    dic.Add(id);
+                    res.Add(item);
+                }
+            }
+
             return res;
         }
 
