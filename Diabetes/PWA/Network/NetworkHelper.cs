@@ -80,13 +80,18 @@ namespace PWA.Network
 
         public async Task<List<Permission>> GetPermissions()
         {
-            using (HttpResponseMessage response = await _client.GetAsync("api/Permission/Get"))
+            var res = new List<Permission>();
+            using (HttpResponseMessage response = await _client.GetAsync("api/Permission/ByTarget"))
             {
                 if (response.IsSuccessStatusCode)
-                    return (await response.Content.ReadAsAsync<Permissions>()).PermissionList;
-                else
-                    return null;
+                    res.AddRange((await response.Content.ReadAsAsync<Permissions>()).PermissionList);
             }
+            using (HttpResponseMessage response = await _client.GetAsync("api/Permission/ByWatcher"))
+            {
+                if (response.IsSuccessStatusCode)
+                    res.AddRange((await response.Content.ReadAsAsync<Permissions>()).PermissionList);
+            }
+            return res;
         }
 
         public async Task<SubjectList> GetSubjectsData()
