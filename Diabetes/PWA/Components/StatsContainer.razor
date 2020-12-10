@@ -19,7 +19,7 @@
         </div>
         <div>
             <div>
-                <p>@(Minutes(data.LastReceived))m</p>
+                <p style="@(Minutes(data.LastReceived)> 30 ? "color: Red" : "")">@(Minutes(data.LastReceived))m</p>
             </div>
             <div>
                 <DeltaIcon Status="data.Status"></DeltaIcon>
