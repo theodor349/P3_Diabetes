@@ -14,7 +14,7 @@
                 <p>Edit</p>
             </div>
         }
-        <div class="active" @onclick="() => Delte(Permission.Id)">
+        <div @onclick="() => Delete(Permission.Id)">
             <p>Delete</p>
         </div>
     </div>
@@ -28,7 +28,7 @@
         Network.EditPermission(Permission);
     }
 
-    private void Delte(int id)
+    private void Delete(int id)
     {
         Network.DeletePermission(id);
     }

@@ -9,6 +9,7 @@ using APIHandler.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static APIHandler.Handlers.RelayHandler;
 
 namespace API.Controllers
 {[Route("api/[controller]")]
@@ -17,10 +18,13 @@ namespace API.Controllers
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionHandler _ph;
+        private readonly IAccountHandler _accountHandler;
+
         private string? UserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        public PermissionController(IPermissionHandler permissionHandler) {
+        public PermissionController(IPermissionHandler permissionHandler, IAccountHandler accountHandler) {
             _ph = permissionHandler;
+            _accountHandler = accountHandler;
         }
 
         [HttpGet]
@@ -35,22 +39,61 @@ namespace API.Controllers
 
         [HttpGet]
         [Route("ByTarget")]
-        public List<PermissionDBModel> GetByTargetId()
+        public Permissions GetByTargetId()
         {
-            return _ph.GetByTargetId(UserId);
+            return ConvertPermissions(_ph.GetByTargetId(UserId));
         }
 
         [HttpGet]
         [Route("ByWatcher")]
-        public List<PermissionDBModel> GetByWatcherId()
+        public Permissions GetByWatcherId()
         {
-            return _ph.GetByWatcherId(UserId);
+            return ConvertPermissions(_ph.GetByWatcherId(UserId));
+        }
+
+        private Permissions ConvertPermissions(List<PermissionDBModel> permissions)
+        {
+            var data = permissions.ConvertAll(x =>
+            {
+                AttributeFlags attributes = (AttributeFlags)x.Attributes;
+                var name = _accountHandler.GetName(UserId == x.TargetID ? x.WatcherID : x.TargetID);
+                var r = new Permission()
+                {
+                    Id = x.Id,
+                    FirstName = name.FirstName,
+                    LastName = name.LastName,
+                    ExpireDate = x.ExpireDate,
+                    IsOwner = UserId == x.TargetID,
+                    TargetId = x.TargetID,
+                    Battery = attributes.HasFlag(AttributeFlags.Battery),
+                    Insulin = attributes.HasFlag(AttributeFlags.Insulin),
+                    BloodGlucose = attributes.HasFlag(AttributeFlags.BloodGlucose),
+                };
+                return r;
+            });
+            return new Permissions() { PermissionList = data };
         }
 
         [HttpGet]
         [Route("GetPendingPermissions")]
-        public List<PermissionDBModel> GetPendingPermissions() {
-            return _ph.GetPendingPermissions(UserId);
+        public PermissionRequestsModel GetPendingPermissions()
+        {
+            var requests = _ph.GetPendingPermissions(UserId);
+            var data = new PermissionRequestsModel()
+            {
+                Requests = requests.ConvertAll(x =>
+                {
+                    var name = _accountHandler.GetName(x.TargetID);
+                    var r = new PermissionRequestModel()
+                    {
+                        Id = x.Id,
+                        FirstName = name.FirstName,
+                        LastName = name.LastName,
+                    };
+                    return r;
+                }),
+            };
+            return data;
         }
 
         [HttpPut]

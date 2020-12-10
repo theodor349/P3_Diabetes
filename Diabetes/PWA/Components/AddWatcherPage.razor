@@ -16,14 +16,14 @@
         @* Dates *@
         @if (isTemporary)
         {
-            <div class="twoBtns">
+            <div class="twoBtns toggleable">
                 <div class="active">Temporary</div>
                 <div @onclick="() => isTemporary = false">Recurring</div>
             </div>
         }
         else
         {
-            <div class="twoBtns">
+            <div class="twoBtns toggleable">
                 <div @onclick="() => isTemporary = true">Temporary</div>
                 <div class="active">Recurring</div>
             </div>
@@ -53,7 +53,7 @@
             @* Days *@
             @if (isDayAccess)
             {
-                <div class="twoBtns">
+                <div class="twoBtns toggleable">
                     <div class="active">Day access</div>
                     <div @onclick="() => isDayAccess = false">Full access</div>
                 </div>
@@ -98,7 +98,7 @@
             }
             else
             {
-                <div class="twoBtns">
+                <div class="twoBtns toggleable">
                     <div @onclick="() => isDayAccess = true">Day access</div>
                     <div class="active">Full access</div>
                 </div>
@@ -108,7 +108,7 @@
             @* Weeks *@
             @if (isWeekAccess)
             {
-                <div class="twoBtns">
+                <div class="twoBtns toggleable">
                     <div class="active">Week access</div>
                     <div @onclick="() => isWeekAccess = false">Full access</div>
                 </div>
@@ -123,7 +123,7 @@
             }
             else
             {
-                <div class="twoBtns">
+                <div class="twoBtns toggleable">
                     <div @onclick="() => isWeekAccess = true">Week access</div>
                     <div class="active">Full access</div>
                 </div>
@@ -133,7 +133,7 @@
         @* Data Access *@
         @if (isLimitedData)
         {
-            <div class="twoBtns">
+            <div class="twoBtns toggleable">
                 <div class="active">Limit data</div>
                 <div @onclick="() => isLimitedData = false">Full data</div>
             </div>
@@ -152,7 +152,7 @@
         }
         else
         {
-            <div class="twoBtns">
+            <div class="twoBtns toggleable">
                 <div @onclick="() => isLimitedData = true">Limit data</div>
                 <div class="active">Full data</div>
             </div>
