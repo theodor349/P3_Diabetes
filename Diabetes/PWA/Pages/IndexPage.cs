@@ -115,8 +115,8 @@ namespace PWA.Pages
         {
             var n = new NotificationData()
             {
-                Title = "Connection is old",
-                Note = "Data from " + curr.GetName() + "'s pump is old",
+                Title = "Outdated Data",
+                Note = "Last update received " + curr.GetName() + " minutes ago",
                 Type = NotificationType.Message,
                 IconClassName = "fa fa-wifi",
             };
