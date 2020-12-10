@@ -777,26 +777,42 @@ input.small {
     display: flex;
     margin-bottom: 14px;
     margin-top: 20px;
-    background: #1F1F1F;
+    background: transparent;
     border-radius: 12px;
 }
-
-    .twoBtns div {
-        cursor: pointer;
+    .twoBtns.toggleable {
         background: #1F1F1F;
-        border-radius: 12px;
-        text-align: center;
-        height: 34px;
-        line-height: 34px;
-        width: 50%;
-        color: #eee;
-        margin: 5px;
     }
 
-        .twoBtns div.active {
-            border-radius: 12px;
+        .twoBtns div {
+            cursor: pointer;
             background: #8B85C1;
+            border-radius: 12px;
+            text-align: center;
+            height: 34px;
+            line-height: 34px;
+            width: 50%;
+            color: #eee;
+            margin-right: 5px;
+            margin-left: 5px;
         }
+
+            .twoBtns.toggleable div {
+                cursor: pointer;
+                background: #1F1F1F;
+                border-radius: 12px;
+                text-align: center;
+                height: 34px;
+                line-height: 34px;
+                width: 50%;
+                color: #eee;
+                margin: 5px;
+            }
+
+                .twoBtns div.active {
+                    border-radius: 12px;
+                    background: #8B85C1;
+                }
 
 .addPermissionBtn {
     background: #8B85C1;
