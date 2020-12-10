@@ -39,6 +39,7 @@ namespace API
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddCors();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -98,7 +99,7 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
-            app.UseCors("Open");
+            //app.UseCors("Open");
             app.UseAuthorization();
 
             if (env.IsDevelopment())
@@ -113,6 +114,16 @@ namespace API
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            // Shows UseCors with CorsPolicyBuilder.
+            app.UseCors(builder =>
+            {
+                builder
+                .WithOrigins(new string[] { "https://localhost:5000", "https://localhost:5001", "https://localhost:5002", "https://localhost:5003" })
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();
