@@ -138,8 +138,12 @@ namespace PWA.Network
 
         public async Task<LoginUser> Login(LoginCredential credential)
         {
-            await Authenticate(credential);
+            var authData = await Authenticate(credential);
+            if (string.IsNullOrWhiteSpace(authData.Item1))
+                return null;
             var data = await GetUserData();
+            data.Token = authData.Item1;
+            data.UserID = authData.Item2;
             return data;
         }
 
@@ -154,7 +158,7 @@ namespace PWA.Network
             }
         }
 
-        private async Task Authenticate(LoginCredential credential)
+        private async Task<Tuple<string, string>> Authenticate(LoginCredential credential)
         {
             var data = new FormUrlEncodedContent(new[]
             {
@@ -169,6 +173,11 @@ namespace PWA.Network
                 {
                     var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
                     SetupHeader(result.Access_Token);
+                    return new Tuple<string, string>(result.Access_Token, result.UserName);
+                }
+                else
+                {
+                    return new Tuple<string, string>("", "");
                 }
             }
         }
@@ -179,6 +188,21 @@ namespace PWA.Network
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _client.DefaultRequestHeaders.Add("Authorization", $"Bearer { token }");
+        }
+
+        public async Task<PublicAccountModel> GetByPhoneNumber(string phoneNumber)
+        {
+            using (HttpResponseMessage response = await _client.GetAsync("api/Account/ByPhoneNumber/" + phoneNumber))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<PublicAccountModel>();
+                }
+                else
+                {
+                    return new PublicAccountModel();
+                }
+            }
         }
 
         public async Task SendRequest(RequestPermissionAPIModel request)
@@ -217,13 +241,14 @@ namespace PWA.Network
         }
     }
 
-    class Name
+    public class StringValue
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-    class NotificationSettings
-    {
-        public List<NotificationData> Notifications { get; set; }
+
+        public StringValue(string value)
+        {
+            Value = value;
+        }
+
+        public string Value { get; set; }
     }
 }

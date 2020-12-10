@@ -206,5 +206,10 @@ namespace PWA.Network
         public async Task EditPermission(Permission p)
         {
         }
+
+        public Task<PublicAccountModel> GetByPhoneNumber(string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace PWA.Network
         Task DeclineRequest(int id);
         Task DeletePermission(int id);
         Task EditPermission(Permission p);
+        Task<PublicAccountModel> GetByPhoneNumber(string phoneNumber);
         Task<List<PermissionRequestModel>> GetPermissionRequests();
         Task<List<Permission>> GetPermissions();
         Task<SubjectList> GetSubjectsData();

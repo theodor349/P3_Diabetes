@@ -127,6 +127,7 @@ namespace API.Controllers
         [Route("RequestPermission")]
         public ActionResult RequestPermission(RequestPermissionDBModel request)
         {
+            request.TargetID = UserId;
             if (_ph.RequestPermission(request) == 1)
                 return Ok();
             else
