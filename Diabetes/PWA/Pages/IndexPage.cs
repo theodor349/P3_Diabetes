@@ -137,7 +137,7 @@ namespace PWA.Pages
                 Title = "Insulin Low",
                 Note = curr.GetName() + "'s pump is low on insulin",
                 Type = NotificationType.Message,
-                IconClassName = "fa fa-thermometer-half",
+                IconClassName = "fi-xnluxl-temperature-low",
             };
             var an = new ActiveNotification()
             {
