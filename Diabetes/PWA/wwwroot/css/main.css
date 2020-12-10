@@ -25,6 +25,22 @@ a {
     margin-top: 25px;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #D4CDF4; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #B9ACEC; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B85C1; 
+}
+
 .notificationBadge {
     border-radius: 50%;
     background-color: #FF4A47;
@@ -761,20 +777,25 @@ input.small {
     display: flex;
     margin-bottom: 14px;
     margin-top: 20px;
+    background: #1F1F1F;
+    border-radius: 12px;
 }
 
     .twoBtns div {
         cursor: pointer;
-        background: #FFA033;
+        background: #1F1F1F;
+        border-radius: 12px;
         text-align: center;
         height: 34px;
         line-height: 34px;
         width: 50%;
         color: #eee;
+        margin: 5px;
     }
 
         .twoBtns div.active {
-            background: #FF4A47;
+            border-radius: 12px;
+            background: #8B85C1;
         }
 
 .addPermissionBtn {
