@@ -25,6 +25,22 @@ a {
     margin-top: 25px;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #D4CDF4; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #B9ACEC; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B85C1; 
+}
+
 .notificationBadge {
     border-radius: 50%;
     background-color: #FF4A47;
