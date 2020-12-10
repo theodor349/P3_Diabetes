@@ -783,13 +783,14 @@ input.small {
 
     .twoBtns div {
         cursor: pointer;
-        background: transparent;
+        background: #1F1F1F;
         border-radius: 12px;
         text-align: center;
         height: 34px;
         line-height: 34px;
         width: 50%;
         color: #eee;
+        margin: 5px;
     }
 
         .twoBtns div.active {
