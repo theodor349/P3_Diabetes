@@ -139,7 +139,7 @@ namespace API.Controllers
         public ActionResult AcceptPermissionRequest(IntValue id)
         {
             var p = _ph.Get(id.Value);
-            if (p == null || !(p.TargetID == UserId))
+            if (p == null || !(p.WatcherID == UserId))
                 return Forbid();
 
             if (_ph.AcceptPermissionRequest(id.Value) == 1)
