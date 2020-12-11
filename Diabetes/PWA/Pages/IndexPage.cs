@@ -116,7 +116,9 @@ namespace PWA.Pages
             var n = new NotificationData()
             {
                 Title = "Outdated Data",
-                Note = "Last update received " + curr.GetName() + " minutes ago",
+                Note = string.Format("Last update received for {0} received {1} minutes ago", 
+                    curr.GetName(), 
+                    (int)DateTime.Now.Subtract(curr.PumpData.LastReceived).TotalMinutes),
                 Type = NotificationType.Message,
                 IconClassName = "fa fa-wifi",
             };
