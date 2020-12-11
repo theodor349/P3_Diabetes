@@ -117,8 +117,8 @@ namespace APIDataAccess.DataAccess
                         }
                     }
                 }
-            } catch (Exception ex) {
-                throw ex;
+            } catch {
+                return false;
             }
         }
     }
