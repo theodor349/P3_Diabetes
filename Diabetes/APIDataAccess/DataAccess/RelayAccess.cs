@@ -13,6 +13,7 @@ namespace APIDataAccess.DataAccess
         public float GetBloodGlucose(string NSLink)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/entries/current");
+            request.Credentials = CredentialCache.DefaultCredentials;
 
             using (WebResponse response = request.GetResponse()) {
                 using (Stream dataStream = response.GetResponseStream()) {
@@ -27,6 +28,7 @@ namespace APIDataAccess.DataAccess
         public float GetBatteryStatus(string NSLink)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/devicestatus");
+            request.Credentials = CredentialCache.DefaultCredentials;
 
             using (WebResponse response = request.GetResponse()) {
                 using (Stream dataStream = response.GetResponseStream()) {
@@ -42,6 +44,7 @@ namespace APIDataAccess.DataAccess
         public int GetInsulinStatus(string NSLink, float maxReservoir)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/devicestatus");
+            request.Credentials = CredentialCache.DefaultCredentials;
 
             using (WebResponse response = request.GetResponse()) {
                 using (Stream dataStream = response.GetResponseStream()) {
@@ -76,6 +79,7 @@ namespace APIDataAccess.DataAccess
         public PumpDataModel.ArrowDirection GetStatus(string NSLink)
         {
             WebRequest request = WebRequest.Create(NSLink + "/api/v1/entries/current");
+            request.Credentials = CredentialCache.DefaultCredentials;
 
             using (WebResponse response = request.GetResponse()) {
                 using (Stream dataStream = response.GetResponseStream()) {

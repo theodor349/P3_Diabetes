@@ -7,6 +7,10 @@ namespace APIDataAccess.Models.Account
 {
     public class UpdateAccountDBModel
     {
+        public UpdateAccountDBModel()
+        {
+
+        }
         public UpdateAccountDBModel(string id, string firstname, string lastname, string phoneNumber)
         {
             Id = id;
