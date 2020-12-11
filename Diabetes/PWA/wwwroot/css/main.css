@@ -838,6 +838,10 @@ input.small {
     user-select: none;
 }
 
+    .addPermissionBtn:active {
+        background: #7E77BB;
+    }
+
 
 .center{
     text-align: center;
