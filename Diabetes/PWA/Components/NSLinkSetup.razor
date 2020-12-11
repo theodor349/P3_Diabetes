@@ -48,25 +48,19 @@ else
         link = user.NSLink;
     }
 
-    private async Task<bool> IsValidConnection(string link)
-    {
-        return await Network.TestNSLink(link);
-    }
-
     private async Task RemoveLink()
     {
-        await Network.UpdateNSLink("");
+        if(await Network.UpdateNSLink("")) {
+            user.NSLink = "";
+        }
     }
 
     private async Task HandleValidSubmit()
     {
-        if (await IsValidConnection(link))
-        {
-            user.NSLink = link;
-            await Network.UpdateNSLink(link);
-        }
-        else
-        {
+        string newNSLink = link.Trim().Trim('/');
+        if (!string.IsNullOrWhiteSpace(newNSLink) && await Network.UpdateNSLink(newNSLink)) {
+            user.NSLink = newNSLink;
+        } else {
             showBadConnection = true;
         }
     }

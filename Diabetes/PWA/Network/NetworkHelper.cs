@@ -217,26 +217,15 @@ namespace PWA.Network
 
         public async Task<bool> TestNSLink(string link)
         {
-            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Permission/RequestPermission", link))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<bool>();
-                }
-                else
-                {
-                    throw new Exception();
-                }
+            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Account/TestNightScoutLink", new StringValue(link))) {
+                return response.IsSuccessStatusCode;
             }
         }
 
-        public async Task UpdateNSLink(string link)
+        public async Task<bool> UpdateNSLink(string link)
         {
-            using (HttpResponseMessage response = await _client.PostAsJsonAsync("api/Account/UpdateNightScoutLink", link))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                }
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Account/UpdateNightScoutLink", new StringValue(link))) {
+                return response.IsSuccessStatusCode;
             }
         }
     }

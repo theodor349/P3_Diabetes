@@ -17,6 +17,6 @@ namespace PWA.Network
         Task<LoginUser> Login(LoginCredential credential);
         Task SendRequest(RequestPermissionAPIModel request);
         Task<bool> TestNSLink(string link);
-        Task UpdateNSLink(string link);
+        Task<bool> UpdateNSLink(string link);
     }
 }
