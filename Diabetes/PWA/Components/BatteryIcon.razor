@@ -1,22 +1,22 @@
 ﻿@if (BatteryStatus > 0.80f)
 {
-    <i class="fa fa-battery-4"></i>
+    <i class="fas fa-battery-full"></i>
 }
 else if (BatteryStatus > 0.60f)
 {
-    <i class="fa fa-battery-3"></i>
+    <i class="fas fa-battery-three-quarters"></i>
 }
 else if (BatteryStatus > 0.35f)
 {
-    <i class="fa fa-battery-2"></i>
+    <i class="fas fa-battery-half"></i>
 }
 else if (BatteryStatus > 0.10f)
 {
-    <i class="fa fa-battery-1"></i>
+    <i class="fas fa-battery-quarter"></i>
 }
 else
 {
-    <i class="fa fa-battery-0"></i>
+    <i class="fas fa-battery-empty"></i>
 }
 
 @code {

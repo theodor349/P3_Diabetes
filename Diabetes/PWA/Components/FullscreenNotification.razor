@@ -1,5 +1,4 @@
-﻿@inject IJSRuntime JS
-<div class="notificationBox largeMargin">
+﻿<div class="notificationBox largeMargin">
 
 	<h1><i class="@notificationData.Data.IconClassName"></i></h1>
 	<h2>@notificationData.Data.Note</h2>
@@ -23,9 +22,4 @@
 	[Parameter] public ActiveNotification notificationData { get; set; }
 	[Parameter] public EventCallback<NotificationButtonType> notificationButtonClicked { get; set; }
 	[Parameter] public bool Render { get; set; }
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-			await JS.InvokeVoidAsync("updateIcons");
-		}
 	}

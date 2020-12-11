@@ -229,6 +229,10 @@ header h1 {
     cursor: pointer;
 }
 
+    .overviewContainer > div > a > div img{
+        max-width: 30px;
+    }
+
 .overviewContainer > div > div.high {
     background: #CD2100;
 }
@@ -249,8 +253,10 @@ header h1 {
 
 .overviewContainer div div div {
     display: flex;
-    height: 30px;
     border-top: none;
+    padding-bottom: 4px;
+    justify-content: space-around;
+    padding-left: 6px;
 }
 
     .overviewContainer div div div div {
@@ -261,12 +267,7 @@ header h1 {
             margin: 0 auto;
         }
 
-        .overviewContainer div div div div.bloodGlucose i {
-            margin: 0 auto 0 0;
-        }
-
         .overviewContainer div div div div.bloodGlucose p {
-            margin: 0 5px 0 auto;
             line-height: 0.8em;
             font-weight: bold;
         }
@@ -952,4 +953,14 @@ p.text {
 
     .editAccount .deleteAccBtn{
 
+    }
+
+.arrowIcon {
+    width: 13px;
+    height: 13px;
+    display: block;
+}
+    .detailedMainView .arrowIcon {
+        width: 26px;
+        height: 26px;
     }

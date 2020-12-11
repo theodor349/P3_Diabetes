@@ -79,6 +79,7 @@ namespace PWA.Network
                                 Note = "You need to make sure Tais Hors consumes some insulin",
                                 Threshold = 10.0f,
                                 ThresholdType = ThresholdType.High,
+                                IconClassName = "fas fa-syringe"
                             },
                             new NotificationData()
                             {
@@ -87,6 +88,7 @@ namespace PWA.Network
                                 Note = "You need to make sure Tais Hors consumes a juice",
                                 Threshold = 4.0f,
                                 ThresholdType = ThresholdType.Low,
+                                IconClassName = "fas fa-cubes"
                             }
                         }
                     },
@@ -112,6 +114,7 @@ namespace PWA.Network
                                 Note = "You need to make sure Theodor Risager consumes some insulin",
                                 Threshold = 10.0f,
                                 ThresholdType = ThresholdType.High,
+                                IconClassName = "fas fa-syringe"
                             },
                             new NotificationData()
                             {
@@ -120,6 +123,7 @@ namespace PWA.Network
                                 Note = "You need to make sure Theodor Risager consumes a juice",
                                 Threshold = 4.0f,
                                 ThresholdType = ThresholdType.Low,
+                                IconClassName = "fas fa-cubes"
                             }
                         }
                     }

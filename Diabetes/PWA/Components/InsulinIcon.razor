@@ -1,6 +1,24 @@
-﻿<h3>InsulinIcon</h3>
-
+﻿@if (InsulinStatus > 0.80f)
+{
+    <i class="fas fa-thermometer-full"></i>
+}
+else if (InsulinStatus > 0.60f)
+{
+    <i class="fas fa-thermometer-three-quarters"></i>
+}
+else if (InsulinStatus > 0.35f)
+{
+    <i class="fas fa-thermometer-half"></i>
+}
+else if (InsulinStatus > 0.10f)
+{
+    <i class="fas fa-thermometer-quarter"></i>
+}
+else
+{
+    <i class="fas fa-thermometer-empty"></i>
+}
 
 @code {
-
+    [Parameter] public float InsulinStatus { get; set; }
 }
