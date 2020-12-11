@@ -33,7 +33,7 @@
             {
                 @foreach (var subject in Subjects.Values)
                 {
-                    <SmallDetailComponent Subject="subject" TargetSubjectChanged="TargetSubjectChanged"></SmallDetailComponent>
+                    <SmallDetailComponent Subject="subject" User="User" TargetSubjectChanged="TargetSubjectChanged"></SmallDetailComponent>
                 }
             }
         </div>
@@ -49,6 +49,7 @@ else if (page == 1)
     [Parameter] public EventCallback<string> TargetSubjectChanged { get; set; }
     [Parameter] public Dictionary<string, ActiveNotification> notifications { get; set; }
     [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
+    [Parameter] public LoginUser User { get; set; }
 
     private int page = 0;
 

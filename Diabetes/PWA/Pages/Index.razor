@@ -13,7 +13,7 @@
     {
         @if (page == 1)
         {
-            <OverView Subjects="subjects" TargetSubjectChanged="NewTargetSubject" notifications="activeNotifications" notificationClicked="NotificationClicked"></OverView>
+            <OverView Subjects="subjects" User="loggedInUser" TargetSubjectChanged="NewTargetSubject" notifications="activeNotifications" notificationClicked="NotificationClicked"></OverView>
         }
         else if (page == 2)
         {
@@ -21,7 +21,7 @@
         }
         else
         {
-            <Details subject="targetSubject" activeNotifications="activeNotifications" notificationClicked="NotificationClicked"></Details>
+            <Details subject="targetSubject" activeNotifications="activeNotifications" notificationClicked="NotificationClicked" User="loggedInUser"></Details>
         }
 
         <section class="navMenu">

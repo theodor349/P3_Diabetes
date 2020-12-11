@@ -1,0 +1,19 @@
+﻿<div>
+    @if (isEU)
+    {
+        <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
+    }
+    else
+    {
+        <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+    }
+</div>
+@code {
+    [Parameter] public bool isEU { get; set; }
+    [Parameter] public float EUValue { get; set; }
+
+    private float FromEU(float v)
+    {
+        return v * 18;
+    }
+}

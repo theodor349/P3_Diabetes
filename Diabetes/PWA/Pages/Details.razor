@@ -5,7 +5,7 @@
     <header class="profileName">
         <h1>@subject.FirstName @subject.LastName</h1>
     </header>
-    <StatsContainer NotificationDatas="subject.NotificationDatas" data="subject.PumpData"></StatsContainer>
+    <StatsContainer NotificationDatas="subject.NotificationDatas" data="subject.PumpData" isEU="User.UnitOfMeasure"></StatsContainer>
 
     <div class="detailSettings">
         @if (isNote)
@@ -52,6 +52,7 @@ else
     [Parameter] public Dictionary<string, ActiveNotification> activeNotifications { get; set; }
     [Parameter] public EventCallback<ActiveNotification> notificationClicked { get; set; }
     private bool isNote = true;
+    [Parameter] public LoginUser User { get; set; }
 
     public async Task SetViewToNotes()
     {

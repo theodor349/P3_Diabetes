@@ -71,6 +71,6 @@ namespace API.Controllers
                 }
             }
             return new SubjectList() { Subjects = results };
-        }
+        } 
     }
 }

@@ -73,7 +73,7 @@ namespace APIDataAccess.DataAccess
         public bool GetUnitOfMeasure(string id)
         {
             var model = Get(id);
-            return model.IsEUMeasure;
+            return model.UnitOfMeasure;
         }
 
         public void UpdateUnitOfMeasure(UpdateUnitOfMesureModel model)
