@@ -156,6 +156,13 @@ namespace API.Tests
             var userPrincipal = new Mock<IUserClaimsPrincipalFactory<IdentityUser>>();
             var signInManager = new SignInManager<IdentityUser>(userManager, contextAccessor.Object, userPrincipal.Object, null, null, null, null);
 
+            accountHandler.GetByPhoneNumber("phoneNumber").Returns(new AccountDBModel()
+            {
+                Id = "1",
+                FirstName = "something",
+                LastName = "Something else"
+            });
+
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
             accountController.GetByPhoneNumber("phoneNumber");

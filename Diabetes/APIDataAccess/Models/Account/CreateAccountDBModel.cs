@@ -7,10 +7,6 @@ namespace APIDataAccess.Models.Account
 {
     public class CreateAccountDBModel
     {
-        public CreateAccountDBModel()
-        {
-
-        }
         public CreateAccountDBModel(string firstName, string lastName, string email, string phoneNumber, string password, string nSLink, bool isEUMeasure)
         {
             FirstName = firstName;
