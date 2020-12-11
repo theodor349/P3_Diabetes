@@ -125,9 +125,9 @@ namespace PWA.Network
                         foreach (var n in s.NotificationDatas)
                         {
                             if (n.ThresholdType == ThresholdType.Low)
-                                n.IconClassName = "far fa-water-lower";
+                                n.IconClassName = "fas fa-apple-alt";
                             else
-                                n.IconClassName = "fad fa-water-rise";
+                                n.IconClassName = "fas fa-syringe";
                         }
                     }
                     return res;

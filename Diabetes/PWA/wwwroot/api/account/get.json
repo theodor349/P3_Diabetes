@@ -17,7 +17,7 @@
           "Type": 0,
           "Title": "High Blood Sugar",
           "Note": "You need to make sure Tais Hors consumes some insulin",
-          "IconClassName": "fa fa-thermometer-quarter",
+          "IconClassName": "fas fa-syringe",
           "Threshold": 10.0,
           "ThresholdType": 1
         },
@@ -26,7 +26,7 @@
           "Type": 1,
           "Title": "Low Blood Sugar",
           "Note": "You need to make sure Tais Hors consumes a juice",
-          "IconClassName": "fa fa-thermometer-quarter",
+          "IconClassName": "fas fa-apple-alt",
           "Threshold": 4.0,
           "ThresholdType": 0
         }
@@ -49,7 +49,7 @@
           "Type": 0,
           "Title": "High Blood Sugar",
           "Note": "You need to make sure Theodor Risager consumes some insulin",
-          "IconClassName": "fa fa-thermometer-quarter",
+          "IconClassName": "fas fa-syringe",
           "Threshold": 11.0,
           "ThresholdType": 1
         },
@@ -58,7 +58,7 @@
           "Type": 1,
           "Title": "Low Blood Sugar",
           "Note": "You need to make sure Theodor Risager consumes a juice",
-          "IconClassName": "fa fa-thermometer-quarter",
+          "IconClassName": "fas fa-apple-alt",
           "Threshold": 3.5,
           "ThresholdType": 0
         }

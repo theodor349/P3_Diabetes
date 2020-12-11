@@ -1,27 +1,25 @@
-﻿@inject IJSRuntime JS
-
-@switch (Status)
+﻿@switch (Status)
 {
     case ArrowDirection.SingleUp:
         <i class="fas fa-long-arrow-alt-up"></i>
         break;
     case ArrowDirection.DoubleUp:
-        <img class="logoImg" src="/img/doublearrow45up.svg" alt="">
+        <i class="fas fa-long-arrow-alt-up"></i>
         break;
     case ArrowDirection.SingleDown:
         <i class="fas fa-long-arrow-alt-down"></i>
         break;
     case ArrowDirection.DoubleDown:
-        <img class="logoImg" src="/img/doublearrow45down.svg" alt="">
+        <i class="fas fa-long-arrow-alt-down"></i>
         break;
     case ArrowDirection.Flat:
         <i class="fas fa-long-arrow-alt-right"></i>
         break;
     case ArrowDirection.FortyFiveUp:
-        <img class="logoImg" src="/img/singlearrow45up.svg" alt="">
+        <img class="arrowIcon" src="/img/singlearrow45up.svg" alt="">
         break;
     case ArrowDirection.FortyFiveDown:
-        <img class="logoImg" src="/img/singlearrow45down.svg" alt="">
+        <img class="arrowIcon" src="/img/singlearrow45down.svg" alt="">
         break;
     case ArrowDirection.Null:
         break;
@@ -31,11 +29,4 @@
 
 @code {
     [Parameter] public ArrowDirection Status { get; set; }
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JS.InvokeVoidAsync("updateIcons");
-        }
-    }
 }

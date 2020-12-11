@@ -97,7 +97,7 @@ namespace PWA.Pages
                 Title = "Battery Low",
                 Note = curr.GetName() + "'s battery is low",
                 Type = NotificationType.Message,
-                IconClassName = "fa fa-battery-0",
+                IconClassName = "fas fa-battery-empty",
             };
             var an = new ActiveNotification()
             {
@@ -144,7 +144,7 @@ namespace PWA.Pages
                 Title = "Insulin Low",
                 Note = curr.GetName() + "'s pump is low on insulin",
                 Type = NotificationType.Message,
-                IconClassName = "fi-xnluxl-temperature-low",
+                IconClassName = "fas fa-thermometer-empty",
             };
             var an = new ActiveNotification()
             {

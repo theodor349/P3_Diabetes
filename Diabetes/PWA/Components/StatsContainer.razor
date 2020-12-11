@@ -5,11 +5,15 @@
             <div>
                 <BatteryIcon BatteryStatus="data.BatteryStatus"></BatteryIcon>
             </div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus)%</p>
+            @*Times 100 to "convert" float to %*@
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100)%</p>
         </div>
         <div>
-            <div> <i class="fa fa-thermometer-half"></i> </div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus)%</p>
+            <div>
+                <InsulinIcon InsulinStatus="data.InsulinStatus"></InsulinIcon>
+            </div>
+            @*Times 100 to "convert" float to %*@
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus * 100)%</p>
         </div>
     </div>
 
