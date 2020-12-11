@@ -5,15 +5,13 @@
             <div>
                 <BatteryIcon BatteryStatus="data.BatteryStatus"></BatteryIcon>
             </div>
-            @*Times 100 to "convert" float to %*@
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100)%</p>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus)%</p>
         </div>
         <div>
             <div>
                 <InsulinIcon InsulinStatus="data.InsulinStatus"></InsulinIcon>
             </div>
-            @*Times 100 to "convert" float to %*@
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus * 100)%</p>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus)%</p>
         </div>
     </div>
 

@@ -65,6 +65,7 @@ namespace API.Controllers
                     ExpireDate = x.ExpireDate,
                     IsOwner = UserId == x.TargetID,
                     TargetId = x.TargetID,
+                    WatcherId = x.WatcherID,
                     Battery = attributes.HasFlag(AttributeFlags.Battery),
                     Insulin = attributes.HasFlag(AttributeFlags.Insulin),
                     BloodGlucose = attributes.HasFlag(AttributeFlags.BloodGlucose),

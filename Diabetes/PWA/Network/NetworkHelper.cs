@@ -10,7 +10,7 @@ namespace PWA.Network
     class AuthenticatedUser
     {
         public string Access_Token { get; set; }
-        public string UserName { get; set; }
+        public string ID { get; set; }
     }
 
     public class NetworkHelper : INetworkHelper
@@ -92,6 +92,7 @@ namespace PWA.Network
                     res.AddRange((await response.Content.ReadAsAsync<Permissions>()).PermissionList);
             }
             res = RemoveDuble(res, x => x.Id);
+            res.ForEach(x => x.IsSelf = (x.WatcherId.Equals(_user.UserID) && x.TargetId.Equals(_user.UserID)));
             return res;
         }
 
@@ -121,7 +122,7 @@ namespace PWA.Network
                     var res = await response.Content.ReadAsAsync<SubjectList>();
                     foreach (var s in res.Subjects)
                     {
-                            foreach (var n in s.NotificationDatas)
+                        foreach (var n in s.NotificationDatas)
                         {
                             if (n.ThresholdType == ThresholdType.Low)
                                 n.IconClassName = "fas fa-apple-alt";
@@ -141,10 +142,10 @@ namespace PWA.Network
             var authData = await Authenticate(credential);
             if (string.IsNullOrWhiteSpace(authData.Item1))
                 return null;
-            var data = await GetUserData();
-            data.Token = authData.Item1;
-            data.UserID = authData.Item2;
-            return data;
+            _user = await GetUserData();
+            _user.Token = authData.Item1;
+            _user.UserID = authData.Item2;
+            return _user;
         }
 
         private async Task<LoginUser> GetUserData()
@@ -173,7 +174,7 @@ namespace PWA.Network
                 {
                     var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
                     SetupHeader(result.Access_Token);
-                    return new Tuple<string, string>(result.Access_Token, result.UserName);
+                    return new Tuple<string, string>(result.Access_Token, result.ID);
                 }
                 else
                 {

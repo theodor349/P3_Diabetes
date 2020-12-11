@@ -82,7 +82,7 @@ namespace API.Controllers
             var output = new
             {
                 Access_Token = new JwtSecurityTokenHandler().WriteToken(token),
-                UserName = username,
+                ID = user.Id,
             };
             return output;
         }
