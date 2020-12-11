@@ -503,6 +503,7 @@ header h1 {
     border: none;
     cursor: pointer;
     font-variant: all-small-caps;
+    user-select: none;
 }
 
 form .notificationBtn {
@@ -689,6 +690,7 @@ textarea {
     padding: 1px;
     margin-top: 0;
     background: none;
+    user-select: none;
 }
 
 .registerBtn {
@@ -698,6 +700,7 @@ textarea {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     color: #333;
+    user-select: none;
 }
 
 .loginBox {
@@ -783,6 +786,7 @@ input.small {
     margin-top: 20px;
     background: transparent;
     border-radius: 12px;
+    user-select: none;
 }
     .twoBtns.toggleable {
         background: #1F1F1F;
@@ -818,6 +822,10 @@ input.small {
                     background: #8B85C1;
                 }
 
+                    .twoBtns div:active {
+                        background: #7E77BB;
+                    }
+
 .addPermissionBtn {
     background: #8B85C1;
     padding: 6px 0;
@@ -827,6 +835,7 @@ input.small {
     cursor: pointer;
     text-align: center;
     width: 281px;
+    user-select: none;
 }
 
 
@@ -848,7 +857,12 @@ input.small {
     line-height: 35px;
     width: 50%;
     cursor: pointer;
+    user-select: none;
 }
+
+    .addNsLinkBtn:active {
+        background: #FF3633;
+    }
 
 .badConnection {
     text-align: center;
