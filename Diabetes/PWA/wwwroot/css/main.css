@@ -30,15 +30,15 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #D4CDF4; 
+  background: #D4CDF4;
 }
- 
+
 ::-webkit-scrollbar-thumb {
-  background: #B9ACEC; 
+  background: #B9ACEC;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B85C1; 
+  background: #8B85C1;
 }
 
 .notificationBadge {
@@ -79,18 +79,22 @@ header h1 {
         height: 40px;
         background-color: #333;
     }
+
     .permissionContainer .scrollbar .collapsible .buttons {
         display: flex;
         height: 40px;
     }
+
         .permissionContainer .scrollbar .collapsible .buttons .accept {
             width: 50%;
             background: #555;
         }
+
         .permissionContainer .scrollbar .collapsible .buttons .decline {
             width: 50%;
             background-color: #CD2100;
         }
+
         .permissionContainer .scrollbar .collapsible .buttons p {
             text-align: center;
             padding: 10px;
@@ -164,7 +168,7 @@ header h1 {
         }
 
         .currentNotifications div div:last-child {
-            
+
         }
 
     .currentNotifications .warning {
@@ -229,6 +233,10 @@ header h1 {
     cursor: pointer;
 }
 
+    .overviewContainer > div > a > div img{
+        max-width: 30px;
+    }
+
 .overviewContainer > div > div.high {
     background: #CD2100;
 }
@@ -238,9 +246,10 @@ header h1 {
     box-shadow: 0 0 25px #DB6C61 inset;
 }
 
-.overviewContainer > div > div.stabile {
-    /*    background: #3EA9CE; */
+.overviewContainer > div > a > div.unStable {
+    background: #FF4A47;
 }
+
 
 .overviewContainer h3 {
     margin: 0 auto;
@@ -249,8 +258,10 @@ header h1 {
 
 .overviewContainer div div div {
     display: flex;
-    height: 30px;
     border-top: none;
+    padding-bottom: 4px;
+    justify-content: space-around;
+    padding-left: 6px;
 }
 
     .overviewContainer div div div div {
@@ -261,12 +272,7 @@ header h1 {
             margin: 0 auto;
         }
 
-        .overviewContainer div div div div.bloodGlucose i {
-            margin: 0 auto 0 0;
-        }
-
         .overviewContainer div div div div.bloodGlucose p {
-            margin: 0 5px 0 auto;
             line-height: 0.8em;
             font-weight: bold;
         }
@@ -505,6 +511,10 @@ header h1 {
     user-select: none;
 }
 
+    .notificationBtn:active {
+        background: #7E77BB;
+    }
+
 form .notificationBtn {
     margin: 30px auto 11px;
 }
@@ -702,6 +712,10 @@ textarea {
     user-select: none;
 }
 
+    .registerBtn:active {
+        background: #C6BCF0;
+    }
+
 .loginBox {
     padding-top: 20px;
 }
@@ -717,7 +731,7 @@ textarea {
 }
 
 .connectionMananger {
-    
+
 }
 
     .connectionMananger .subjects {
@@ -837,6 +851,10 @@ input.small {
     user-select: none;
 }
 
+    .addPermissionBtn:active {
+        background: #7E77BB;
+    }
+
 
 .center{
     text-align: center;
@@ -950,7 +968,7 @@ p.text {
         }
 
 .request {
-    
+
 }
 
 .manageWatcherTitle.dark{
@@ -967,3 +985,46 @@ p.text {
     .editAccount .deleteAccBtn{
 
     }
+
+.arrowIcon {
+    width: 13px;
+    height: 13px;
+    display: block;
+}
+    .detailedMainView .arrowIcon {
+        width: 26px;
+        height: 26px;
+    }
+
+.BSnotes {
+    margin: 5px;
+
+}
+
+.SaveNotesBtn {
+    background: #8B85C1;
+    padding: 6px 0;
+    color: #eee;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 270px;
+    user-select: none;
+    margin: 20px 0px 0px 0px;
+}
+
+.submissionfield {
+    width: 200px;
+    height: 100px;
+    padding: 5px;
+}
+
+.NSBox {
+    height: 395px;
+    overflow: auto;
+}
+
+p.unStable {
+    color: #FF4A47;
+}

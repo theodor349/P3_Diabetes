@@ -1,16 +1,32 @@
 ﻿<div>
     @if (isEU)
     {
-        <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
+        if (IsOutOfThreshold)
+        {
+            <p class="unStable">@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
+        }
+        else
+        {
+            <p class="stable">@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
+        }
     }
     else
     {
-        <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+        if (IsOutOfThreshold)
+        {
+            <p class="unStable">@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+        }
+        else
+        {
+            <p class="stable">@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+        }
     }
 </div>
 @code {
     [Parameter] public bool isEU { get; set; }
     [Parameter] public float EUValue { get; set; }
+    [Parameter] public bool IsOutOfThreshold { get; set; }
+
 
     private float FromEU(float v)
     {

@@ -97,7 +97,7 @@ namespace PWA.Pages
                 Title = "Battery Low",
                 Note = curr.GetName() + "'s battery is low",
                 Type = NotificationType.Message,
-                IconClassName = "fa fa-battery-0",
+                IconClassName = "fas fa-battery-empty",
             };
             var an = new ActiveNotification()
             {
@@ -116,9 +116,11 @@ namespace PWA.Pages
             var n = new NotificationData()
             {
                 Title = "Outdated Data",
-                Note = "Last update received " + curr.GetName() + " minutes ago",
+                Note = string.Format("Last update received for {0} received {1} minutes ago", 
+                    curr.GetName(), 
+                    (int)DateTime.Now.Subtract(curr.PumpData.LastReceived).TotalMinutes),
                 Type = NotificationType.Message,
-                IconClassName = "fa fa-wifi",
+                IconClassName = "fas fa-clock",
             };
             var an = new ActiveNotification()
             {
@@ -144,7 +146,7 @@ namespace PWA.Pages
                 Title = "Insulin Low",
                 Note = curr.GetName() + "'s pump is low on insulin",
                 Type = NotificationType.Message,
-                IconClassName = "fi-xnluxl-temperature-low",
+                IconClassName = "fas fa-thermometer-empty",
             };
             var an = new ActiveNotification()
             {
