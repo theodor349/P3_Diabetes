@@ -1,18 +1,33 @@
 ﻿@inject IJSRuntime JS
 
-@if (Status == ArrowDirection.SingleUp)
+@switch (Status)
 {
-    <i class="fi-xwluxl-arrow-corner-wide"> </i>
+    case ArrowDirection.SingleUp:
+        <i class="fas fa-long-arrow-alt-up"></i>
+        break;
+    case ArrowDirection.DoubleUp:
+        <img class="logoImg" src="/img/doublearrow45up.svg" alt="">
+        break;
+    case ArrowDirection.SingleDown:
+        <i class="fas fa-long-arrow-alt-down"></i>
+        break;
+    case ArrowDirection.DoubleDown:
+        <img class="logoImg" src="/img/doublearrow45down.svg" alt="">
+        break;
+    case ArrowDirection.Flat:
+        <i class="fas fa-long-arrow-alt-right"></i>
+        break;
+    case ArrowDirection.FortyFiveUp:
+        <img class="logoImg" src="/img/singlearrow45up.svg" alt="">
+        break;
+    case ArrowDirection.FortyFiveDown:
+        <img class="logoImg" src="/img/singlearrow45down.svg" alt="">
+        break;
+    case ArrowDirection.Null:
+        break;
+    default:
+        break;
 }
-else if (Status == ArrowDirection.SingleDown)
-{
-    <i class="fi-xwlrxl-arrow-corner-wide"> </i>
-}
-else
-{
-    <i class="fi-xnlrxl-arrow"> </i>
-}
-
 
 @code {
     [Parameter] public ArrowDirection Status { get; set; }

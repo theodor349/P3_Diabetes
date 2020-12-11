@@ -15,7 +15,14 @@
 
     <div class="detailedMainView">
         <div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", data.BloodGlucose)</p>
+            @if (isEU)
+            {
+                <p>@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", data.BloodGlucose)</p>
+            }
+            else
+            {
+                <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BloodGlucose)</p>
+            }
         </div>
         <div>
             <div>
@@ -32,6 +39,7 @@
 @code {
     [Parameter] public PumpData data { get; set; }
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
+    [Parameter] public bool isEU { get; set; }
 
     private int Minutes(DateTime lastRecieved)
     {
