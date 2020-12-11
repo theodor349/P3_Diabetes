@@ -30,15 +30,15 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #D4CDF4; 
+  background: #D4CDF4;
 }
- 
+
 ::-webkit-scrollbar-thumb {
-  background: #B9ACEC; 
+  background: #B9ACEC;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B85C1; 
+  background: #8B85C1;
 }
 
 .notificationBadge {
@@ -168,7 +168,7 @@ header h1 {
         }
 
         .currentNotifications div div:last-child {
-            
+
         }
 
     .currentNotifications .warning {
@@ -246,9 +246,10 @@ header h1 {
     box-shadow: 0 0 25px #DB6C61 inset;
 }
 
-.overviewContainer > div > div.stabile {
-    /*    background: #3EA9CE; */
+.overviewContainer > div > a > div.unStable {
+    background: #FF4A47;
 }
+
 
 .overviewContainer h3 {
     margin: 0 auto;
@@ -730,7 +731,7 @@ textarea {
 }
 
 .connectionMananger {
-    
+
 }
 
     .connectionMananger .subjects {
@@ -967,7 +968,7 @@ p.text {
         }
 
 .request {
-    
+
 }
 
 .manageWatcherTitle.dark{
@@ -1023,4 +1024,3 @@ p.text {
     height: 395px;
     overflow: auto;
 }
-
