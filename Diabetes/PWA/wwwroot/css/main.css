@@ -1024,3 +1024,7 @@ p.text {
     height: 395px;
     overflow: auto;
 }
+
+p.unStable {
+    color: #FF4A47;
+}
