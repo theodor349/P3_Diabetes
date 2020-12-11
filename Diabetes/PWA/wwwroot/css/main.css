@@ -79,18 +79,22 @@ header h1 {
         height: 40px;
         background-color: #333;
     }
+
     .permissionContainer .scrollbar .collapsible .buttons {
         display: flex;
         height: 40px;
     }
+
         .permissionContainer .scrollbar .collapsible .buttons .accept {
             width: 50%;
             background: #555;
         }
+
         .permissionContainer .scrollbar .collapsible .buttons .decline {
             width: 50%;
             background-color: #CD2100;
         }
+
         .permissionContainer .scrollbar .collapsible .buttons p {
             text-align: center;
             padding: 10px;
@@ -506,6 +510,10 @@ header h1 {
     user-select: none;
 }
 
+    .notificationBtn:active {
+        background: #7E77BB;
+    }
+
 form .notificationBtn {
     margin: 30px auto 11px;
 }
@@ -702,6 +710,10 @@ textarea {
     color: #333;
     user-select: none;
 }
+
+    .registerBtn:active {
+        background: #C6BCF0;
+    }
 
 .loginBox {
     padding-top: 20px;
@@ -982,3 +994,33 @@ p.text {
         width: 26px;
         height: 26px;
     }
+
+.BSnotes {
+    margin: 5px;
+
+}
+
+.SaveNotesBtn {
+    background: #8B85C1;
+    padding: 6px 0;
+    color: #eee;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    width: 270px;
+    user-select: none;
+    margin: 20px 0px 0px 0px;
+}
+
+.submissionfield {
+    width: 200px;
+    height: 100px;
+    padding: 5px;
+}
+
+.NSBox {
+    height: 395px;
+    overflow: auto;
+}
+
