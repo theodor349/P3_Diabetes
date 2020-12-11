@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+*.sqlproj
+
 # User-specific files
 *.rsuser
 *.suo
@@ -348,3 +350,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Diabetes/API/Data/Migrations/20201211134059_Aut.Designer.cs
+/Diabetes/API/Data/Migrations/20201211134059_Aut.cs
