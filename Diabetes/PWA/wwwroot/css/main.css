@@ -825,7 +825,7 @@ input.small {
     border: none;
     cursor: pointer;
     text-align: center;
-    width: 272px;
+    width: 281px;
 }
 
 
@@ -942,3 +942,14 @@ p.text {
 .manageWatcherTitle.dark{
     background-color: #333;
 }
+
+.editAccount label{
+    display:block;
+}
+    .editAccount button{
+
+    }
+
+    .editAccount .deleteAccBtn{
+
+    }
