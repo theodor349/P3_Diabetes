@@ -195,16 +195,16 @@ namespace PWA.Network
             return false;
         }
 
-        public async Task UpdateNSLink(string link)
-        {
-        }
-
         public async Task EditPermission(Permission p)
         {
         }
 
         public Task<PublicAccountModel> GetByPhoneNumber(string phoneNumber)
         {
+            throw new NotImplementedException();
+        }
+
+        Task<bool> INetworkHelper.UpdateNSLink(string link) {
             throw new NotImplementedException();
         }
     }

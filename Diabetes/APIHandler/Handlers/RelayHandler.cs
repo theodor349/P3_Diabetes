@@ -53,8 +53,15 @@ namespace APIHandler.Handlers
             }
 
             pumpDataModel.LastReceived = GetLastReceived(NSLink);
+            ToEU(pumpDataModel.BloodGlucose);
+            pumpDataModel.BloodGlucose = ToEU(pumpDataModel.BloodGlucose);
 
             return pumpDataModel;
+        }
+
+        private float ToEU(float v)
+        {
+            return v / 18;
         }
 
         [Flags]

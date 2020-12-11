@@ -12,6 +12,7 @@ namespace PWA.Models
         public string Email { get; set; }
         public string NSLink { get; set; }
         public string UserID { get; set; }
+        public bool UnitOfMeasure { get; set; }
         public string Token { get; set; }
 
         public string GetName()
