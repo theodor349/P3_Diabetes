@@ -8,6 +8,7 @@ namespace API.Models
     public class Permission
     {
         public int Id { get; set; }
+        public string WatcherId { get; set; }
         public string TargetId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
