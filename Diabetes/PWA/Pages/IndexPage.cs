@@ -218,8 +218,10 @@ namespace PWA.Pages
             if (type == NotificationButtonType.Dismiss)
                 activeNotifications.Remove(n.ToString());
 
-            if (focusedNotifications.Count != 0 && focusedNotifications.Peek()?.Active == false)
+            //Remove all inactive notifications from focusedNotifications
+            while (focusedNotifications.Count > 0 && focusedNotifications.Peek()?.Active == false) {
                 focusedNotifications.Pop();
+            }
         }
 
         public void NotificationClicked(ActiveNotification data)

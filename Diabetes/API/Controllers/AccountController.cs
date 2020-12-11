@@ -116,11 +116,17 @@ namespace API.Controllers
             return _accountHandler.PhoneNumberExists(phoneNumber.Value);
         }
 
+        [HttpPost]
+        [Route("TestNightScoutLink")]
+        public bool TestNightScoutLink(StringValue link) {
+            return _relayHandler.ConnectionOk(link.Value);
+        }
+
         [HttpPut]
         [Route("UpdateNightScoutLink")]
         public ActionResult UpdateNightScoutLink(StringValue url)
         {
-            if (_relayHandler.ConnectionOk(url.Value))
+            if (string.IsNullOrWhiteSpace(url.Value) || _relayHandler.ConnectionOk(url.Value))
             {
                 _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url.Value});
                 return Ok();

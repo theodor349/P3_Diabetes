@@ -105,25 +105,21 @@ namespace APIDataAccess.DataAccess
 
         public bool ConnectionOk(string NSLink)
         {
-            WebRequest request = WebRequest.Create(NSLink + "/api/v1/status.json");
-            request.Credentials = CredentialCache.DefaultCredentials;
+            try {
+                WebRequest request = WebRequest.Create(NSLink + "/api/v1/status.json");
+                request.Credentials = CredentialCache.DefaultCredentials;
 
-            using (WebResponse response = request.GetResponse())
-            {
-                using (Stream dataStream = response.GetResponseStream())
-                {
-                    using (StreamReader reader = new StreamReader(dataStream))
-                    {
-                        dynamic json = JsonConvert.DeserializeObject<object>(reader.ReadToEnd());
-                        return ((string)json["status"]).Equals("ok");
+                using (WebResponse response = request.GetResponse()) {
+                    using (Stream dataStream = response.GetResponseStream()) {
+                        using (StreamReader reader = new StreamReader(dataStream)) {
+                            dynamic json = JsonConvert.DeserializeObject<object>(reader.ReadToEnd());
+                            return ((string)json["status"]).Equals("ok");
+                        }
                     }
                 }
+            } catch {
+                return false;
             }
         }
-
-
-
-
-
     }
 }
