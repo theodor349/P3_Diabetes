@@ -110,12 +110,13 @@ namespace PWA.Pages
             HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f);
         }
 
+        private int minThreshold = 30;
         private void ConnectionNotification(Subject old, Subject curr)
         {
             var n = new NotificationData()
             {
-                Title = "Connection is old",
-                Note = "Data from " + curr.GetName() + "'s pump is old",
+                Title = "Outdated Data",
+                Note = "Last update received " + curr.GetName() + " minutes ago",
                 Type = NotificationType.Message,
                 IconClassName = "fa fa-wifi",
             };
@@ -127,7 +128,13 @@ namespace PWA.Pages
                 Id = "Connection",
             };
 
-            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.Minutes > 30);
+            HandleActiveNotificatio(an, old, curr, (x) => Minutes(x.PumpData.LastReceived) > minThreshold);
+        }
+
+        private int Minutes(DateTime lastRecieved)
+        {
+            var diff = DateTime.Now - lastRecieved;
+            return diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
         }
 
         private void InsulinNotification(Subject old, Subject curr)
@@ -155,6 +162,8 @@ namespace PWA.Pages
             var notificationEvent = CreateOrRemoveNotification(old, curr, func);
             if (notificationEvent == NotificationEvent.Create)
             {
+                if (!notification.Id.Equals("Connection") && Minutes(curr.PumpData.LastReceived) > minThreshold)
+                    return;
                 AddActiveNotification(notification.ToString(), notification);
             }
             else if (notificationEvent == NotificationEvent.Remove)

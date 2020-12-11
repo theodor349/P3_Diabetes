@@ -5,11 +5,11 @@
             <div>
                 <BatteryIcon BatteryStatus="data.BatteryStatus"></BatteryIcon>
             </div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus * 100f)%</p>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus)%</p>
         </div>
         <div>
             <div> <i class="fa fa-thermometer-half"></i> </div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus * 100f)%</p>
+            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus)%</p>
         </div>
     </div>
 
@@ -19,10 +19,10 @@
         </div>
         <div>
             <div>
-                <p>@(data.Minutes)m</p>
+                <p style="@(Minutes(data.LastReceived)> 30 ? "color: Red" : "")">@(Minutes(data.LastReceived))m</p>
             </div>
             <div>
-                <DeltaIcon Delta="data.Delta"></DeltaIcon>
+                <DeltaIcon Status="data.Status"></DeltaIcon>
             </div>
         </div>
     </div>
@@ -32,6 +32,12 @@
 @code {
     [Parameter] public PumpData data { get; set; }
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
+
+    private int Minutes(DateTime lastRecieved)
+    {
+        var diff = DateTime.Now - lastRecieved;
+        return diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
+    }
 
     private string GetStatusMessage()
     {

@@ -66,9 +66,9 @@ namespace PWA.Network
                         {
                             BloodGlucose = 1 + bgAdd,
                             BatteryStatus = 0.04f,
-                            Delta = 0.6f,
+                            Status = ArrowDirection.DoubleDown,
                             InsulinStatus = 0.1f,
-                            Minutes = 6,
+                            LastReceived = DateTime.Now.AddMinutes(-5),
                         },
                         NotificationDatas = new List<NotificationData>()
                         {
@@ -99,9 +99,9 @@ namespace PWA.Network
                         {
                             BloodGlucose = 3 + bgAdd,
                             BatteryStatus = 0.8f,
-                            Delta = 0.1f,
+                            Status = ArrowDirection.DoubleUp,
                             InsulinStatus = 0.6f,
-                            Minutes = 1,
+                            LastReceived = DateTime.Now.AddMinutes(-20),
                         },
                         NotificationDatas = new List<NotificationData>()
                         {
