@@ -242,9 +242,10 @@ header h1 {
     box-shadow: 0 0 25px #DB6C61 inset;
 }
 
-.overviewContainer > div > div.stabile {
-    /*    background: #3EA9CE; */
+.overviewContainer > div > a > div.unStable {
+    background: #FF4A47;
 }
+
 
 .overviewContainer h3 {
     margin: 0 auto;
@@ -978,3 +979,7 @@ p.text {
         width: 26px;
         height: 26px;
     }
+
+p.unStable{
+    color: #FF4A47;
+}

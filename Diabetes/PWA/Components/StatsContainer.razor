@@ -16,7 +16,7 @@
     </div>
 
     <div class="detailedMainView">
-        <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose"></BloodGlucoseNumber>
+        <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()"></BloodGlucoseNumber>
         <div>
             <div>
                 <p style="@(Minutes(data.LastReceived)> 30 ? "color: Red" : "")">@(Minutes(data.LastReceived))m</p>
@@ -66,5 +66,26 @@
             }
         }
         return r;
+    }
+    private bool IsOutOfThreshold() {
+        bool IsOutOfThreshold = false;
+        foreach (var n in NotificationDatas)
+        {
+            if (n.ThresholdType == ThresholdType.High)
+            {
+                if (data.BloodGlucose > n.Threshold)
+                {
+                    IsOutOfThreshold = true;
+                }
+            }
+            else
+            {
+                if (data.BloodGlucose < n.Threshold)
+                {
+                    IsOutOfThreshold = true;
+                }
+            }
+        }
+        return IsOutOfThreshold;
     }
 }

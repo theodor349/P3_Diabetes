@@ -1,7 +1,7 @@
 ﻿@if (Subject != null)
 {
     <a>
-        <div class="stabile" @onclick="ChangeTarget">
+        <div class="@StabilityString()" @onclick="ChangeTarget">
             <h3>@Subject.GetName()</h3>
             <div>
                 <div class="bloodGlucose"> 
@@ -12,7 +12,7 @@
                     <BatteryIcon BatteryStatus="Subject.PumpData.BatteryStatus"></BatteryIcon>
                 </div>
                 <div>
-                    <i class="fa fa-thermometer-half"></i>
+                    <InsulinIcon InsulinStatus="Subject.PumpData.InsulinStatus"></InsulinIcon>
                 </div>
             </div>
         </div>
@@ -26,5 +26,38 @@
     private void ChangeTarget()
     {
         TargetSubjectChanged.InvokeAsync(Subject.ID);
+    }
+    private bool IsOutOfThreshold()
+    {
+        bool IsOutOfThreshold = false;
+        foreach (var n in Subject.NotificationDatas)
+        {
+            if (n.ThresholdType == ThresholdType.High)
+            {
+                if (Subject.PumpData.BloodGlucose > n.Threshold)
+                {
+                    IsOutOfThreshold = true;
+                }
+            }
+            else
+            {
+                if (Subject.PumpData.BloodGlucose < n.Threshold)
+                {
+                    IsOutOfThreshold = true;
+                }
+            }
+        }
+        return IsOutOfThreshold;
+    }
+    private string StabilityString()
+    {
+        if (IsOutOfThreshold())
+        {
+            return "unStable";
+        }
+        else
+        {
+            return "stable";
+        }
     }
 }

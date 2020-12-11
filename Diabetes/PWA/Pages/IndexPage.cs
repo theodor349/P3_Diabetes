@@ -118,7 +118,7 @@ namespace PWA.Pages
                 Title = "Outdated Data",
                 Note = "Last update received " + curr.GetName() + " minutes ago",
                 Type = NotificationType.Message,
-                IconClassName = "fa fa-wifi",
+                IconClassName = "fas fa-clock",
             };
             var an = new ActiveNotification()
             {
