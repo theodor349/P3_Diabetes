@@ -34,11 +34,6 @@
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
     [Parameter] public bool isEU { get; set; }
 
-    protected override void OnParametersSet()
-    {
-        Console.WriteLine(isEU);
-    }
-
     private int Minutes(DateTime lastRecieved)
     {
         var diff = DateTime.Now - lastRecieved;

@@ -70,7 +70,7 @@ namespace APIDataAccess.DataAccess
                         TimeSpan time = TimeSpan.FromMilliseconds(ticks);
                         DateTime date = new DateTime(1970, 1, 1) + time;
 
-                        return date;
+                        return date.AddHours(1);
                     }
                 }
             }
