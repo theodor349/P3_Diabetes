@@ -32,27 +32,29 @@
         <div class="addNsLinkBtn" @onclick="RemoveLink">
             <p>Remove</p>
         </div>
-        <hr />
+        <hr class="NShr"/>
 
         <div class="BSnotes">
             <form>
                 <label for="HighBSNotes">High Blood Sugar Notes:</label><br />
                 <textarea class="submissionfield" type="text" id="HighBSNotes" placeholder="Write a custom note...">@highBGNote</textarea>
                 <p>High Blood Sugar Threshold:</p>
-                <input type="range" name="High" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
-                <output>10</output>
-                <br />
+                <div class="slidercontainer">
+                    <input type="range" class="slider" value="@sliderValueHigh" step="0.1" min="6.5" max="15" oninput="this.nextElementSibling.value = this.value">
+                    <output>@sliderValueHigh</output>
+                </div>
 
-                <label for="LowBSNotes">Low Blood Sugar Notes:</label><br />
+                <label for="LowBSNotes" style="margin-top:15px;">Low Blood Sugar Notes:</label><br />
                 <textarea class="submissionfield" style="margin-top: 5px;" type="text" id="LowBSNotes" placeholder="Write a custom note...">@lowBGNote</textarea>
                 <p>Low Blood Sugar Threshold:</p>
-                <input type="range" name="Low" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
-                <output>10</output>
-                <input class="SaveNotesBtn" type="submit" value="Save Notes">
+                <div class="slidercontainer">
+                    <input type="range" class="slider" value="@sliderValueLow" step="0.1" min="0" max="6.5" oninput="this.nextElementSibling.value = this.value">
+                    <output>@sliderValueLow</output>
+                </div>
+                <input class="SaveNotesBtn" type="submit" value="Save Settings">
             </form>
         </div>
     </div>
-</div>
 }
 
 
@@ -65,6 +67,8 @@
     [Parameter] public LoginUser user { get; set; }
     [Parameter] public string highBGNote { get; set; }
     [Parameter] public string lowBGNote { get; set; }
+    private float sliderValueLow = 3.5f;
+    private float sliderValueHigh = 11;
     private string link;
     private bool showBadConnection = false;
 
