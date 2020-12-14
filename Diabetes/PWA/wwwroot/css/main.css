@@ -387,6 +387,7 @@ header h1 {
     border-top: 4px solid #555;
     border-bottom: 4px solid #555;
     color: #ddd;
+    overflow: auto;
 }
 
     .notes div div {
@@ -759,6 +760,8 @@ textarea {
     }
     .addPermissionBox label {
         display: block;
+        margin-bottom: 0px;
+        margin-top: 5px;
     }
 
 
@@ -974,15 +977,32 @@ p.text {
     background-color: #333;
 }
 
-.editAccount label{
-    display:block;
+.editAccount {
+    overflow: auto;
+    height: 393px;
+    padding: 10px 0px;
 }
-    .editAccount button{
-
+    .editAccount label{
+        display:block;
+        margin-bottom: 0px;
+        margin-top: 5px;
+    }
+    .editAccount button {
+        margin: 0 0 30px 0;
     }
 
-    .editAccount .deleteAccBtn{
-
+    .editAccount .deleteAccBtn {
+        background: #FF4A47;
+        padding: 6px 0;
+        color: #eee;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        width: 270px;
+        user-select: none;
+        margin: 0px 0px 0px 0px;
+        border-radius: 5px;
     }
 
 .arrowIcon {
@@ -998,6 +1018,11 @@ p.text {
 .BSnotes {
     margin: 5px;
 }
+
+    .BSnotes p {
+        margin-top: 12px;
+        margin-bottom: 8px;
+    }
 
 .SaveNotesBtn {
     background: #8B85C1;
