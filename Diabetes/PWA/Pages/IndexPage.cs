@@ -230,5 +230,12 @@ namespace PWA.Pages
         {
             focusedNotifications.Push(data);
         }
+
+        public void AccountUpdated(LoginUser updatedUser) {
+            loggedInUser.FirstName = updatedUser.FirstName;
+            loggedInUser.LastName = updatedUser.LastName;
+            loggedInUser.Email = updatedUser.Email;
+            loggedInUser.UnitOfMeasure = updatedUser.UnitOfMeasure;
+        }
     }
 }

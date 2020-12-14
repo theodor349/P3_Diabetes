@@ -42,9 +42,9 @@ namespace APIDataAccess.DataAccess
             _sql.DeleteData(SpCommands.spAccount_DeleteAccount.ToString(), id, "DDB");
         }
 
-        public void UpdateAccount(UpdateAccountDBModel model)
+        public int UpdateAccount(UpdateAccountDBModel model)
         {
-            _sql.SaveData(SpCommands.spAccount_UpdateAccount.ToString(), model, "DDB");
+            return _sql.SaveData(SpCommands.spAccount_UpdateAccount.ToString(), model, "DDB");
         }
 
         public void UpdateNighScoutLink(UpdateNightScoutLinkModel model)

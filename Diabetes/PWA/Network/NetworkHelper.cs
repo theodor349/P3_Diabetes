@@ -171,7 +171,7 @@ namespace PWA.Network
             }
         }
 
-        private async Task<LoginUser> GetUserData()
+        public async Task<LoginUser> GetUserData()
         {
             using (HttpResponseMessage response = await _client.GetAsync("api/Account"))
             {
@@ -179,6 +179,18 @@ namespace PWA.Network
                     return await response.Content.ReadAsAsync<LoginUser>();
                 else
                     return null;
+            }
+        }
+
+        public async Task<bool> UpdateAccount(string firstName, string lastName, bool isEu) {
+            AccountUpdate update = new AccountUpdate {
+                FirstName = firstName,
+                LastName = lastName,
+                IsEU = isEu
+            };
+
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Account", update)) {
+                return response.IsSuccessStatusCode;
             }
         }
 

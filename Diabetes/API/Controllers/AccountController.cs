@@ -75,13 +75,13 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public ActionResult Update(UpdateAccountDBModel updatedUser)
+        public ActionResult Update(AccountUpdate update)
         {
-            updatedUser.Id = UserId;
+            UpdateAccountDBModel updatedUser = ConvertAccountUpdate(update);
             if (IsValidateModel(updatedUser))
             {
-                _accountHandler.UpdateAccount(updatedUser);
-                return Ok();
+                if(_accountHandler.UpdateAccount(updatedUser) == 1)
+                    return Ok();
             }
             return BadRequest();
         }
@@ -140,12 +140,21 @@ namespace API.Controllers
             }
         }
 
-        private bool IsValidateModel(UpdateAccountDBModel updateAccountDBModel)
+        private bool IsValidateModel(UpdateAccountDBModel update)
         {
-            if (updateAccountDBModel.Id == null && updateAccountDBModel.FirstName == null && updateAccountDBModel.LastName == null && updateAccountDBModel.PhoneNumber == null)
+            if (update.Id == null || update.FirstName == null || update.LastName == null)
                 return false;
             else
                 return true;
+        }
+
+        private UpdateAccountDBModel ConvertAccountUpdate(AccountUpdate update) {
+            return new UpdateAccountDBModel {
+                Id = UserId,
+                FirstName = update.FirstName,
+                LastName = update.LastName,
+                IsEU = update.IsEU
+            };
         }
     }
 }

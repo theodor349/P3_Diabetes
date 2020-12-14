@@ -13,11 +13,11 @@ namespace APIHandler.Handlers
         bool PhoneNumberExists(string phone);
         Task<bool> RegisterAccount(InputCreateAccountModel model);
         void UnregisterAccount(string id);
-        void UpdateAccount(UpdateAccountDBModel model);
         void UpdateNightScoutLink(UpdateNightScoutLinkModel model);
         void UpdateUnitOfMeasurement(UpdateUnitOfMesureModel model);
         AccountNameModel GetName(string id);
         string GetNightscoutLink(string id);
         float GetMaxReservoir(string id);
+        int UpdateAccount(UpdateAccountDBModel model);
     }
 }

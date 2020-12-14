@@ -219,5 +219,13 @@ namespace PWA.Network
         public Task<bool> UpdateNotificationSetting(int id, string note, float threshold, ThresholdType thresholdType, NotificationType notificationType) {
             throw new NotImplementedException();
         }
+
+        public Task<bool> UpdateAccount(string firstName, string lastName, bool isEu) {
+            throw new NotImplementedException();
+        }
+
+        public Task<LoginUser> GetUserData() {
+            throw new NotImplementedException();
+        }
     }
 }
