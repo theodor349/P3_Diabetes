@@ -768,7 +768,11 @@ textarea {
 .checkbox {
     width: 150px;
     display: flex;
-    margin: 0 auto;
+    margin: 5px auto;
+}
+
+.checkbox label {
+    margin-top: 0px;
 }
 
 .WeeksOfAccess {
@@ -784,6 +788,7 @@ textarea {
 
 input[type="checkbox"] {
     width: 20px;
+    margin-top: 4px;
 }
 
 input.small {
@@ -843,14 +848,16 @@ input.small {
 
 .addPermissionBtn {
     background: #8B85C1;
-    padding: 6px 0;
+    padding: 10px 0;
     color: #eee;
     font-size: 1em;
     border: none;
     cursor: pointer;
     text-align: center;
-    width: 281px;
+    width: 270px;
     user-select: none;
+    margin: 20px auto 10px;
+    border-radius: 5px;
 }
 
     .addPermissionBtn:active {
@@ -877,6 +884,7 @@ input.small {
     width: 50%;
     cursor: pointer;
     user-select: none;
+    border-radius: 5px;
 }
 
     .addNsLinkBtn:active {
@@ -1085,4 +1093,11 @@ p.unStable {
     background: #7E77BB;
     cursor: pointer;
     border-radius: 50px;
+}
+
+
+.loadingText {
+    font-size: 2em;
+    text-align: center;
+    padding-top: 200px;
 }

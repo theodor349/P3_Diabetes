@@ -19,7 +19,7 @@
         <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()"></BloodGlucoseNumber>
         <div>
             <div>
-                <p style="@(Minutes(data.LastReceived)> 30 ? "color: Red" : "")">@(Minutes(data.LastReceived))m</p>
+                <p style="@(Minutes(data.LastReceived)> 30 ? "color: #FF4A47" : "")">@(Minutes(data.LastReceived))m</p>
             </div>
             <div>
                 <DeltaIcon Status="data.Status"></DeltaIcon>
