@@ -387,6 +387,7 @@ header h1 {
     border-top: 4px solid #555;
     border-bottom: 4px solid #555;
     color: #ddd;
+    overflow: auto;
 }
 
     .notes div div {
@@ -998,6 +999,11 @@ p.text {
 .BSnotes {
     margin: 5px;
 }
+
+    .BSnotes p {
+        margin-top: 12px;
+        margin-bottom: 8px;
+    }
 
 .SaveNotesBtn {
     background: #8B85C1;
