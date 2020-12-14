@@ -32,61 +32,73 @@
         <div class="addNsLinkBtn" @onclick="RemoveLink">
             <p>Remove</p>
         </div>
-        <hr class="NShr"/>
+        <hr class="NShr" />
 
         <div class="BSnotes">
-            <form>
+            <EditForm Model="@nSettings">
                 <label for="HighBSNotes">High Blood Sugar Notes:</label><br />
-                <textarea class="submissionfield" type="text" id="HighBSNotes" placeholder="Write a custom note...">@highBGNote</textarea>
+                <InputTextArea @bind-Value="nSettings.noteHigh"></InputTextArea>
                 <p>High Blood Sugar Threshold:</p>
                 <div class="slidercontainer">
-                    <input type="range" class="slider" value="@sliderValueHigh" step="0.1" min="6.5" max="15" oninput="this.nextElementSibling.value = this.value">
-                    <output>@sliderValueHigh</output>
+                    <input type="range" class="slider" @bind="nSettings.thresholdHigh" step="0.1" min="6.5" max="15" oninput="this.nextElementSibling.value = this.value">
+                    <output>@nSettings.thresholdHigh</output>
                 </div>
 
                 <label for="LowBSNotes" style="margin-top:15px;">Low Blood Sugar Notes:</label><br />
-                <textarea class="submissionfield" style="margin-top: 5px;" type="text" id="LowBSNotes" placeholder="Write a custom note...">@lowBGNote</textarea>
+                <InputTextArea @bind-Value="nSettings.noteLow"></InputTextArea>
                 <p>Low Blood Sugar Threshold:</p>
                 <div class="slidercontainer">
-                    <input type="range" class="slider" value="@sliderValueLow" step="0.1" min="0" max="6.5" oninput="this.nextElementSibling.value = this.value">
-                    <output>@sliderValueLow</output>
+                    <input type="range" class="slider" @bind="nSettings.thresholdLow" step="0.1" min="0" max="6.5" oninput="this.nextElementSibling.value = this.value">
+                    <output>@nSettings.thresholdLow</output>
                 </div>
-                <input class="SaveNotesBtn" type="submit" value="Save Settings">
-            </form>
+                <input class="SaveNotesBtn" type="submit" value="Save Settings" @onclick="SaveNotificationSettings">
+            </EditForm>
         </div>
     </div>
 }
 
-
-
-
-
-
 @code {
-
     [Parameter] public LoginUser user { get; set; }
-    [Parameter] public string highBGNote { get; set; }
-    [Parameter] public string lowBGNote { get; set; }
-    private float sliderValueLow = 3.5f;
-    private float sliderValueHigh = 11;
     private string link;
     private bool showBadConnection = false;
 
+    class NotificationSettings {
+        public float thresholdLow;
+        public float thresholdHigh;
+        public string noteLow;
+        public string noteHigh;
+    }
+    NotificationSettings nSettings = new NotificationSettings();
+    private int idLow;
+    private int idHigh;
+
     protected override async Task OnInitializedAsync() {
         link = user.NSLink;
-        GetNotificationSettings();
+        await GetNotificationSettings();
     }
 
-    private async void GetNotificationSettings() {
+    private async Task GetNotificationSettings() {
         if (!string.IsNullOrWhiteSpace(link)) {
             var notificationSettings = await Network.GetNotificationSettings(user.UserID);
             foreach (NotificationData nData in notificationSettings) {
-                if (nData.ThresholdType == ThresholdType.High)
-                    highBGNote = nData.Note;
-                if (nData.ThresholdType == ThresholdType.Low)
-                    lowBGNote = nData.Note;
+                if (nData.ThresholdType == ThresholdType.High) {
+                    nSettings.thresholdHigh = nData.Threshold;
+                    nSettings.noteHigh = nData.Note;
+                    idHigh = nData.ID;
+                }
+
+                if (nData.ThresholdType == ThresholdType.Low) {
+                    nSettings.thresholdLow = nData.Threshold;
+                    nSettings.noteLow = nData.Note;
+                    idLow = nData.ID;
+                }
             }
         }
+    }
+
+    private async Task SaveNotificationSettings() {
+        await Network.UpdateNotificationSetting(idLow, nSettings.noteLow, nSettings.thresholdLow, ThresholdType.Low, NotificationType.Warning);
+        await Network.UpdateNotificationSetting(idHigh, nSettings.noteHigh, nSettings.thresholdHigh, ThresholdType.High, NotificationType.Warning);
     }
 
     private async Task RemoveLink() {

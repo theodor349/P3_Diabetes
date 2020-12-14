@@ -215,5 +215,9 @@ namespace PWA.Network
         public Task<List<NotificationData>> GetNotificationSettings(string userID) {
             throw new NotImplementedException();
         }
+
+        public Task<bool> UpdateNotificationSetting(int id, string note, float threshold, ThresholdType thresholdType, NotificationType notificationType) {
+            throw new NotImplementedException();
+        }
     }
 }

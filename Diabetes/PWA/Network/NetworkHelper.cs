@@ -157,6 +157,20 @@ namespace PWA.Network
             return res;
         }
 
+        public async Task<bool> UpdateNotificationSetting(int id, string note, float threshold, ThresholdType thresholdType, NotificationType notificationType) {
+            NotificationUpdate update = new NotificationUpdate {
+                ID = id,
+                Note = note,
+                Threshold = threshold,
+                ThresholdType = thresholdType,
+                Type = notificationType
+            };
+
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/NotificationSetting", update)) {
+                return response.IsSuccessStatusCode;
+            }
+        }
+
         private async Task<LoginUser> GetUserData()
         {
             using (HttpResponseMessage response = await _client.GetAsync("api/Account"))
@@ -258,5 +272,12 @@ namespace PWA.Network
             Value = value;
         }
         public int Value { get; set; }
+    }
+
+    public class FloatValue {
+        public FloatValue(float value) {
+            Value = value;
+        }
+        public float Value { get; set; }
     }
 }

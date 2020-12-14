@@ -18,6 +18,7 @@ namespace PWA.Network
         Task<LoginUser> Login(LoginCredential credential);
         Task SendRequest(RequestPermissionAPIModel request);
         Task<bool> TestNSLink(string link);
+        Task<bool> UpdateNotificationSetting(int id, string note, float threshold, ThresholdType thresholdType, NotificationType notificationType);
         Task<bool> UpdateNSLink(string link);
     }
 }
