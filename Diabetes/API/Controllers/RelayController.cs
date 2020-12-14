@@ -67,7 +67,7 @@ namespace API.Controllers
                         LastName = name.LastName,
                         PumpData = pumpData,
                         NotificationDatas = notificationSettings
-                    }); ;
+                    });
                 }
             }
             return new SubjectList() { Subjects = results };

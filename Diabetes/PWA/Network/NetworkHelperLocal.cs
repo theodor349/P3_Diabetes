@@ -211,5 +211,9 @@ namespace PWA.Network
         Task<bool> INetworkHelper.UpdateNSLink(string link) {
             throw new NotImplementedException();
         }
+
+        public Task<List<NotificationData>> GetNotificationSettings(string userID) {
+            throw new NotImplementedException();
+        }
     }
 }

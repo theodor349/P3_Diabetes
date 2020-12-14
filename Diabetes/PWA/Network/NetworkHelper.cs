@@ -148,6 +148,15 @@ namespace PWA.Network
             return _user;
         }
 
+        public async Task<List<NotificationData>> GetNotificationSettings(string userID) {
+            var res = new List<NotificationData>();
+            using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/NotificationSetting/GetNotificationSettings", new StringValue(userID))) {
+                if (response.IsSuccessStatusCode)
+                    res.AddRange((await response.Content.ReadAsAsync<NotificationDataList>()).NotificationDatas);
+            }
+            return res;
+        }
+
         private async Task<LoginUser> GetUserData()
         {
             using (HttpResponseMessage response = await _client.GetAsync("api/Account"))
