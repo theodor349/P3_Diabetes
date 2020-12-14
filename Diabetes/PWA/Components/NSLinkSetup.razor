@@ -51,7 +51,7 @@
                     <input type="range" class="slider" @bind="nSettings.thresholdLow" step="0.1" min="0" max="6.5" oninput="this.nextElementSibling.value = this.value">
                     <output>@nSettings.thresholdLow</output>
                 </div>
-                <input class="SaveNotesBtn" type="submit" value="Save Settings" @onclick="SaveNotificationSettings">
+                <input class="SaveNotesBtn" type="submit" value="Save" @onclick="SaveNotificationSettings">
             </EditForm>
         </div>
     </div>
