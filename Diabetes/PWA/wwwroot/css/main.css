@@ -57,7 +57,7 @@ a {
 
 header.profileName {
     /*margin-bottom: 10px;*/
-    background: #D4CDF4;
+    background: #AB9BE8;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding-bottom: 15px;
@@ -998,7 +998,6 @@ p.text {
 
 .BSnotes {
     margin: 5px;
-
 }
 
 .SaveNotesBtn {
@@ -1012,7 +1011,12 @@ p.text {
     width: 270px;
     user-select: none;
     margin: 20px 0px 0px 0px;
+    border-radius: 5px;
 }
+
+    .SaveNotesBtn:active {
+        background: #7E77BB;
+    }
 
 .submissionfield {
     width: 200px;
@@ -1021,10 +1025,14 @@ p.text {
 }
 
 .NSBox {
-    height: 395px;
+    height: 394px;
     overflow: auto;
 }
 
 p.unStable {
     color: #FF4A47;
+}
+
+.NShr {
+    border: 2px solid #555;
 }

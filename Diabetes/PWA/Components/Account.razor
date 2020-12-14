@@ -1,13 +1,23 @@
-﻿<div class="editAccount" >
+﻿<div class="editAccount">
     <form>
         <label>First Name</label>
         <input type="text" placeholder="@user.FirstName"/>
         <label>Last Name</label>
         <input type="text" placeholder="@user.LastName"/>
-        <label>Phone Number</label>
-        @*<input type="number" placeholder="@user.PhoneNumber"/>*@
         <label>Email</label>
         <input type="email" placeholder="@user.Email"/>
+        <div class="twoBtns toggleable">
+        @if(GetIsEu())
+        {
+            <div class="active">mmol/L</div>
+            <div @onclick="() => isEu = false">mg/dL</div>
+        }
+        else
+        {
+            <div @onclick="() => isEu = true">mmol/L</div>
+            <div class="active">mg/dL</div>
+        }
+        </div>
         <button type="submit" value="Save Changes">Save Changes</button>
     </form>
     <div class="deleteAccBtn">
@@ -17,4 +27,24 @@
 
 @code {
     [Parameter] public LoginUser user { get; set; }
+
+    private bool isEu;
+    private bool load = true;
+
+    private bool GetIsEu()
+    {
+        if (load)
+        {
+            if (user.UnitOfMeasure)
+            {
+                isEu = true;
+            }
+            else
+            {
+                isEu = false;
+            }
+            load = false;
+        }
+        return isEu;
+    }
 }
