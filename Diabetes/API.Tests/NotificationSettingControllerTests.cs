@@ -6,7 +6,7 @@ using NSubstitute;
 using APIHandler.Handlers;
 using API.Controllers;
 using APIDataAccess.Models.NotificationSetting;
-
+using API.Models;
 
 namespace API.Tests
 {
@@ -21,7 +21,11 @@ namespace API.Tests
             var notificationSettingHandler = Substitute.For<INotificationSettingHandler>();
             NotificationSettingController notificationSettingController = new NotificationSettingController(notificationSettingHandler);
 
-            notificationSettingController.Get("userId");
+            StringValue userID = new StringValue {
+                Value = "userID"
+            };
+
+            notificationSettingController.Get(userID);
 
             notificationSettingHandler.Received(1).Get(Arg.Any<string>());
         }
