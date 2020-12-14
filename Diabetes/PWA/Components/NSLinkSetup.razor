@@ -36,16 +36,28 @@
 
         <div class="BSnotes">
             <form>
-                <label for="HighBSNotes">High Blood Sugar:</label><br />
+                <label for="HighBSNotes">High Blood Sugar Notes:</label><br />
                 <textarea class="submissionfield" type="text" id="HighBSNotes" placeholder="Write a custom note...">@highBGNote</textarea>
+                <p>High Blood Sugar Threshold:</p>
+                <input type="range" name="High" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
+                <output>10</output>
+                <br />
 
-                <label for="LowBSNotes">Low Blood Sugar:</label><br />
+                <label for="LowBSNotes">Low Blood Sugar Notes:</label><br />
                 <textarea class="submissionfield" style="margin-top: 5px;" type="text" id="LowBSNotes" placeholder="Write a custom note...">@lowBGNote</textarea>
+                <p>Low Blood Sugar Threshold:</p>
+                <input type="range" name="Low" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
+                <output>10</output>
                 <input class="SaveNotesBtn" type="submit" value="Save Notes">
             </form>
         </div>
     </div>
+</div>
 }
+
+
+
+
 
 
 @code {
