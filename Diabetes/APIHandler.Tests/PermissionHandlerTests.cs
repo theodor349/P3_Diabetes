@@ -41,11 +41,7 @@ namespace APIHandler.Tests {
         [TestMethod]
         public void GetPermissionAttributes_MultiplePermissions()
         {
-            var sql = Substitute.For<ISqlDataAccess>();
-            sql.LoadData<PermissionDBModel, dynamic>(SpCommands.spPermission_GetPermissionAttributes.ToString(), Arg.Any<object>(), "DDB").
-                Returns(new List<PermissionDBModel>() { new PermissionDBModel() });
-            var access = new PermissionAccess(sql);
-            var handler = new PermissionHandler(access);
+            var access = Substitute.For<IPermissionAccess>();
 
             PermissionDBModel perm1 = new PermissionDBModel
             {
@@ -55,7 +51,6 @@ namespace APIHandler.Tests {
                 Accepted = true,
                 Attributes = 1
             };
-
             PermissionDBModel perm2 = new PermissionDBModel
             {
                 TargetID = "2",
@@ -64,9 +59,10 @@ namespace APIHandler.Tests {
                 Accepted = true,
                 Attributes = 12
             };
+            List<PermissionDBModel> input = new List<PermissionDBModel>() { perm1, perm2 };
 
-            List<PermissionDBModel> perms = new List<PermissionDBModel>(){ perm1, perm2 };
-            var res = handler.GetPermissionAttributes(perms);
+            var handler = new PermissionHandler(access);
+            var res = handler.GetPermissionAttributes(input);
 
             Assert.AreEqual(13, res["2"]);
         }
