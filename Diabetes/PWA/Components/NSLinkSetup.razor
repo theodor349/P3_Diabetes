@@ -41,14 +41,26 @@ else
 
     <div class="BSnotes">
         <form class="NSForm">
-            <label for="HighBSNotes">High Blood Sugar:</label><br />
+            <label for="HighBSNotes">High Blood Sugar Notes:</label><br />
             <textarea class="submissionfield" type="text" id="LowBSNotes" placeholder="Insert personal notes..."></textarea>
+            <p>High Blood Sugar Threshold:</p>
+            <input type="range" name="High" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
+            <output>10</output>
 
-            <label for="LowBSNotes" style="margin-top:10px;">Low Blood Sugar:</label><br />
+            <label for="LowBSNotes" style="margin-top:10px;">Low Blood Sugar Notes:</label><br />
             <textarea class="submissionfield" type="text" id="LowBSNotes" placeholder="Insert personal notes..."></textarea>
+            <p>Low Blood Sugar Threshold:</p>
+            <input type="range" name="Low" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
+            <output>10</output>
 
             <input class="SaveNotesBtn" type="submit" value="Save Notes">
         </form>
+    </div>
+
+    <div>
+     
+     
+        
     </div>
 </div>
 }
