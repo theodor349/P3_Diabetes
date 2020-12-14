@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using API.Models;
 using APIDataAccess.Models.NotificationSetting;
 using APIHandler.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PWA.Models;
 
 namespace API.Controllers
 {
@@ -24,10 +26,11 @@ namespace API.Controllers
             _nsh = notificationSettingHandler;
         }
 
-        [HttpGet]
-        public List<NotificationSettingModel> Get(string userId)
+        [HttpPut]
+        [Route("GetNotificationSettings")]
+        public NotificationDataList Get(StringValue userId)
         {
-            return _nsh.Get(userId);
+            return ConvertNotificationSettings( _nsh.Get(userId.Value) );
         }
 
         [HttpPut]
@@ -57,6 +60,18 @@ namespace API.Controllers
             else
                 return BadRequest();
 #endif
+        }
+
+        private NotificationDataList ConvertNotificationSettings(List<NotificationSettingModel> notificationSettings) {
+            var data = notificationSettings.ConvertAll(x => {
+                var setting = new PWA.Models.NotificationData() {
+                    Type = (PWA.Models.NotificationType)x.NotificationType,
+                    ThresholdType = (PWA.Models.ThresholdType)x.ThresholdType,
+                    Note = x.Note,
+                };
+                return setting;
+            });
+            return new NotificationDataList() { NotificationDatas = data };
         }
 
         private bool IsValidateModel(UpdateNotificationSettingModel model)

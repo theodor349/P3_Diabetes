@@ -1,12 +1,10 @@
 ﻿@inject INetworkHelper Network
 
-@if (string.IsNullOrWhiteSpace(user.NSLink))
-{
+@if (string.IsNullOrWhiteSpace(user.NSLink)) {
     <EditForm Model="@link" OnValidSubmit="@HandleValidSubmit">
         @*<ValidationSummary />*@
         <br />
-        @if (showBadConnection)
-        {
+        @if (showBadConnection) {
             <div class="badConnection">
                 <label>Link not reachable</label>
             </div>
@@ -22,78 +20,82 @@
             <div class="addNsLinkBtn" @onclick="HandleValidSubmit">Submit</div>
         </div>
     </EditForm>
-}
-else
-{
-<div class="NSBox">
-    <br />
-    <div class="nsLinkLable">
-        <p>Nightscout link</p>
-    </div>
-    <div class="nsLink">
-        <p>@user.NSLink</p>
-    </div>
-    <div class="addNsLinkBtn" @onclick="RemoveLink">
-        <p>Remove</p>
-    </div>
+} else {
+    <div class="NSBox">
+        <br />
+        <div class="nsLinkLable">
+            <p>Nightscout link</p>
+        </div>
+        <div class="nsLink">
+            <p>@user.NSLink</p>
+        </div>
+        <div class="addNsLinkBtn" @onclick="RemoveLink">
+            <p>Remove</p>
+        </div>
+        <hr />
 
-    <hr class="NShr" />
+        <div class="BSnotes">
+            <form>
+                <label for="HighBSNotes">High Blood Sugar Notes:</label><br />
+                <textarea class="submissionfield" type="text" id="HighBSNotes" placeholder="Write a custom note...">@highBGNote</textarea>
+                <p>High Blood Sugar Threshold:</p>
+                <input type="range" name="High" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
+                <output>10</output>
+                <br />
 
-    <div class="BSnotes">
-        <form class="NSForm">
-            <label for="HighBSNotes">High Blood Sugar Notes:</label><br />
-            <textarea class="submissionfield" type="text" id="LowBSNotes" placeholder="Insert personal notes..."></textarea>
-            <p>High Blood Sugar Threshold:</p>
-            <input type="range" name="High" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
-            <output>10</output>
-
-            <label for="LowBSNotes" style="margin-top:10px;">Low Blood Sugar Notes:</label><br />
-            <textarea class="submissionfield" type="text" id="LowBSNotes" placeholder="Insert personal notes..."></textarea>
-            <p>Low Blood Sugar Threshold:</p>
-            <input type="range" name="Low" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
-            <output>10</output>
-
-            <input class="SaveNotesBtn" type="submit" value="Save Notes">
-        </form>
-    </div>
-
-    <div>
-     
-     
-        
+                <label for="LowBSNotes">Low Blood Sugar Notes:</label><br />
+                <textarea class="submissionfield" style="margin-top: 5px;" type="text" id="LowBSNotes" placeholder="Write a custom note...">@lowBGNote</textarea>
+                <p>Low Blood Sugar Threshold:</p>
+                <input type="range" name="Low" min="0" max="20" oninput="this.nextElementSibling.value = this.value">
+                <output>10</output>
+                <input class="SaveNotesBtn" type="submit" value="Save Notes">
+            </form>
+        </div>
     </div>
 </div>
 }
 
 
+
+
+
+
 @code {
 
     [Parameter] public LoginUser user { get; set; }
+    [Parameter] public string highBGNote { get; set; }
+    [Parameter] public string lowBGNote { get; set; }
     private string link;
     private bool showBadConnection = false;
 
-    protected override async Task OnInitializedAsync()
-    {
+    protected override async Task OnInitializedAsync() {
         link = user.NSLink;
+        GetNotificationSettings();
     }
 
-    private async Task RemoveLink()
-    {
-        if (await Network.UpdateNSLink(""))
-        {
+    private async void GetNotificationSettings() {
+        if (!string.IsNullOrWhiteSpace(link)) {
+            var notificationSettings = await Network.GetNotificationSettings(user.UserID);
+            foreach (NotificationData nData in notificationSettings) {
+                if (nData.ThresholdType == ThresholdType.High)
+                    highBGNote = nData.Note;
+                if (nData.ThresholdType == ThresholdType.Low)
+                    lowBGNote = nData.Note;
+            }
+        }
+    }
+
+    private async Task RemoveLink() {
+        if (await Network.UpdateNSLink("")) {
             user.NSLink = "";
         }
     }
 
-    private async Task HandleValidSubmit()
-    {
+    private async Task HandleValidSubmit() {
         string newNSLink = link.Trim().Trim('/');
-        if (!string.IsNullOrWhiteSpace(newNSLink) && await Network.UpdateNSLink(newNSLink))
-        {
+        if (!string.IsNullOrWhiteSpace(newNSLink) && await Network.UpdateNSLink(newNSLink)) {
             user.NSLink = newNSLink;
-        }
-        else
-        {
+        } else {
             showBadConnection = true;
         }
     }
