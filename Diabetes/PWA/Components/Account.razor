@@ -1,28 +1,27 @@
 ﻿<div class="editAccount">
     <form>
         <label>First Name</label>
-        <input type="text" placeholder="@user.FirstName"/>
+        <input type="text" placeholder="@user.FirstName" />
         <label>Last Name</label>
-        <input type="text" placeholder="@user.LastName"/>
+        <input type="text" placeholder="@user.LastName" />
         <label>Email</label>
-        <input type="email" placeholder="@user.Email"/>
+        <input type="email" placeholder="@user.Email" />
+
         <div class="twoBtns toggleable">
-        @if(GetIsEu())
-        {
-            <div class="active">mmol/L</div>
-            <div @onclick="() => isEu = false">mg/dL</div>
-        }
-        else
-        {
-            <div @onclick="() => isEu = true">mmol/L</div>
-            <div class="active">mg/dL</div>
-        }
+            @if (GetIsEu())
+            {
+                <div class="active">mmol/L</div>
+                <div @onclick="() => isEu = false">mg/dL</div>
+            }
+            else
+            {
+                <div @onclick="() => isEu = true">mmol/L</div>
+                <div class="active">mg/dL</div>
+            }
         </div>
-        <button type="submit" value="Save Changes">Save Changes</button>
+        <button type="button" class="SaveNotesBtn">Save Changes</button>
     </form>
-    <div class="deleteAccBtn">
-        Delete Account
-    </div>
+    <button type="button" value="Delete Account" class="deleteAccBtn">Delete Account</button>
 </div>
 
 @code {

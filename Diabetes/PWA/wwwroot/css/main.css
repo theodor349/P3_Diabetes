@@ -381,13 +381,13 @@ header h1 {
 
 .notes {
     background: #555;
-    overflow-y: scroll;
     height: 183px;
     box-sizing: border-box;
     text-align: left;
     border-top: 4px solid #555;
     border-bottom: 4px solid #555;
     color: #ddd;
+    overflow: auto;
 }
 
     .notes div div {
@@ -428,7 +428,7 @@ header h1 {
 .currentNotificationsDetails {
     box-sizing: border-box;
     background-color: #555;
-    height: 176px;
+    height: 183px;
     padding-top: 2px;
 }
 
@@ -975,15 +975,32 @@ p.text {
     background-color: #333;
 }
 
-.editAccount label{
-    display:block;
+.editAccount {
+    overflow: auto;
+    height: 393px;
+    padding: 10px 0px;
 }
-    .editAccount button{
-
+    .editAccount label{
+        display:block;
+        margin-bottom: 0px;
+        margin-top: 5px;
+    }
+    .editAccount button {
+        margin: 0 0 30px 0;
     }
 
-    .editAccount .deleteAccBtn{
-
+    .editAccount .deleteAccBtn {
+        background: #FF4A47;
+        padding: 6px 0;
+        color: #eee;
+        font-size: 1em;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        width: 270px;
+        user-select: none;
+        margin: 0px 0px 0px 0px;
+        border-radius: 5px;
     }
 
 .arrowIcon {
@@ -999,6 +1016,11 @@ p.text {
 .BSnotes {
     margin: 5px;
 }
+
+    .BSnotes p {
+        margin-top: 12px;
+        margin-bottom: 8px;
+    }
 
 .SaveNotesBtn {
     background: #8B85C1;
@@ -1035,4 +1057,30 @@ p.unStable {
 
 .NShr {
     border: 2px solid #555;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 165px;
+    height: 16px;
+    background: #C6BCF0;
+    outline: none;
+    padding: 0;
+    border-radius: 50px;
+}
+
+.slidercontainer {
+    display: flex;
+    width: 200px;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: #7E77BB;
+    cursor: pointer;
+    border-radius: 50px;
 }
