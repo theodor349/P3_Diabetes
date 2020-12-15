@@ -62,6 +62,8 @@ namespace API.Controllers
         {
             if (_accountHandler.EmailExists(model.Email))
                 return BadRequest();
+            if (_accountHandler.PhoneNumberExists(model.PhoneNumber))
+                return BadRequest();
 
             if (ModelState.IsValid)
             {
