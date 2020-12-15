@@ -98,12 +98,13 @@ namespace API.Controllers
         public PublicAccountModel GetByPhoneNumber(string phoneNumber)
         {
             var a = _accountHandler.GetByPhoneNumber(phoneNumber);
-            return new PublicAccountModel()
-            {
-                Id = a.Id,
-                FirstName = a.FirstName,
-                LastName = a.LastName,
-            };
+            var res = new PublicAccountModel();
+            if (a != null) {
+                res.Id = a.Id;
+                res.FirstName = a.FirstName;
+                res.LastName = a.LastName;
+            }
+            return res;
         }
 
         [HttpGet]
