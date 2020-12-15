@@ -84,9 +84,9 @@ namespace PWA.Pages
             };
             Func<Subject, bool> func = default;
             if (n.ThresholdType == ThresholdType.High)
-                func = (x) => x.PumpData.BloodGlucose > n.Threshold;
+                func = (x) => x.PumpData.BloodGlucose > n.Threshold && !Outdated(x.PumpData.LastReceived);
             else 
-                func = (x) => x.PumpData.BloodGlucose < n.Threshold;
+                func = (x) => x.PumpData.BloodGlucose < n.Threshold && !Outdated(x.PumpData.LastReceived);
             HandleActiveNotificatio(an, old, curr, func);
         }
 
@@ -107,7 +107,7 @@ namespace PWA.Pages
                 Id = "Battery",
             };
 
-            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f);
+            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f && !Outdated(x.PumpData.LastReceived));
         }
 
         private int minThreshold = 30;
@@ -130,7 +130,12 @@ namespace PWA.Pages
                 Id = "Connection",
             };
 
-            HandleActiveNotificatio(an, old, curr, (x) => Minutes(x.PumpData.LastReceived) > minThreshold);
+            HandleActiveNotificatio(an, old, curr, (x) => Outdated(x.PumpData.LastReceived));
+        }
+
+        private bool Outdated(DateTime date)
+        {
+            return Minutes(date) > minThreshold;
         }
 
         private int Minutes(DateTime lastRecieved)
@@ -156,7 +161,7 @@ namespace PWA.Pages
                 Id = "Insulin",
             };
 
-            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f);
+            HandleActiveNotificatio(an, old, curr, (x) => x.PumpData.BatteryStatus <= 0.5f && !Outdated(x.PumpData.LastReceived));
         }
 
         private void HandleActiveNotificatio(ActiveNotification notification, Subject old, Subject curr, Func<Subject, bool> func)
