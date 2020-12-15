@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\favicon.ico">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="wwwroot\Sounds\Next.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

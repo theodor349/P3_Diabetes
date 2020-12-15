@@ -39,22 +39,33 @@ namespace APIHandler.Handlers
             AttributeFlags attributeFlags = (AttributeFlags)attribute;
             PumpDataModel pumpDataModel = new PumpDataModel();
 
-            if (attributeFlags.HasFlag(AttributeFlags.BloodGlucose)) {
-                pumpDataModel.BloodGlucose = GetBloodGlucose(NSLink);
-                pumpDataModel.Status = GetStatus(NSLink);
-            }
+            try
+            {
+                if (attributeFlags.HasFlag(AttributeFlags.BloodGlucose))
+                {
+                    pumpDataModel.BloodGlucose = GetBloodGlucose(NSLink);
+                    pumpDataModel.Status = GetStatus(NSLink);
+                }
 
-            if (attributeFlags.HasFlag(AttributeFlags.Battery)) {
-                pumpDataModel.BatteryStatus = GetBatteryStatus(NSLink);
-            }
+                if (attributeFlags.HasFlag(AttributeFlags.Battery))
+                {
+                    pumpDataModel.BatteryStatus = GetBatteryStatus(NSLink);
+                }
 
-            if (attributeFlags.HasFlag(AttributeFlags.Insulin)) {
-                pumpDataModel.InsulinStatus = GetInsulinStatus(NSLink, maxReservoir);
-            }
+                if (attributeFlags.HasFlag(AttributeFlags.Insulin))
+                {
+                    pumpDataModel.InsulinStatus = GetInsulinStatus(NSLink, maxReservoir);
+                }
 
-            pumpDataModel.LastReceived = GetLastReceived(NSLink);
-            ToEU(pumpDataModel.BloodGlucose);
-            pumpDataModel.BloodGlucose = ToEU(pumpDataModel.BloodGlucose);
+                pumpDataModel.LastReceived = GetLastReceived(NSLink);
+
+            }
+            catch(Exception)
+            {
+                // Something went wrong so just return an empty pump data
+            }
+            if(pumpDataModel.BloodGlucose != -1)
+                pumpDataModel.BloodGlucose = ToEU(pumpDataModel.BloodGlucose);
 
             return pumpDataModel;
         }

@@ -7,9 +7,9 @@ namespace APIDataAccess.Models.Relay
 {
     public class PumpDataModel
     {
-        public float BloodGlucose { get; set; }
-        public float InsulinStatus { get; set; }
-        public float BatteryStatus { get; set; }
+        public float BloodGlucose { get; set; } = -1f;
+        public float InsulinStatus { get; set; } = -1f;
+        public float BatteryStatus { get; set; } = -1f;
         public DateTime LastReceived { get; set; }
         public ArrowDirection Status { get; set; }
 
