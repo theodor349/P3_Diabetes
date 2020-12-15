@@ -347,6 +347,7 @@ header h1 {
     .detailedSecondaryView div, .detailedSecondaryView p {
         display: inline-block;
         margin: 6px 0;
+        margin-left: 6px;
     }
 
 .bloodGlucoseStatus {
