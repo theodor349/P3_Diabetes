@@ -19,9 +19,13 @@ namespace PWA
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            var client = new HttpClient { BaseAddress = new Uri("https://localhost:5003") };
+            var url = "https://diabetesapi.azurewebsites.net";
+//#if DEBUG
+//            url = "https://localhost:5003";
+//#endif
+            var client = new HttpClient { BaseAddress = new Uri(url) };
             builder.Services.AddScoped(sp => client);
-            INetworkHelper network = new NetworkHelper(client, "https://localhost:5003");
+            INetworkHelper network = new NetworkHelper(client, url);
             builder.Services.AddScoped(sp => network);
 
             await builder.Build().RunAsync();
