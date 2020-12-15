@@ -1,16 +1,16 @@
-﻿@if (BatteryStatus > 0.80f)
+﻿@if (BatteryStatus > 80)
 {
     <i class="fas fa-battery-full"></i>
 }
-else if (BatteryStatus > 0.60f)
+else if (BatteryStatus > 60f)
 {
     <i class="fas fa-battery-three-quarters"></i>
 }
-else if (BatteryStatus > 0.35f)
+else if (BatteryStatus > 35f)
 {
     <i class="fas fa-battery-half"></i>
 }
-else if (BatteryStatus > 0.10f)
+else if (BatteryStatus > 10f)
 {
     <i class="fas fa-battery-quarter"></i>
 }
