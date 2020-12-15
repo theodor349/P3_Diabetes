@@ -4,9 +4,12 @@
         <div class="@StabilityString()" @onclick="ChangeTarget">
             <h3>@Subject.GetName()</h3>
             <div>
-                <div class="bloodGlucose"> 
-                    <BloodGlucoseNumber isEU="User.UnitOfMeasure" EUValue="Subject.PumpData.BloodGlucose"></BloodGlucoseNumber>
-                    <DeltaIcon Status="Subject.PumpData.Status"></DeltaIcon>
+                <div class="bloodGlucose">
+                    <BloodGlucoseNumber isEU="User.UnitOfMeasure" EUValue="Subject.PumpData.BloodGlucose" LastRecieved="Subject.PumpData.LastReceived"></BloodGlucoseNumber>
+                    @if (Subject.PumpData.BloodGlucose != -1)
+                    {
+                        <DeltaIcon Status="Subject.PumpData.Status"></DeltaIcon>
+                    }
                 </div>
                 <div>
                     <BatteryIcon BatteryStatus="Subject.PumpData.BatteryStatus"></BatteryIcon>

@@ -1,24 +1,31 @@
 ﻿<div>
-    @if (isEU)
+    @if (EUValue == -1 || (Minutes() > 30 && EUValue < 1))
     {
-        if (IsOutOfThreshold)
-        {
-            <p class="unStable">@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
-        }
-        else
-        {
-            <p class="stable">@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
-        }
+        <p>N/A</p>
     }
     else
     {
-        if (IsOutOfThreshold)
+        @if (isEU)
         {
-            <p class="unStable">@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+            if (IsOutOfThreshold)
+            {
+                <p class="unStable">@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
+            }
+            else
+            {
+                <p class="stable">@String.Format(CultureInfo.InvariantCulture, "{0:0.0}", EUValue)</p>
+            }
         }
         else
         {
-            <p class="stable">@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+            if (IsOutOfThreshold)
+            {
+                <p class="unStable">@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+            }
+            else
+            {
+                <p class="stable">@String.Format(CultureInfo.InvariantCulture, "{0:0}", FromEU(EUValue))</p>
+            }
         }
     }
 </div>
@@ -26,7 +33,13 @@
     [Parameter] public bool isEU { get; set; }
     [Parameter] public float EUValue { get; set; }
     [Parameter] public bool IsOutOfThreshold { get; set; }
+    [Parameter] public DateTime LastRecieved { get; set; }
 
+    private int Minutes () {
+        var diff = DateTime.Now - LastRecieved;
+        var minutes = diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
+        return minutes;
+    }
 
     private float FromEU(float v)
     {

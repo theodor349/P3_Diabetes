@@ -7,7 +7,7 @@
             </div>
             @if (data.BatteryStatus == -1)
             {
-                <p>@noValue</p>
+                <p> @noValue</p>
             }
             else
             {
@@ -20,7 +20,7 @@
             </div>
             @if (data.InsulinStatus == -1)
             {
-                <p>@noValue</p>
+                <p> @noValue</p>
             }
             else
             {
@@ -30,16 +30,7 @@
     </div>
 
     <div class="detailedMainView">
-        @if (data.BloodGlucose == -1)
-        {
-            <div>
-                <p>@noValue</p>
-            </div>
-        }
-        else
-        {
-            <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()"></BloodGlucoseNumber>
-        }
+        <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()" LastRecieved="data.LastReceived"></BloodGlucoseNumber>
         <div>
             <div>
                 <p style="@(Minutes(data.LastReceived) > 30 ? "color: #FF4A47" : "")">@(MinutesString(data.LastReceived))m</p>
@@ -59,7 +50,7 @@
     [Parameter] public PumpData data { get; set; }
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
     [Parameter] public bool isEU { get; set; }
-    private string noValue = "N/a";
+    private string noValue = "N/A";
 
     private int Minutes(DateTime lastRecieved)
     {
