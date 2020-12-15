@@ -54,7 +54,7 @@ namespace PWA.Network
 
         public async Task DeletePermission(int id)
         {
-            using (HttpResponseMessage response = await _client.DeleteAsync("api/Permission/" + id))
+            using (HttpResponseMessage response = await _client.DeleteAsync("api/Permission/Delete/" + id))
             {
                 if (response.IsSuccessStatusCode)
                 {

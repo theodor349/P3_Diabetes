@@ -112,13 +112,14 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public ActionResult Delete(IntValue id)
+        [Route("Delete/{id}")]
+        public ActionResult Delete(int id)
         {
-            var p = _ph.Get(id.Value);
+            var p = _ph.Get(id);
             if (p == null || !(p.TargetID == UserId || p.WatcherID == UserId))
                 return Forbid();
 
-            if (_ph.Delete(id.Value) == 1)
+            if (_ph.Delete(id) == 1)
                 return Ok();
             else
                 return NotFound();
@@ -156,7 +157,7 @@ namespace API.Controllers
             var p = _ph.Get(id.Value);
             if (p == null || !(p.TargetID == UserId || p.WatcherID == UserId))
                 return Forbid();
-            return Delete(id);
+            return Delete(id.Value);
         }
     }
 }
