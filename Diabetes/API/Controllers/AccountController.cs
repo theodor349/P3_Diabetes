@@ -79,6 +79,10 @@ namespace API.Controllers
         public ActionResult Update(AccountUpdate update)
         {
             UpdateAccountDBModel updatedUser = ConvertAccountUpdate(update);
+            if (string.IsNullOrWhiteSpace(updatedUser.FirstName) || 
+                string.IsNullOrWhiteSpace(updatedUser.LastName))
+                return BadRequest();
+
             if (IsValidateModel(updatedUser))
             {
                 if(_accountHandler.UpdateAccount(updatedUser) == 1)
