@@ -69,9 +69,6 @@ namespace API.Controllers
 
             if (ModelState.IsValid)
             {
-                if(!_relayHandler.ConnectionOk(model.NSLink))
-                    return BadRequest();
-
                 if (await _accountHandler.RegisterAccount(model))
                     return Ok();
             }
