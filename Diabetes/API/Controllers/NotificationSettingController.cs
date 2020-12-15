@@ -72,7 +72,7 @@ namespace API.Controllers
 
         private bool IsValidateModel(UpdateNotificationSettingModel model)
         {
-            return model.Note != null;
+            return string.IsNullOrWhiteSpace(model.Note) == false;
         }
 
         private UpdateNotificationSettingModel ConvertNotificationUpdate(NotificationUpdate setting) {
