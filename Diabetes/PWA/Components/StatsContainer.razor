@@ -5,24 +5,50 @@
             <div>
                 <BatteryIcon BatteryStatus="data.BatteryStatus"></BatteryIcon>
             </div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus)%</p>
+            @if (data.BatteryStatus == -1)
+            {
+                <p>@noValue</p>
+            }
+            else
+            {
+                <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.BatteryStatus)%</p>
+            }
         </div>
         <div>
             <div>
                 <InsulinIcon InsulinStatus="data.InsulinStatus"></InsulinIcon>
             </div>
-            <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus)%</p>
+            @if (data.InsulinStatus == -1)
+            {
+                <p>@noValue</p>
+            }
+            else
+            {
+                <p>@String.Format(CultureInfo.InvariantCulture, "{0:0}", data.InsulinStatus)%</p>
+            }
         </div>
     </div>
 
     <div class="detailedMainView">
-        <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()"></BloodGlucoseNumber>
+        @if (data.BloodGlucose == -1)
+        {
+            <div>
+                <p>@noValue</p>
+            </div>
+        }
+        else
+        {
+            <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()"></BloodGlucoseNumber>
+        }
         <div>
             <div>
-                <p style="@(Minutes(data.LastReceived)> 30 ? "color: #FF4A47" : "")">@(Minutes(data.LastReceived))m</p>
+                <p style="@(Minutes(data.LastReceived) > 30 ? "color: #FF4A47" : "")">@(MinutesString(data.LastReceived))m</p>
             </div>
             <div>
-                <DeltaIcon Status="data.Status"></DeltaIcon>
+                @if (data.BloodGlucose != -1)
+                {
+                    <DeltaIcon Status="data.Status"></DeltaIcon>
+                }
             </div>
         </div>
     </div>
@@ -33,11 +59,23 @@
     [Parameter] public PumpData data { get; set; }
     [Parameter] public List<NotificationData> NotificationDatas { get; set; }
     [Parameter] public bool isEU { get; set; }
+    private string noValue = "N/a";
 
     private int Minutes(DateTime lastRecieved)
     {
         var diff = DateTime.Now - lastRecieved;
-        return diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
+        var minutes = diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
+        return minutes;
+    }
+
+    private string MinutesString(DateTime lastRecieved)
+    {
+        var diff = DateTime.Now - lastRecieved;
+        var minutes = diff.Minutes + diff.Hours * 60 + diff.Days * 1440;
+        if (minutes > 99)
+            return ">99";
+        else
+            return minutes.ToString();
     }
 
     private string GetStatusMessage()
