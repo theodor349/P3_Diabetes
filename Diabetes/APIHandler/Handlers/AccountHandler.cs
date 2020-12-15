@@ -83,9 +83,9 @@ namespace APIHandler.Handlers
             throw new NotImplementedException();
         }
 
-        public void UpdateAccount(UpdateAccountDBModel model)
+        public int UpdateAccount(UpdateAccountDBModel model)
         {
-            _aa.UpdateAccount(model);
+            return _aa.UpdateAccount(model);
         }
 
         public void UpdateNightScoutLink(UpdateNightScoutLinkModel model)

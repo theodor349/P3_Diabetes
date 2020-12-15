@@ -1,49 +1,44 @@
-﻿<div class="editAccount">
+﻿@inject INetworkHelper Network
+
+<div class="editAccount">
     <form>
         <label>First Name</label>
-        <input type="text" placeholder="@user.FirstName" />
+        <input type="text" @bind="newFirstName" />
         <label>Last Name</label>
-        <input type="text" placeholder="@user.LastName" />
-        <label>Email</label>
-        <input type="email" placeholder="@user.Email" />
+        <input type="text" @bind="newLastName" />
 
         <div class="twoBtns toggleable">
-            @if (GetIsEu())
-            {
+            @if (IsEU) {
                 <div class="active">mmol/L</div>
-                <div @onclick="() => isEu = false">mg/dL</div>
-            }
-            else
-            {
-                <div @onclick="() => isEu = true">mmol/L</div>
+                <div @onclick="() => IsEU = false">mg/dL</div>
+            } else {
+                <div @onclick="() => IsEU = true">mmol/L</div>
                 <div class="active">mg/dL</div>
             }
         </div>
-        <button type="button" class="SaveNotesBtn">Save Changes</button>
+        <button type="button" @onclick="UpdateAccount" class="SaveNotesBtn">Save</button>
     </form>
     <button type="button" value="Delete Account" class="deleteAccBtn">Delete Account</button>
 </div>
 
 @code {
     [Parameter] public LoginUser user { get; set; }
+    [Parameter] public EventCallback<LoginUser> accountUpdated { get; set; }
 
-    private bool isEu;
+    private string newFirstName;
+    private string newLastName;
+    private bool IsEU;
     private bool load = true;
 
-    private bool GetIsEu()
-    {
-        if (load)
-        {
-            if (user.UnitOfMeasure)
-            {
-                isEu = true;
-            }
-            else
-            {
-                isEu = false;
-            }
-            load = false;
+    protected override async Task OnInitializedAsync() {
+        newFirstName = user.FirstName;
+        newLastName = user.LastName;
+        IsEU = user.UnitOfMeasure;
+    }
+
+    private async Task UpdateAccount() {
+        if (await Network.UpdateAccount(newFirstName, newLastName, IsEU)) {
+            await accountUpdated.InvokeAsync(await Network.GetUserData());
         }
-        return isEu;
     }
 }

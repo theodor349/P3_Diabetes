@@ -12,11 +12,11 @@ namespace APIDataAccess.DataAccess
         AccountDBModel GetByPhoneNumber(string phoneNumber);
         bool GetUnitOfMeasure(string id);
         bool PhoneNumberExists(string phoneNumber);
-        void UpdateAccount(UpdateAccountDBModel model);
         void UpdateNighScoutLink(UpdateNightScoutLinkModel model);
         void UpdateUnitOfMeasure(UpdateUnitOfMesureModel model);
         AccountNameModel GetName(string id);
         string GetNightscoutLink(string id);
         float GetMaxReservoir(string id);
+        int UpdateAccount(UpdateAccountDBModel model);
     }
 }

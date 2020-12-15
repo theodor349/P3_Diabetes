@@ -15,9 +15,11 @@ namespace PWA.Network
         Task<List<PermissionRequestModel>> GetPermissionRequests();
         Task<List<Permission>> GetPermissions();
         Task<SubjectList> GetSubjectsData();
+        Task<LoginUser> GetUserData();
         Task<LoginUser> Login(LoginCredential credential);
         Task SendRequest(RequestPermissionAPIModel request);
         Task<bool> TestNSLink(string link);
+        Task<bool> UpdateAccount(string firstName, string lastName, bool isEu);
         Task<bool> UpdateNotificationSetting(int id, string note, float threshold, ThresholdType thresholdType, NotificationType notificationType);
         Task<bool> UpdateNSLink(string link);
     }
