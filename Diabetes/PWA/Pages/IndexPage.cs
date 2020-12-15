@@ -43,12 +43,28 @@ namespace PWA.Pages
         public async Task UpdateSubjects()
         {
             SubjectsUpdated(await GetData());
+            RemoveOutdatedNotifications();
         }
 
         private async Task<SubjectList> GetData()
         {
             var subjects = await Network.GetSubjectsData();
             return subjects;
+        }
+
+        private void RemoveOutdatedNotifications()
+        {
+            var ids = new List<string>();
+            foreach (var n in activeNotifications)
+            {
+                if (!subjects.ContainsKey(n.Value.Subject.ID))
+                    ids.Add(n.Key);
+            }
+
+            foreach (var id in ids)
+            {
+                activeNotifications.Remove(id);
+            }
         }
 
         // TODO: Make Work
