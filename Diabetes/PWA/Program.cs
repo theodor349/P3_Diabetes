@@ -20,9 +20,9 @@ namespace PWA
             builder.RootComponents.Add<App>("app");
 
             var url = "https://diabetesapi.azurewebsites.net";
-//#if DEBUG
-//            url = "https://localhost:5003";
-//#endif
+#if debug
+            url = "https://localhost:5003";
+#endif
             var client = new HttpClient { BaseAddress = new Uri(url) };
             builder.Services.AddScoped(sp => client);
             INetworkHelper network = new NetworkHelper(client, url);
