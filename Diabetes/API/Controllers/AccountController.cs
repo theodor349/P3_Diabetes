@@ -64,6 +64,8 @@ namespace API.Controllers
                 return BadRequest();
             if (_accountHandler.PhoneNumberExists(model.PhoneNumber))
                 return BadRequest();
+            if(!string.IsNullOrWhiteSpace(model.NSLink) && !_relayHandler.ConnectionOk(model.NSLink))
+                return BadRequest();
 
             if (ModelState.IsValid)
             {
