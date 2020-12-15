@@ -12,6 +12,8 @@ namespace PWA.Network
         private readonly HttpClient _client;
         private LoginUser _user;
 
+        public event NetworkHelper.SomethingChanged UpdateEverything;
+
         public NetworkHelperLocal(HttpClient client, string url)
         {
             _client = client;

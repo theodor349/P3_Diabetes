@@ -9,7 +9,7 @@
     <div class="scrollbar" style="height: 430px;">
         @foreach (var user in UserPermissions)
         {
-            <WatcherUserPermissions Permissions="user.Value" Name="@user.Key"></WatcherUserPermissions>
+            <WatcherUserPermissions Update="GetPermissions" Permissions="user.Value" Name="@user.Key"></WatcherUserPermissions>
         }
     </div>
 </div>
@@ -20,6 +20,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await GetPermissions();
+    }
+
+    private async Task GetPermissions()
+    {
+        UserPermissions = new Dictionary<string, List<Permission>>();
         permissions = await Network.GetPermissions();
         SortPermissions(permissions);
     }

@@ -12,7 +12,7 @@
         @foreach (var p in Permissions)
         {
             <div>
-                <WatcherComponent Permission="p"></WatcherComponent>
+                <WatcherComponent Update="Update" Permission="p"></WatcherComponent>
             </div>
         }
     }
@@ -21,5 +21,6 @@
 @code {
     [Parameter] public string Name { get; set; }
     [Parameter] public List<Permission> Permissions { get; set; }
+    [Parameter] public EventCallback Update { get; set; }
     private bool open = false;
 }

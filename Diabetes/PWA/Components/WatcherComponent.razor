@@ -8,8 +8,10 @@
         <p class="text">@Permission.GetAccessString()</p>
     </div>
     <div class="twoBtns">
-        @if (Permission.IsSelf == false) {
-            @if (Permission.IsOwner) {
+        @if (Permission.IsSelf == false)
+        {
+            @if (Permission.IsOwner)
+            {
                 <div @onclick="() => Edit()">
                     <p>Edit</p>
                 </div>
@@ -23,14 +25,17 @@
 
 @code {
     [Parameter] public Permission Permission { get; set; }
+    [Parameter] public EventCallback Update { get; set; }
 
     private void Edit()
     {
         Network.EditPermission(Permission);
+        Update.InvokeAsync(true);
     }
 
     private void Delete(int id)
     {
         Network.DeletePermission(id);
+        Update.InvokeAsync(true);
     }
 }

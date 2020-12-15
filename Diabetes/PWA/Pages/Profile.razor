@@ -1,4 +1,4 @@
-﻿    @inject INetworkHelper Network;
+﻿@inject INetworkHelper Network;
 
 @if (page == 0 || page == 1 || page == 2)
 {
@@ -80,16 +80,23 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await GetPermissionRequests();
+    }
+
+    private async Task GetPermissionRequests()
+    {
         permissionRequests = await Network.GetPermissionRequests();
     }
 
-    private void AcceptRequest(int id)
+    private async Task AcceptRequest(int id)
     {
-        Network.AcceptRequest(id);
+        await Network.AcceptRequest(id);
+        await GetPermissionRequests();
     }
 
-    private void DeclineRequest(int id)
+    private async Task DeclineRequest(int id)
     {
-        Network.DeclineRequest(id);
+        await Network.DeclineRequest(id);
+        await GetPermissionRequests();
     }
 }

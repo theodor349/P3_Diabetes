@@ -1,4 +1,5 @@
 ﻿using PWA.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,6 +7,8 @@ namespace PWA.Network
 {
     public interface INetworkHelper
     {
+        event NetworkHelper.SomethingChanged UpdateEverything;
+
         Task AcceptRequest(int id);
         Task DeclineRequest(int id);
         Task DeletePermission(int id);

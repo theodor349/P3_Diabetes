@@ -18,6 +18,9 @@ namespace PWA.Network
         private readonly HttpClient _client;
         private LoginUser _user;
 
+        public delegate void SomethingChanged();
+        public event SomethingChanged UpdateEverything;
+
         public NetworkHelper(HttpClient client, string url)
         {
             _client = client;
@@ -36,7 +39,7 @@ namespace PWA.Network
             {
                 if (response.IsSuccessStatusCode)
                 {
-
+                    UpdateEverything?.Invoke();
                 }
             }
         }
@@ -47,7 +50,7 @@ namespace PWA.Network
             {
                 if (response.IsSuccessStatusCode)
                 {
-
+                    UpdateEverything?.Invoke();
                 }
             }
         }
@@ -58,7 +61,7 @@ namespace PWA.Network
             {
                 if (response.IsSuccessStatusCode)
                 {
-
+                    UpdateEverything?.Invoke();
                 }
             }
         }
@@ -190,7 +193,13 @@ namespace PWA.Network
             };
 
             using (HttpResponseMessage response = await _client.PutAsJsonAsync("api/Account", update)) {
-                return response.IsSuccessStatusCode;
+                if (response.IsSuccessStatusCode)
+                {
+                    UpdateEverything?.Invoke();
+                    return true;
+                }
+                else 
+                    return false;
             }
         }
 

@@ -67,6 +67,16 @@ namespace APIHandler.Handlers
             if(pumpDataModel.BloodGlucose != -1)
                 pumpDataModel.BloodGlucose = ToEU(pumpDataModel.BloodGlucose);
 
+            // TODO: REMOVE
+            pumpDataModel = new PumpDataModel()
+            {
+                BloodGlucose = 12,
+                InsulinStatus = 0.5f,
+                BatteryStatus = 0.5f,
+                Status = PumpDataModel.ArrowDirection.DoubleDown,
+                LastReceived = DateTime.Now.AddMinutes(-10),
+            };
+
             return pumpDataModel;
         }
 

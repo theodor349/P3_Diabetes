@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using PWA.Components;
 using PWA.Models;
+using PWA.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,35 @@ namespace PWA.Pages
         public Dictionary<string, Subject> subjects = new Dictionary<string, Subject>();
         public Dictionary<string, ActiveNotification> activeNotifications = new Dictionary<string, ActiveNotification>();
         public Stack<ActiveNotification> focusedNotifications = new Stack<ActiveNotification>();
+        [Inject] INetworkHelper Network { get; set; }
+
+        protected override void OnInitialized()
+        {
+            Network.UpdateEverything += UpdateEverything;
+        }
+
+        private void UpdateEverything()
+        {
+            Console.WriteLine("Update Everything");
+            UpdateSubjects();
+            UpdateAccount();
+        }
+
+        public async Task UpdateAccount()
+        {
+            AccountUpdated(await Network.GetUserData());
+        }
+
+        public async Task UpdateSubjects()
+        {
+            SubjectsUpdated(await GetData());
+        }
+
+        private async Task<SubjectList> GetData()
+        {
+            var subjects = await Network.GetSubjectsData();
+            return subjects;
+        }
 
         // TODO: Make Work
         public void PlaySound(bool isWarning)
@@ -42,7 +73,24 @@ namespace PWA.Pages
             foreach (var subject in subjectList.Subjects)
             {
                 UpdateSubject(subject);
-                //UpdateNotifications(subject);
+                UpdateNotifications(subject);
+            }
+
+            subjects = new Dictionary<string, Subject>();
+            foreach (var s in subjectList.Subjects)
+            {
+                subjects.Add(s.ID, s);
+            }
+        }
+
+        public void UpdateNotifications(Subject s)
+        {
+            foreach (var n in activeNotifications.Values)
+            {
+                if (n.Subject.ID.Equals(s.ID))
+                {
+                    n.Subject = s;
+                }
             }
         }
 
@@ -111,6 +159,7 @@ namespace PWA.Pages
         }
 
         private int minThreshold = 30;
+
         private void ConnectionNotification(Subject old, Subject curr)
         {
             var n = new NotificationData()
@@ -207,7 +256,6 @@ namespace PWA.Pages
             }
             else
             {
-                Console.WriteLine("Added: " + id);
                 focusedNotifications.Push(notification);
                 activeNotifications.Add(id, notification);
             }
@@ -215,7 +263,6 @@ namespace PWA.Pages
 
         private void RemoveActiveNotification(ActiveNotification notification)
         {
-            Console.WriteLine("Remove: " + notification.ToString());
             activeNotifications.Remove(notification.ToString());
         }
 
