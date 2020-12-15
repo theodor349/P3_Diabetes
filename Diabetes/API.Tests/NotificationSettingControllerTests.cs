@@ -19,6 +19,7 @@ namespace API.Tests
         public void Get_Calls()
         {
             var notificationSettingHandler = Substitute.For<INotificationSettingHandler>();
+            notificationSettingHandler.Get("userID").Returns(new List<NotificationSettingModel>() { new NotificationSettingModel() });
             NotificationSettingController notificationSettingController = new NotificationSettingController(notificationSettingHandler);
 
             StringValue userID = new StringValue {
@@ -39,7 +40,10 @@ namespace API.Tests
         {
             var notificationSettingHandler = Substitute.For<INotificationSettingHandler>();
             NotificationSettingController notificationSettingController = new NotificationSettingController(notificationSettingHandler);
-            UpdateNotificationSettingModel updateNotificationSettingModel = new UpdateNotificationSettingModel("testNote");
+            var updateNotificationSettingModel = new NotificationUpdate()
+            {
+                Note = "testNote"
+            };
 
             notificationSettingController.Update(updateNotificationSettingModel);
 
@@ -51,7 +55,7 @@ namespace API.Tests
         {
             var notificationSettingHandler = Substitute.For<INotificationSettingHandler>();
             NotificationSettingController notificationSettingController = new NotificationSettingController(notificationSettingHandler);
-            UpdateNotificationSettingModel updateNotificationSettingModel = new UpdateNotificationSettingModel();
+            var updateNotificationSettingModel = new NotificationUpdate();
 
             notificationSettingController.Update(updateNotificationSettingModel);
 

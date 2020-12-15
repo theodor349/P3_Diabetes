@@ -133,7 +133,7 @@ namespace API.Controllers
         [Route("UpdateNightScoutLink")]
         public ActionResult UpdateNightScoutLink(StringValue url)
         {
-            if (string.IsNullOrWhiteSpace(url.Value) || _relayHandler.ConnectionOk(url.Value))
+            if (!string.IsNullOrWhiteSpace(url.Value) && _relayHandler.ConnectionOk(url.Value))
             {
                 _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url.Value});
                 return Ok();

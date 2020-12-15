@@ -12,6 +12,7 @@ using APIDataAccess.Models.Account;
 using APIDataAccess.DataAccess;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using API.Models;
 
 namespace API.Tests
 {
@@ -71,7 +72,7 @@ namespace API.Tests
 
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
-            UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel("test1", "test2", "test3", "test4");
+            var updateAccountDBModel = new AccountUpdate("test1", "test2", false);
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
             new Claim(ClaimTypes.Name, "example name"),
@@ -102,7 +103,7 @@ namespace API.Tests
 
             AccountController accountController = new AccountController(userManager, signInManager, accountHandler, relayHandler);
 
-            UpdateAccountDBModel updateAccountDBModel = new UpdateAccountDBModel();
+            var updateAccountDBModel = new AccountUpdate();
             var user = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
             {
             new Claim(ClaimTypes.Name, "example name"),
