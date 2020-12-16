@@ -22,7 +22,9 @@ namespace PWA.Models
 
         public string GetExpireDate()
         {
-            return ExpireDate.ToLocalTime().ToString("g", CultureInfo.CreateSpecificCulture("es-ES"));
+            DateTime runtimeKnowsThisIsUtc = DateTime.SpecifyKind(ExpireDate, DateTimeKind.Utc);
+            DateTime localVersion = runtimeKnowsThisIsUtc.ToLocalTime();
+            return localVersion.ToString("g", CultureInfo.CreateSpecificCulture("es-ES"));
         }
 
         public string GetAccessString()
