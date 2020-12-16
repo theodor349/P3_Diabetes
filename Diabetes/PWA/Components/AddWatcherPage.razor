@@ -1,4 +1,4 @@
-﻿ @inject INetworkHelper Network
+﻿@inject INetworkHelper Network
 
 <div class="addPermissionBox">
     <h1>
@@ -7,57 +7,37 @@
     <EditForm Model="@request" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
         @*<ValidationSummary />*@
-    <div>
-        <div class="dates">
-            <label for="">Recipient phonenumber </label>
-            <InputText @bind-Value="request.PhoneNumber"></InputText>
-        </div>
-
-        @* Dates *@
-        @if (isTemporary)
-        {
-            <div class="twoBtns toggleable">
-                <div class="active">Temporary</div>
-                <div @onclick="() => isTemporary = false">Recurring</div>
-            </div>
-        }
-        else
-        {
-            <div class="twoBtns toggleable">
-                <div @onclick="() => isTemporary = true">Temporary</div>
-                <div class="active">Recurring</div>
-            </div>
-        }
-        <div class="dates">
-            <label for="">Start date:</label>
-            <InputDate @bind-Value="request.StartDate"></InputDate>
-        </div>
-        <div class="dates">
-            <label for="">End date:</label>
-            <InputDate @bind-Value="request.ExspireDate"></InputDate>
-        </div>
-        @if (isTemporary)
-        {
+        <div>
             <div class="dates">
-                <label for="">Start time:</label>
-                <InputText type="time" @bind-Value="TimeProxyStart" />
+                <label for="">Recipient phonenumber </label>
+                <InputText @bind-Value="request.PhoneNumber"></InputText>
             </div>
-            <div class="dates">
-                <label for="">End time:</label>
-                <InputText type="time" @bind-Value="TimeProxyEnd" />
-            </div>
-        }
 
-        @if (!isTemporary)
-        {
-            @* Days *@
-            @if (isDayAccess)
+            @* Dates *@
+            @if (isTemporary)
             {
                 <div class="twoBtns toggleable">
-                    <div class="active">Day access</div>
-                    <div @onclick="() => isDayAccess = false">Full access</div>
+                    <div class="active">Temporary</div>
+                    <div @onclick="() => isTemporary = false">Recurring</div>
                 </div>
-
+            }
+            else
+            {
+                <div class="twoBtns toggleable">
+                    <div @onclick="() => isTemporary = true">Temporary</div>
+                    <div class="active">Recurring</div>
+                </div>
+            }
+            <div class="dates">
+                <label for="">Start date:</label>
+                <InputDate @bind-Value="request.StartDate"></InputDate>
+            </div>
+            <div class="dates">
+                <label for="">End date:</label>
+                <InputDate @bind-Value="request.ExspireDate"></InputDate>
+            </div>
+            @if (isTemporary)
+            {
                 <div class="dates">
                     <label for="">Start time:</label>
                     <InputText type="time" @bind-Value="TimeProxyStart" />
@@ -66,98 +46,118 @@
                     <label for="">End time:</label>
                     <InputText type="time" @bind-Value="TimeProxyEnd" />
                 </div>
+            }
 
-                <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Monday"></InputCheckbox>
-                    <label for="">Monday</label>
+            @if (!isTemporary)
+            {
+                @* Days *@
+                @if (isDayAccess)
+                {
+                    <div class="twoBtns toggleable">
+                        <div class="active">Day access</div>
+                        <div @onclick="() => isDayAccess = false">Full access</div>
+                    </div>
+
+                    <div class="dates">
+                        <label for="">Start time:</label>
+                        <InputText type="time" @bind-Value="TimeProxyStart" />
+                    </div>
+                    <div class="dates">
+                        <label for="">End time:</label>
+                        <InputText type="time" @bind-Value="TimeProxyEnd" />
+                    </div>
+
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Monday"></InputCheckbox>
+                        <label for="">Monday</label>
+                    </div>
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Tuesday"></InputCheckbox>
+                        <label for="">Tuesday</label>
+                    </div>
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Wednesday"></InputCheckbox>
+                        <label for="">Wednesday</label>
+                    </div>
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Thursday"></InputCheckbox>
+                        <label for="">Thursday</label>
+                    </div>
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Friday"></InputCheckbox>
+                        <label for="">Friday</label>
+                    </div>
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Saturday"></InputCheckbox>
+                        <label for="">Saturday</label>
+                    </div>
+                    <div class="checkbox">
+                        <InputCheckbox @bind-Value="request.Sunday"></InputCheckbox>
+                        <label for="">Sunday</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="twoBtns toggleable">
+                        <div @onclick="() => isDayAccess = true">Day access</div>
+                        <div class="active">Full access</div>
+                    </div>
+                }
+
+
+                @* Weeks *@
+                @if (isWeekAccess)
+                {
+                    <div class="twoBtns toggleable">
+                        <div class="active">Week access</div>
+                        <div @onclick="() => isWeekAccess = false">Full access</div>
+                    </div>
+                    <div class="WeeksOfAccess">
+                        <InputNumber @bind-Value="request.WeeksActive"></InputNumber>
+                        <label for="">Weeks with access</label>
+                    </div>
+                    <div class="WeeksOfAccess">
+                        <InputNumber @bind-Value="request.WeeksInactive"></InputNumber>
+                        <label for="">without access</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="twoBtns toggleable">
+                        <div @onclick="() => isWeekAccess = true">Week access</div>
+                        <div class="active">Full access</div>
+                    </div>
+                }
+            }
+
+            @* Data Access *@
+            @if (isLimitedData)
+            {
+                <div class="twoBtns toggleable">
+                    <div class="active">Limit data</div>
+                    <div @onclick="() => isLimitedData = false">Full data</div>
                 </div>
                 <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Tuesday"></InputCheckbox>
-                    <label for="">Tuesday</label>
+                    <InputCheckbox @bind-Value="request.Bloodglucose"></InputCheckbox>
+                    <label for="">Blood sugar</label>
                 </div>
                 <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Wednesday"></InputCheckbox>
-                    <label for="">Wednesday</label>
+                    <InputCheckbox @bind-Value="request.Battery"></InputCheckbox>
+                    <label for="">Pump battery</label>
                 </div>
                 <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Thursday"></InputCheckbox>
-                    <label for="">Thursday</label>
-                </div>
-                <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Friday"></InputCheckbox>
-                    <label for="">Friday</label>
-                </div>
-                <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Saturday"></InputCheckbox>
-                    <label for="">Saturday</label>
-                </div>
-                <div class="checkbox">
-                    <InputCheckbox @bind-Value="request.Sunday"></InputCheckbox>
-                    <label for="">Sunday</label>
+                    <InputCheckbox @bind-Value="request.Insulin"></InputCheckbox>
+                    <label for="">Insulin level</label>
                 </div>
             }
             else
             {
                 <div class="twoBtns toggleable">
-                    <div @onclick="() => isDayAccess = true">Day access</div>
-                    <div class="active">Full access</div>
+                    <div @onclick="() => isLimitedData = true">Limit data</div>
+                    <div class="active">Full data</div>
                 </div>
             }
-
-
-            @* Weeks *@
-            @if (isWeekAccess)
-            {
-                <div class="twoBtns toggleable">
-                    <div class="active">Week access</div>
-                    <div @onclick="() => isWeekAccess = false">Full access</div>
-                </div>
-                <div class="WeeksOfAccess">
-                    <InputNumber @bind-Value="request.WeeksActive"></InputNumber>
-                    <label for="">Weeks with access</label>
-                </div>
-                <div class="WeeksOfAccess">
-                    <InputNumber @bind-Value="request.WeeksInactive"></InputNumber>
-                    <label for="">without access</label>
-                </div>
-            }
-            else
-            {
-                <div class="twoBtns toggleable">
-                    <div @onclick="() => isWeekAccess = true">Week access</div>
-                    <div class="active">Full access</div>
-                </div>
-            }
-        }
-
-        @* Data Access *@
-        @if (isLimitedData)
-        {
-            <div class="twoBtns toggleable">
-                <div class="active">Limit data</div>
-                <div @onclick="() => isLimitedData = false">Full data</div>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Bloodglucose"></InputCheckbox>
-                <label for="">Blood sugar</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Battery"></InputCheckbox>
-                <label for="">Pump battery</label>
-            </div>
-            <div class="checkbox">
-                <InputCheckbox @bind-Value="request.Insulin"></InputCheckbox>
-                <label for="">Insulin level</label>
-            </div>
-        }
-        else
-        {
-            <div class="twoBtns toggleable">
-                <div @onclick="() => isLimitedData = true">Limit data</div>
-                <div class="active">Full data</div>
-            </div>
-        }
-    </div>
+        </div>
         <div>
             <button class="addPermissionBtn" type="submit" value="Send Permission">Send permission</button>
         </div>
@@ -192,8 +192,7 @@
 
     private async Task HandleValidSubmit()
     {
-        SendRequest();
-
+        await SendRequest();
         await Submitted.InvokeAsync(true);
     }
 
@@ -206,22 +205,30 @@
     private async Task<RequestPermissionAPIModel> CreateRequest()
     {
         var watcher = await Network.GetByPhoneNumber(request.PhoneNumber);
+        request.StartDate = request.StartDate.AddHours(-request.StartDate.Hour);
+        request.StartDate = request.StartDate.AddMinutes(-request.StartDate.Minute);
+        request.StartDate = request.StartDate.AddMilliseconds(-request.StartDate.Millisecond);
+
+        request.ExspireDate = request.ExspireDate.AddHours(-request.ExspireDate.Hour);
+        request.ExspireDate = request.ExspireDate.AddMinutes(-request.ExspireDate.Minute);
+        request.ExspireDate = request.ExspireDate.AddMilliseconds(-request.ExspireDate.Millisecond);
+
         var r = new RequestPermissionAPIModel()
         {
             StartDate = request.StartDate.AddHours(dayStart.Hours).AddMinutes(dayStart.Minutes),
-            ExpireDate = request.ExspireDate.AddDays(dayEnd.Hours).AddMinutes(dayEnd.Minutes),
+            ExpireDate = request.ExspireDate.AddHours(dayEnd.Hours).AddMinutes(dayEnd.Minutes),
             Attributes = isLimitedData ? (request.Bloodglucose ? 1 : 0) + (request.Insulin ? 2 : 0) + (request.Battery ? 4 : 0) : 7,
             WatcherID = watcher.Id,
             TargetID = User.UserID,
             Days = isDayAccess ?
-                (request.Monday ? 1 : 0) +
-                (request.Tuesday ? 2 : 0) +
-                (request.Wednesday ? 4 : 0) +
-                (request.Thursday ? 8 : 0) +
-                (request.Friday ? 16 : 0) +
-                (request.Saturday ? 32 : 0) +
-                (request.Sunday ? 64 : 0)
-                : 0,
+            (request.Monday ? 1 : 0) +
+            (request.Tuesday ? 2 : 0) +
+            (request.Wednesday ? 4 : 0) +
+            (request.Thursday ? 8 : 0) +
+            (request.Friday ? 16 : 0) +
+            (request.Saturday ? 32 : 0) +
+            (request.Sunday ? 64 : 0)
+            : 0,
             WeeksActive = isWeekAccess ? request.WeeksActive : 0,
             WeeksDeactive = isWeekAccess ? request.WeeksInactive : 0,
         };

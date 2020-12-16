@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "DiabetesAPI",
+      "defaultValue": "diabetesapi",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
