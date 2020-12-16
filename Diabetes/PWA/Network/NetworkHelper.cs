@@ -75,7 +75,10 @@ namespace PWA.Network
             using (HttpResponseMessage response = await _client.GetAsync("api/Permission/GetPendingPermissions"))
             {
                 if (response.IsSuccessStatusCode)
-                    return (await response.Content.ReadAsAsync<PermissionRequestsModel>()).Requests;
+                {
+                    var res = (await response.Content.ReadAsAsync<PermissionRequestsModel>()).Requests;
+                    return res;
+                }
                 else
                     return null;
             }

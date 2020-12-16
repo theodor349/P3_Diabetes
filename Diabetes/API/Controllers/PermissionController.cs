@@ -90,6 +90,7 @@ namespace API.Controllers
                         Id = x.Id,
                         FirstName = name.FirstName,
                         LastName = name.LastName,
+                        IsCreater = UserId.Equals(x.TargetID),
                     };
                     return r;
                 }),

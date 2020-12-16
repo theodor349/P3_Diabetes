@@ -3,9 +3,12 @@
         <p>@Requests.GetName()</p>
     </div>
     <div class="twoBtns">
-        <div @onclick="() => AcceptRequest(Requests.Id)">
-            <p class="text">Accept</p>
-        </div>
+        @if (!Requests.IsCreater)
+        {
+            <div @onclick="() => AcceptRequest(Requests.Id)">
+                <p class="text">Accept</p>
+            </div>
+        }
         <div @onclick="() => DeclineRequest(Requests.Id)">
             <p class="text">Decline</p>
         </div>
