@@ -131,6 +131,9 @@ namespace API.Controllers
         [Route("RequestPermission")]
         public ActionResult RequestPermission(RequestPermissionDBModel request)
         {
+            request.StartDate = request.StartDate.ToUniversalTime();
+            request.ExpireDate = request.ExpireDate.ToUniversalTime();
+
             if (request.WatcherID == null)
                 return NotFound();
 
