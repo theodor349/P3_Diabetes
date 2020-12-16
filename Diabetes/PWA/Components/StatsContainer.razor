@@ -33,7 +33,7 @@
         <BloodGlucoseNumber isEU="isEU" EUValue="data.BloodGlucose" IsOutOfThreshold="@IsOutOfThreshold()" LastRecieved="data.LastReceived"></BloodGlucoseNumber>
         <div>
             <div>
-                <p style="@(Minutes(data.LastReceived) > 30 ? "color: #FF4A47" : "")">@(MinutesString(data.LastReceived))m</p>
+                <p style="@(Minutes(data.LastReceived) > 30 ? "color: #FF4A47" : "")">@(MinutesString(data.LastReceived))min</p>
             </div>
             <div>
                 @if (data.BloodGlucose != -1)
