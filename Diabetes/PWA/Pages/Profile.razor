@@ -27,24 +27,21 @@
                 <p>Nightscout</p>
             </div>
             <div @onclick="() => page = 3">
-                <p>Manage Connections</p>
+                <p>Manage connections</p>
             </div>
-            @if (!string.IsNullOrWhiteSpace(User.NSLink))
-            {
+            @if (!string.IsNullOrWhiteSpace(User.NSLink)) {
                 <div @onclick="() => page = 4">
-                    <p>Add Watcher</p>
+                    <p>Add watcher</p>
                 </div>
             }
-        </div>
-
-        <div @onclick="() => page = 5">
-            <p>
-                Pending Requests
-                @if (permissionRequests.Count > 0)
-                {
-                    <span class="notificationBadge">@permissionRequests.Count</span>
-                }
-            </p>
+            <div @onclick="() => page = 5">
+                <p>
+                    Pending requests
+                    @if (permissionRequests.Count > 0) {
+                        <span class="notificationBadge">@permissionRequests.Count</span>
+                    }
+                </p>
+            </div>
         </div>
     }
     else if (page == 1)
