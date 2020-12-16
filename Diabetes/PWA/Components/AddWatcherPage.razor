@@ -215,8 +215,8 @@
 
         var r = new RequestPermissionAPIModel()
         {
-            StartDate = request.StartDate.AddHours(dayStart.Hours).AddMinutes(dayStart.Minutes),
-            ExpireDate = request.ExspireDate.AddHours(dayEnd.Hours).AddMinutes(dayEnd.Minutes),
+            StartDate = request.StartDate.AddHours(dayStart.Hours).AddMinutes(dayStart.Minutes).ToUniversalTime(),
+            ExpireDate = request.ExspireDate.AddHours(dayEnd.Hours).AddMinutes(dayEnd.Minutes).ToUniversalTime(),
             Attributes = isLimitedData ? (request.Bloodglucose ? 1 : 0) + (request.Insulin ? 2 : 0) + (request.Battery ? 4 : 0) : 7,
             WatcherID = watcher.Id,
             TargetID = User.UserID,
