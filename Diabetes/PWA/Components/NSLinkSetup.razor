@@ -63,14 +63,14 @@
     private bool showBadConnection = false;
 
     class NotificationSettings {
+        public int idLow;
+        public int idHigh;
         public float thresholdLow;
         public float thresholdHigh;
         public string noteLow;
         public string noteHigh;
     }
     NotificationSettings nSettings = new NotificationSettings();
-    private int idLow;
-    private int idHigh;
 
     protected override async Task OnInitializedAsync() {
         link = user.NSLink;
@@ -84,21 +84,21 @@
                 if (nData.ThresholdType == ThresholdType.High) {
                     nSettings.thresholdHigh = nData.Threshold;
                     nSettings.noteHigh = nData.Note;
-                    idHigh = nData.ID;
+                    nSettings.idHigh = nData.ID;
                 }
 
                 if (nData.ThresholdType == ThresholdType.Low) {
                     nSettings.thresholdLow = nData.Threshold;
                     nSettings.noteLow = nData.Note;
-                    idLow = nData.ID;
+                    nSettings.idLow = nData.ID;
                 }
             }
         }
     }
 
     private async Task SaveNotificationSettings() {
-        await Network.UpdateNotificationSetting(idLow, nSettings.noteLow, nSettings.thresholdLow, ThresholdType.Low, NotificationType.Warning);
-        await Network.UpdateNotificationSetting(idHigh, nSettings.noteHigh, nSettings.thresholdHigh, ThresholdType.High, NotificationType.Warning);
+        await Network.UpdateNotificationSetting(nSettings.idLow, nSettings.noteLow, nSettings.thresholdLow, ThresholdType.Low, NotificationType.Warning);
+        await Network.UpdateNotificationSetting(nSettings.idHigh, nSettings.noteHigh, nSettings.thresholdHigh, ThresholdType.High, NotificationType.Warning);
     }
 
     private async Task RemoveLink() {
