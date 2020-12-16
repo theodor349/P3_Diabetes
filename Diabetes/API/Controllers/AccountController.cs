@@ -135,7 +135,8 @@ namespace API.Controllers
         [Route("UpdateNightScoutLink")]
         public ActionResult UpdateNightScoutLink(StringValue url)
         {
-            if (!string.IsNullOrWhiteSpace(url.Value) && _relayHandler.ConnectionOk(url.Value))
+            //Either the link is "" or (no connection) or a real link
+            if (string.IsNullOrWhiteSpace(url.Value) || _relayHandler.ConnectionOk(url.Value))
             {
                 _accountHandler.UpdateNightScoutLink(new UpdateNightScoutLinkModel() { Id = UserId, NewLink = url.Value});
                 return Ok();
