@@ -84,13 +84,14 @@ namespace API.Controllers
             {
                 Requests = requests.ConvertAll(x =>
                 {
-                    var name = _accountHandler.GetName(x.TargetID);
+                    var isCreater = UserId.Equals(x.TargetID);
+                    var name = _accountHandler.GetName(isCreater ? x.WatcherID : x.TargetID);
                     var r = new PermissionRequestModel()
                     {
                         Id = x.Id,
                         FirstName = name.FirstName,
                         LastName = name.LastName,
-                        IsCreater = UserId.Equals(x.TargetID),
+                        IsCreater = isCreater,
                     };
                     return r;
                 }),
