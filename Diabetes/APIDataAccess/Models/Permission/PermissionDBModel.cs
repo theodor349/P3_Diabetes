@@ -18,7 +18,7 @@ namespace APIDataAccess.Models.Permission
         public int Attributes { get; set; }
         public bool Accepted { get; set; }
 
-        public bool IsActive(DateTime currDate) => Accepted && WithinStartExpireDate(StartDate.ToUniversalTime(), ExpireDate.ToUniversalTime(), currDate.ToUniversalTime()) && IsIntervalActive(currDate.ToUniversalTime());
+        public bool IsActive(DateTime currDate) => Accepted && WithinStartExpireDate(StartDate, ExpireDate, currDate) && IsIntervalActive(currDate);
 
         #region Interval Functions  
 
@@ -26,7 +26,7 @@ namespace APIDataAccess.Models.Permission
             if (WeeksActive == 0) {
                 return true;
             } else {
-                if (WithinActiveInterval(StartDate.ToUniversalTime(), ExpireDate.ToUniversalTime(), currDate, WeeksActive, WeeksDeactive) &&
+                if (WithinActiveInterval(StartDate, ExpireDate, currDate, WeeksActive, WeeksDeactive) &&
                     WithinActiveDay(Days, currDate)) {
                     return true;
                 }
