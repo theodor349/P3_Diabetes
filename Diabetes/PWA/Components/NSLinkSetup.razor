@@ -1,8 +1,7 @@
 ﻿@inject INetworkHelper Network
 
 @if (string.IsNullOrWhiteSpace(user.NSLink)) {
-    <EditForm Model="@link" OnValidSubmit="@HandleValidSubmit">
-        @*<ValidationSummary />*@
+    <EditForm Model="@link">
         <br />
         @if (showBadConnection) {
             <div class="badConnection">
@@ -108,6 +107,7 @@
     }
 
     private async Task HandleValidSubmit() {
+        Console.WriteLine("Submitted new NS link.");
         string newNSLink = link.Trim().Trim('/');
         if (!string.IsNullOrWhiteSpace(newNSLink) && await Network.UpdateNSLink(newNSLink)) {
             user.NSLink = newNSLink;
