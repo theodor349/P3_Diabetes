@@ -30,7 +30,6 @@ namespace PWA.Pages
 
         private void UpdateEverything()
         {
-            Console.WriteLine("Update Everything");
             UpdateSubjects();
             UpdateAccount();
         }
@@ -44,6 +43,20 @@ namespace PWA.Pages
         {
             SubjectsUpdated(await GetData());
             RemoveOutdatedNotifications();
+            UpdateSelf();
+        }
+
+        private void UpdateSelf()
+        {
+            bool foundUser = false;
+            foreach (var id in subjects.Keys)
+            {
+                if (targetSubject.ID.Equals(id))
+                    foundUser = true;
+            }
+
+            if (!foundUser)
+                targetSubject = subjects.Values.FirstOrDefault();
         }
 
         private async Task<SubjectList> GetData()
