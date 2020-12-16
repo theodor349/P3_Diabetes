@@ -22,7 +22,7 @@ namespace PWA.Models
 
         public string GetExpireDate()
         {
-            return ExpireDate.ToString("g", CultureInfo.CreateSpecificCulture("es-ES"));
+            return ExpireDate.ToLocalTime().ToString("g", CultureInfo.CreateSpecificCulture("es-ES"));
         }
 
         public string GetAccessString()
