@@ -68,6 +68,7 @@ namespace PWA.Network
 
         public async Task EditPermission(Permission p)
         {
+            throw new NotImplementedException();
         }
 
         public async Task<List<PermissionRequestModel>> GetPermissionRequests()
